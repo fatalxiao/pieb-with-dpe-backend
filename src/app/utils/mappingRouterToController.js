@@ -173,7 +173,7 @@ function mappingRouterToController(dir) {
         mappingModel(require(dir + '/app/model/' + file).default);
     });
 
-    fs.writeFileSync(dir + '/swagger/swagger.json', JSON.stringify(swaggerConfig));
+    // fs.writeFileSync(dir + '/swagger/swagger.json', JSON.stringify(swaggerConfig));
 
     return router.routes();
 
