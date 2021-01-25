@@ -3,7 +3,7 @@ import Sequelize from 'sequelize';
 import Observal from '../model/ObservalModel.js';
 
 async function getObservalDataByPatientId(patientId) {
-    return await Observal.find({
+    return await Observal.findOne({
         where: {
             patientId: {[Sequelize.Op.eq]: patientId}
         }

@@ -120,10 +120,10 @@ async function getExportDPEData(data, sensoryBlocks) {
             {name: '备注', key: 'desc'}
         ],
 
-        s1Value = sensoryBlocks.find(item => item.type === 2 && item.name === 'S1').value,
-        s2Value = sensoryBlocks.find(item => item.type === 2 && item.name === 'S2').value,
-        t8Value = sensoryBlocks.find(item => item.type === 1 && item.name === 'T8').value,
-        t10Value = sensoryBlocks.find(item => item.type === 1 && item.name === 'T10').value,
+        s1Value = sensoryBlocks.findOne(item => item.type === 2 && item.name === 'S1').value,
+        s2Value = sensoryBlocks.findOne(item => item.type === 2 && item.name === 'S2').value,
+        t8Value = sensoryBlocks.findOne(item => item.type === 1 && item.name === 'T8').value,
+        t10Value = sensoryBlocks.findOne(item => item.type === 1 && item.name === 'T10').value,
 
         excelData = data.filter(item => item.status).map(item => {
 

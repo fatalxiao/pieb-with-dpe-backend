@@ -34,7 +34,7 @@ async function isPatientExist(id) {
 }
 
 async function getPatientById(id) {
-    return await PatientModel.find({
+    return await PatientModel.findOne({
         where: {
             id: {[Sequelize.Op.eq]: id}
         },

@@ -40,5 +40,4 @@ function generateSequelize() {
 
 }
 
-
 export default generateSequelize;
