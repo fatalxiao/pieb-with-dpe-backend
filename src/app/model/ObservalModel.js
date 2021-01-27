@@ -28,13 +28,6 @@ const sequelizeInstance = SequelizeGenerator(),
                 this.setDataValue('initialTime', DataFormat.formatDateTimeField(value));
             }
         },
-        testDose: {
-            field: 'test_dose',
-            type: Sequelize.INTEGER,
-            set(value) {
-                this.setDataValue('testDose', DataFormat.formatNumberField(value));
-            }
-        },
         initialDose: {
             field: 'initial_dose',
             type: Sequelize.INTEGER,
@@ -55,14 +48,6 @@ const sequelizeInstance = SequelizeGenerator(),
             set(value) {
                 this.setDataValue('bolus', DataFormat.formatNumberField(value));
             }
-        },
-        hasCarbetocin: {
-            field: 'has_carbetocin',
-            type: Sequelize.BOOLEAN
-        },
-        hasHemabate: {
-            field: 'has_hemabate',
-            type: Sequelize.BOOLEAN
         },
         firstPcaTime: {
             field: 'first_pca_time',
@@ -96,20 +81,6 @@ const sequelizeInstance = SequelizeGenerator(),
             type: Sequelize.INTEGER,
             set(value) {
                 this.setDataValue('manualBolusCount', DataFormat.formatNumberField(value));
-            }
-        },
-        durationOfFirstStageOfLabor: {
-            field: 'duration_of_first_stage_of_labor',
-            type: Sequelize.INTEGER,
-            set(value) {
-                this.setDataValue('durationOfFirstStageOfLabor', DataFormat.formatNumberField(value));
-            }
-        },
-        durationOfSecondStageOfLabor: {
-            field: 'duration_of_second_stage_of_labor',
-            type: Sequelize.INTEGER,
-            set(value) {
-                this.setDataValue('durationOfSecondStageOfLabor', DataFormat.formatNumberField(value));
             }
         },
         hasEpiduralCatheterAdjuestment: {
@@ -182,13 +153,6 @@ const sequelizeInstance = SequelizeGenerator(),
         isIntrathecalEpiduralCatheterInsertion: {
             field: 'is_intrathecal_epidural_catheter_insertion',
             type: Sequelize.BOOLEAN
-        },
-        bloodLose: {
-            field: 'blood_lose',
-            type: Sequelize.INTEGER,
-            set(value) {
-                this.setDataValue('bloodLose', DataFormat.formatNumberField(value));
-            }
         },
         patientSatisfactionScore: {
             field: 'patient_satisfaction_score',

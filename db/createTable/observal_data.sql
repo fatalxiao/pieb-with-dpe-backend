@@ -6,30 +6,18 @@ create table observal_data
   comment '孕妇住院号',
   initial_time                               datetime               null
   comment '麻醉开始时间',
-  test_dose                                  int                    null
-  comment '试验剂量(ml)',
   initial_dose                               int                    null
   comment '负荷剂量(ml)',
   pump_consumption                           int                    null
   comment '泵消耗(ml)',
   bolus                                      int                    null
   comment '人工负荷量(ml)',
-  has_carbetocin                             tinyint(1) default '0' null
-  comment '是否使用巧特欣',
-  has_hemabate                               tinyint(1) default '0' null
-  comment '是否使用欣母沛',
   pca_count                                  int                    null
   comment 'PCA次数',
   manual_bolus_count                         int                    null
   comment '人工硬膜外追加次数',
   first_pca_time                             datetime               null
   comment '首次PCA时间',
-  duration_of_first_stage_of_labor           int                    null
-  comment '第一产程时长',
-  duration_of_second_stage_of_labor          int                    null
-  comment '第二产程时长',
-  blood_lose                                 int                    null
-  comment '总出血量',
   has_epidural_catheter_adjuestment          tinyint(1) default '0' null
   comment '是否有硬膜外导管调整',
   has_epidural_catheter_replacement          tinyint(1) default '0' null
