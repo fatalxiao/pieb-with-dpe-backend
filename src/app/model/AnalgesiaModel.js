@@ -27,10 +27,6 @@ const sequelizeInstance = SequelizeGenerator(),
                 this.setDataValue('timePoint', DataFormat.formatNumberField(value));
             }
         },
-        hasContraction: {
-            field: 'has_contraction',
-            type: Sequelize.BOOLEAN
-        },
         vasScore: {
             field: 'vas_score',
             type: Sequelize.FLOAT,
@@ -92,13 +88,6 @@ const sequelizeInstance = SequelizeGenerator(),
             type: Sequelize.INTEGER,
             set(value) {
                 this.setDataValue('heartRate', DataFormat.formatNumberField(value));
-            }
-        },
-        pulseOxygenSaturation: {
-            field: 'pulse_oxygen_saturation',
-            type: Sequelize.FLOAT,
-            set(value) {
-                this.setDataValue('pulseOxygenSaturation', DataFormat.formatNumberField(value));
             }
         },
         fetalHeartRate: {

@@ -6,18 +6,16 @@ CREATE TABLE analgesia_data
   COMMENT '孕妇住院号',
   time_point                         INT                    NULL
   COMMENT '时间点',
-  has_contraction                    TINYINT(1) DEFAULT '0' NULL
-  COMMENT '是否有宫缩',
   vas_score                          FLOAT                  NULL
   COMMENT 'VAS评分',
   thoracic_sensory_block_left_value  INT                    NULL
   COMMENT '左侧最高阻滞平面',
   thoracic_sensory_block_right_value INT                    NULL
-  COMMENT '左侧最高阻滞平面',
+  COMMENT '右侧最高阻滞平面',
   sacral_sensory_block_left_value    INT                    NULL
   COMMENT '左侧最低阻滞平面',
   sacral_sensory_block_right_value   INT                    NULL
-  COMMENT '左侧最低阻滞平面',
+  COMMENT '右侧最低阻滞平面',
   bromage_score                      INT                    NULL
   COMMENT 'Bromage评分',
   systolic_blood_pressure            INT                    NULL
@@ -26,8 +24,6 @@ CREATE TABLE analgesia_data
   COMMENT '舒张压',
   heart_rate                         INT                    NULL
   COMMENT '心率',
-  pulse_oxygen_saturation            FLOAT                  NULL
-  COMMENT '脉动血氧饱和度',
   fetal_heart_rate                   INT                    NULL
   COMMENT '胎心率',
   ctime                              DATETIME               NULL,

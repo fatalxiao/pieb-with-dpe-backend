@@ -1,3 +1,4 @@
-INSERT INTO dpe.dpe_group (id, name) VALUES (1, 'DPE+PIEB');
-INSERT INTO dpe.dpe_group (id, name) VALUES (2, 'DPE+CEI');
-INSERT INTO dpe.dpe_group (id, name) VALUES (3, 'EP+CEI');
+INSERT INTO dpe.dpe_group (id, name) VALUES (1, '30Min');
+INSERT INTO dpe.dpe_group (id, name) VALUES (2, '40Min');
+INSERT INTO dpe.dpe_group (id, name) VALUES (3, '50Min');
+INSERT INTO dpe.dpe_group (id, name) VALUES (4, '60Min');
