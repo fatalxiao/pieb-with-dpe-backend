@@ -47,4 +47,3 @@ create table patients
 
 alter table patients
   add primary key (id);
-

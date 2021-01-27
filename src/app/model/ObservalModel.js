@@ -83,43 +83,8 @@ const sequelizeInstance = SequelizeGenerator(),
                 this.setDataValue('manualBolusCount', DataFormat.formatNumberField(value));
             }
         },
-        hasEpiduralCatheterAdjuestment: {
-            field: 'has_epidural_catheter_adjuestment',
-            type: Sequelize.BOOLEAN
-        },
-        hasEpiduralCatheterReplacement: {
-            field: 'has_epidural_catheter_replacement',
-            type: Sequelize.BOOLEAN
-        },
-        hasPrenatalFever: {
-            field: 'has_prenatal_fever',
-            type: Sequelize.BOOLEAN
-        },
-        prenatalFeverTemperature: {
-            field: 'prenatal_fever_temperature',
-            type: Sequelize.FLOAT,
-            set(value) {
-                this.setDataValue('prenatalFeverTemperature', DataFormat.formatNumberField(value));
-            }
-        },
         hasVasoactiveAgent: {
             field: 'has_vasoactive_agent',
-            type: Sequelize.BOOLEAN
-        },
-        isUnabledToPunctureDura: {
-            field: 'is_unabled_to_puncture_dura',
-            type: Sequelize.BOOLEAN
-        },
-        hasNausea: {
-            field: 'has_nausea',
-            type: Sequelize.BOOLEAN
-        },
-        hasVomit: {
-            field: 'has_vomit',
-            type: Sequelize.BOOLEAN
-        },
-        hasPruritus: {
-            field: 'has_pruritus',
             type: Sequelize.BOOLEAN
         },
         hasHypotension: {
@@ -134,54 +99,9 @@ const sequelizeInstance = SequelizeGenerator(),
             field: 'has_instrumental',
             type: Sequelize.BOOLEAN
         },
-        hasPostduralPunctureHeadache: {
-            field: 'has_postdural_puncture_headache',
-            type: Sequelize.BOOLEAN
-        },
-        hasBackPain: {
-            field: 'has_back_pain',
-            type: Sequelize.BOOLEAN
-        },
-        hasParesthesia: {
-            field: 'has_paresthesia',
-            type: Sequelize.BOOLEAN
-        },
-        isIVEpiduralCatheterInsertion: {
-            field: 'is_iv_epidural_catheter_insertion',
-            type: Sequelize.BOOLEAN
-        },
-        isIntrathecalEpiduralCatheterInsertion: {
-            field: 'is_intrathecal_epidural_catheter_insertion',
-            type: Sequelize.BOOLEAN
-        },
-        patientSatisfactionScore: {
-            field: 'patient_satisfaction_score',
-            type: Sequelize.FLOAT,
-            set(value) {
-                this.setDataValue('patientSatisfactionScore', DataFormat.formatNumberField(value));
-            }
-        },
-        hasAccidentalDuralPunture: {
-            field: 'has_accidental_dural_punture',
-            type: Sequelize.BOOLEAN
-        },
         hasLateralEpisiotomy: {
             field: 'has_lateral_episiotomy',
             type: Sequelize.BOOLEAN
-        },
-        lateralEpisiotomyVasScore: {
-            field: 'lateral_episiotomy_vas_score',
-            type: Sequelize.INTEGER,
-            set(value) {
-                this.setDataValue('lateralEpisiotomyVasScore', DataFormat.formatNumberField(value));
-            }
-        },
-        foetalGender: {
-            field: 'foetal_gender',
-            type: Sequelize.INTEGER,
-            set(value) {
-                this.setDataValue('foetalGender', DataFormat.formatNumberField(value));
-            }
         },
         birthTime: {
             field: 'birth_time',
@@ -191,13 +111,6 @@ const sequelizeInstance = SequelizeGenerator(),
             },
             set(value) {
                 this.setDataValue('birthTime', DataFormat.formatDateTimeField(value));
-            }
-        },
-        foetalHeight: {
-            field: 'foetal_height',
-            type: Sequelize.INTEGER,
-            set(value) {
-                this.setDataValue('foetalHeight', DataFormat.formatNumberField(value));
             }
         },
         foetalWeight: {
@@ -219,42 +132,6 @@ const sequelizeInstance = SequelizeGenerator(),
             type: Sequelize.INTEGER,
             set(value) {
                 this.setDataValue('fiveMinuteApgarScore', DataFormat.formatNumberField(value));
-            }
-        },
-        hasNicu: {
-            field: 'has_nicu',
-            type: Sequelize.BOOLEAN
-        },
-        nicuReason: {
-            field: 'nicu_reason',
-            type: Sequelize.STRING
-        },
-        arterialPh: {
-            field: 'arterial_ph',
-            type: Sequelize.FLOAT,
-            set(value) {
-                this.setDataValue('arterialPh', DataFormat.formatNumberField(value));
-            }
-        },
-        arterialBe: {
-            field: 'arterial_be',
-            type: Sequelize.FLOAT,
-            set(value) {
-                this.setDataValue('arterialBe', DataFormat.formatNumberField(value));
-            }
-        },
-        venousPh: {
-            field: 'venous_ph',
-            type: Sequelize.FLOAT,
-            set(value) {
-                this.setDataValue('venousPh', DataFormat.formatNumberField(value));
-            }
-        },
-        venousBe: {
-            field: 'venous_be',
-            type: Sequelize.FLOAT,
-            set(value) {
-                this.setDataValue('venousBe', DataFormat.formatNumberField(value));
             }
         },
         description: {

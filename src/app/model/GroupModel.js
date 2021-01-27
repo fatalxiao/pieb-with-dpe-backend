@@ -3,7 +3,7 @@ import SequelizeGenerator from '../utils/SequelizeGenerator.js';
 
 const sequelizeInstance = SequelizeGenerator(),
 
-    Group = sequelizeInstance.define('dpe_group', {
+    Group = sequelizeInstance.define('pieb_with_dpe_group', {
         id: {
             field: 'id',
             type: Sequelize.INTEGER,
