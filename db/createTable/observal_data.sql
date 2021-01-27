@@ -4,6 +4,12 @@ create table observal_data
     primary key,
   patient_id                                 varchar(10)            null
   comment '孕妇住院号',
+  observal_end_point_id                      int                    null
+  comment '观察终点',
+  cervix_fully_dilated_time                  datetime               null
+  comment '宫口开全时间',
+  cervix_dilatation                          int                    null
+  comment '宫颈扩张度',
   initial_time                               datetime               null
   comment '麻醉开始时间',
   initial_dose                               int                    null
