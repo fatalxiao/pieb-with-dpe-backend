@@ -1,20 +1,32 @@
+/**
+ * @file ObservalService.js
+ */
+
+// Daos
 import ObservalDao from '../dao/ObservalDao.js';
+
+// Vendors
 import Response from '../utils/Response.js';
 
-async function getObservalDataByPatientId(patientId) {
+/**
+ * 获取某个 Patient ID 的 Observal 数据
+ * @param patientId
+ * @returns {Promise<string>}
+ */
+export async function getObservalDataByPatientId(patientId) {
     return Response.buildSuccess(await ObservalDao.getObservalDataByPatientId(patientId));
 };
 
 /**
- * @param data
- * @returns {Promise<*>}
- *
+ * 创建一条 Observal 数据
  *  data: {
  *      patientId: String
  *      observalData: Object
  *  }
+ * @param data
+ * @returns {Promise<*>}
  */
-async function createObservalData(patientId, data) {
+export async function createObservalData(patientId, data) {
 
     if (await ObservalDao.isObservalDataExist(patientId)) {
         return Response.buildError(`Patient ID ${patientId} Observal Data is exist.`);
@@ -36,15 +48,15 @@ async function createObservalData(patientId, data) {
 };
 
 /**
- * @param data
- * @returns {Promise<*>}
- *
+ * 更新一条 Observal 数据
  *  data: {
  *      patientId: String
  *      observalData: Object
  *  }
+ * @param data
+ * @returns {Promise<*>}
  */
-async function updateObservalData(patientId, data) {
+export async function updateObservalData(patientId, data) {
 
     if (!await ObservalDao.isObservalDataExist(patientId)) {
         return Response.buildError(`Patient ID ${patientId} Observal Data is not exist.`);
@@ -66,15 +78,15 @@ async function updateObservalData(patientId, data) {
 };
 
 /**
- * @param data
- * @returns {Promise<*>}
- *
+ * 创建或更新一条 Observal 数据
  *  data: {
  *      patientId: String
  *      observalData: Object
  *  }
+ * @param data
+ * @returns {Promise<*>}
  */
-async function createOrUpdateObservalData(patientId, data) {
+export async function createOrUpdateObservalData(patientId, data) {
 
     let result;
 

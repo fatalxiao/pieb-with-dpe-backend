@@ -1,19 +1,44 @@
+/**
+ * @file PatientService.js
+ */
+
+// Daos
 import PatientDao from '../dao/PatientDao.js';
+
+// Vendors
 import Response from '../utils/Response.js';
 
-async function getPatients() {
+/**
+ * 获取用于列表的 Patients 数据
+ * @returns {Promise<string>}
+ */
+export async function getPatients() {
     return Response.buildSuccess(await PatientDao.getPatients());
 };
 
-async function getFullPatients() {
+/**
+ * 获取完全的 Patients 数据
+ * @returns {Promise<string>}
+ */
+export async function getFullPatients() {
     return Response.buildSuccess(await PatientDao.getFullPatients());
 };
 
-async function getPatientById(id) {
+/**
+ * 根据 ID 获取 Patient 数据
+ * @param id
+ * @returns {Promise<string>}
+ */
+export async function getPatientById(id) {
     return Response.buildSuccess(await PatientDao.getPatientById(id));
 };
 
-async function createPatient(data) {
+/**
+ * 创建一条 Patient 数据
+ * @param data
+ * @returns {Promise<string>}
+ */
+export async function createPatient(data) {
 
     if (await PatientDao.isPatientExist(data.id)) {
         return Response.buildError(`Patient ID ${data.id} is exist.`);
@@ -31,7 +56,12 @@ async function createPatient(data) {
 
 };
 
-async function updatePatient(data) {
+/**
+ * 更新一条 Patient 数据
+ * @param data
+ * @returns {Promise<string>}
+ */
+export async function updatePatient(data) {
 
     if (!(await PatientDao.isPatientExist(data.id))) {
         return Response.buildError(`Patient ID ${data.id} is not exist.`);
@@ -49,7 +79,12 @@ async function updatePatient(data) {
 
 };
 
-async function createOrUpdatePatient(data) {
+/**
+ * 创建或更新一条 Patient 数据
+ * @param data
+ * @returns {Promise<string>}
+ */
+export async function createOrUpdatePatient(data) {
 
     let result;
 
@@ -63,7 +98,12 @@ async function createOrUpdatePatient(data) {
 
 };
 
-async function enablePatient(id) {
+/**
+ * 启用某个 ID 的 Patient
+ * @param id
+ * @returns {Promise<string>}
+ */
+export async function enablePatient(id) {
 
     if (!(await PatientDao.isPatientExist(id))) {
         return Response.buildError(`Patient ID ${id} is not exist.`);
@@ -81,7 +121,12 @@ async function enablePatient(id) {
 
 };
 
-async function disablePatient(id) {
+/**
+ * 禁用某个 ID 的 Patient
+ * @param id
+ * @returns {Promise<string>}
+ */
+export async function disablePatient(id) {
 
     if (!(await PatientDao.isPatientExist(id))) {
         return Response.buildError(`Patient ID ${id} is not exist.`);
