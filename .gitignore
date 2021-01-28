@@ -15,6 +15,3 @@ package-lock.json
 
 # Distribution
 /dist
-
-# swagger
-swagger.json

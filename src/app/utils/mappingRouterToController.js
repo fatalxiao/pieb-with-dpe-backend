@@ -1,20 +1,13 @@
-import _ from 'lodash';
 import fs from 'fs';
 import Router from 'koa-router';
-import config from '../../config';
 import {
     REQUEST_TAGS, REQUEST_METHOD, REQUEST_ROUTE, REQUEST_SUMMARY, REQUEST_DESCRIPTION,
     REQUEST_PARAMETERS_PATH, REQUEST_PARAMETERS_PARAM, REQUEST_PARAMETERS_BODY
 } from './ApiDecorator';
 
-const router = Router(),
-    swaggerConfig = _.cloneDeep(config.swaggerConfig);
+const router = Router();
 
 function mappingPaths(controller, method, requestMethod, requestRoute) {
-
-    if (!(requestRoute in swaggerConfig.paths)) {
-        swaggerConfig.paths[requestRoute] = {};
-    }
 
     const config = {
         tags: [controller[REQUEST_TAGS]],
@@ -69,8 +62,6 @@ function mappingPaths(controller, method, requestMethod, requestRoute) {
         }
     }
 
-    swaggerConfig.paths[requestRoute][requestMethod] = config;
-
 }
 
 function mappingMethod(controller, method) {
@@ -92,13 +83,6 @@ function mappingController(controller) {
         return;
     }
 
-    // add swagger tags
-    if (controller[REQUEST_TAGS]) {
-        swaggerConfig.tags.push({
-            name: controller[REQUEST_TAGS]
-        });
-    }
-
     // traversal all rest class methods
     for (let methodName of Object.getOwnPropertyNames(controller)) {
 
@@ -114,66 +98,12 @@ function mappingController(controller) {
 
 }
 
-function parseModelType(type) {
-
-    const typeStr = type.toString().toLowerCase();
-
-    if (typeStr === 'tinyint(1)') {
-        return 'boolean';
-    } else if (/^varchar\(\d+\)$/.test(typeStr)) {
-        return 'string';
-    } else if (/^integer\(\d+\)$/.test(typeStr)) {
-        return 'integer';
-    }
-
-    return typeStr;
-
-}
-
-function mappingModel(model) {
-
-    if (!model) {
-        return;
-    }
-
-    if (!(model.name in swaggerConfig.definitions)) {
-        swaggerConfig.definitions[model.name] = {
-            type: 'object',
-            properties: {},
-            xml: {
-                'name': model.name
-            }
-        };
-    }
-
-    const properties = swaggerConfig.definitions[model.name].properties;
-
-    for (let attributeName in model.attributes) {
-
-        const attribute = model.attributes[attributeName];
-
-        properties[attribute.fieldName] = {
-            type: parseModelType(attribute.type)
-        };
-
-    }
-
-}
-
 function mappingRouterToController(dir) {
 
     // traversal all controll file
-    fs.readdirSync(dir + '/app/controller').forEach(file => {
-        // console.log(`process controller: ${file}`);
-        mappingController(require(dir + '/app/controller/' + file).default);
-    });
-
-    // traversal all model file
-    fs.readdirSync(dir + '/app/model').forEach(file => {
-        mappingModel(require(dir + '/app/model/' + file).default);
-    });
-
-    // fs.writeFileSync(dir + '/swagger/swagger.json', JSON.stringify(swaggerConfig));
+    fs.readdirSync(dir + '/app/controller').forEach(file =>
+        mappingController(require(dir + '/app/controller/' + file).default)
+    );
 
     return router.routes();
 
