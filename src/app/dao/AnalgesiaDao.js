@@ -1,9 +1,19 @@
+/**
+ * @file AnalgesiaDao.js
+ */
+
 import Sequelize from 'sequelize';
 
+// Models
 import Analgesia from '../model/AnalgesiaModel';
 import SensoryBlock from '../model/SensoryBlockModel';
 
-async function getAnalgesiaDataByPatientId(patientId) {
+/**
+ * 根据 patient ID 获取 Analgesia 数据
+ * @param patientId
+ * @returns {Promise<Model<any, TModelAttributes>[]>}
+ */
+export async function getAnalgesiaDataByPatientId(patientId) {
     return await Analgesia.findAll({
         where: {
             patientId: {[Sequelize.Op.eq]: patientId}
@@ -40,7 +50,13 @@ async function getAnalgesiaDataByPatientId(patientId) {
     });
 }
 
-async function isAnalgesiaDataExist(patientId, timePoint) {
+/**
+ * 是否存在 patient ID 的数据
+ * @param patientId
+ * @param timePoint
+ * @returns {Promise<boolean>}
+ */
+export async function isAnalgesiaDataExist(patientId, timePoint) {
     return await Analgesia.count({
         where: {
             patientId: {[Sequelize.Op.eq]: patientId},
@@ -49,11 +65,21 @@ async function isAnalgesiaDataExist(patientId, timePoint) {
     }) > 0;
 }
 
-async function createAnalgesiaData(data) {
+/**
+ * 创建一条 Analgesia 数据
+ * @param data
+ * @returns {Promise<void>}
+ */
+export async function createAnalgesiaData(data) {
     return await Analgesia.create(data);
 }
 
-async function updateAnalgesiaData(data) {
+/**
+ * 更新一条 Analgesia 数据
+ * @param data
+ * @returns {Promise<[number, Model<any, TModelAttributes>[]]>}
+ */
+export async function updateAnalgesiaData(data) {
     return await Analgesia.update(data, {
         where: {
             patientId: {[Sequelize.Op.eq]: data.patientId},
@@ -62,7 +88,12 @@ async function updateAnalgesiaData(data) {
     });
 }
 
-async function createOrUpdateAnalgesiaData(data) {
+/**
+ * 更新或创建一条 Analgesia 数据
+ * @param data
+ * @returns {Promise<Promise<void>|Promise<(number|Model<any, TModelAttributes>[])[]>>}
+ */
+export async function createOrUpdateAnalgesiaData(data) {
     if (await isAnalgesiaDataExist(data.patientId, data.timePoint)) {
         return updateAnalgesiaData(data);
     } else {

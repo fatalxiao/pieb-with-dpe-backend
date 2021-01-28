@@ -1,5 +1,10 @@
+/**
+ * @file ObservalModel.js
+ */
+
 import Sequelize from 'sequelize';
 
+// Vendors
 import SequelizeGenerator from '../utils/SequelizeGenerator.js';
 import DataFormat from '../utils/DataFormat';
 

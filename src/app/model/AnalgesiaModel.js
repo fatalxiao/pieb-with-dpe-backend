@@ -1,7 +1,13 @@
+/**
+ * @file app.js
+ */
+
 import Sequelize from 'sequelize';
 
+// Models
 import SensoryBlock from './SensoryBlockModel';
 
+// Vendors
 import SequelizeGenerator from '../utils/SequelizeGenerator.js';
 import DataFormat from '../utils/DataFormat.js';
 

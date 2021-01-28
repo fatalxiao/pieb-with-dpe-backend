@@ -1,9 +1,15 @@
+/**
+ * @file PatientModel.js
+ */
+
 import Sequelize from 'sequelize';
 
+// Models
 import Group from './GroupModel';
 import Analgesia from './AnalgesiaModel';
 import Observal from './ObservalModel';
 
+// Vendors
 import SequelizeGenerator from '../utils/SequelizeGenerator.js';
 import DataFormat from '../utils/DataFormat.js';
 

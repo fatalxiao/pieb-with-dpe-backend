@@ -1,4 +1,10 @@
+/**
+ * @file GroupModel.js
+ */
+
 import Sequelize from 'sequelize';
+
+// Vendors
 import SequelizeGenerator from '../utils/SequelizeGenerator.js';
 
 const sequelizeInstance = SequelizeGenerator(),
