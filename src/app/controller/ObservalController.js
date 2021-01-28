@@ -1,37 +1,65 @@
-import ObservalService from '../service/ObservalService.js';
-import Response from '../utils/Response.js';
+/**
+ * @file ObservalController.js
+ */
+
+// Services
+import {
+    getObservalDataByPatientId,
+    createObservalData,
+    updateObservalData,
+    createOrUpdateObservalData
+} from '../service/ObservalService.js';
+
+// Vendors
+import {buildParamError} from '../utils/Response.js';
 import {Api, ApiOperation, GetMapping, PostMapping, RequestBody} from '../utils/ApiDecorator';
 
 @Api({tags: 'Observal'})
 class ObservalController {
 
+    /**
+     * 校验 request 数据
+     * @param patientId
+     * @param requestData
+     * @returns {string}
+     */
     static verifyRequestData(patientId, requestData) {
 
         if (!requestData) {
-            return Response.buildParamError('Request Data is required');
+            return buildParamError('Request Data is required');
         } else if (!patientId) {
-            return Response.buildParamError('Patient ID is required');
+            return buildParamError('Patient ID is required');
         } else if (!requestData) {
-            return Response.buildParamError('Observal Data is required');
+            return buildParamError('Observal Data is required');
         }
 
         return;
 
     }
 
+    /**
+     * 获取某个 Patient ID 的 Observal 数据
+     * @param ctx
+     * @returns {Promise<string>}
+     */
     @GetMapping({value: '/dpe/observal/getObservalDataByPatientId/:patientId'})
     @ApiOperation({value: 'get Observal Data by Patient Id', notes: ''})
     static async getObservalDataByPatientId(ctx) {
 
         const patientId = ctx.params.patientId;
         if (!patientId) {
-            return ctx.response.body = Response.buildParamError('Patient ID is required');
+            return ctx.response.body = buildParamError('Patient ID is required');
         }
 
-        ctx.response.body = await ObservalService.getObservalDataByPatientId(patientId);
+        ctx.response.body = await getObservalDataByPatientId(patientId);
 
     }
 
+    /**
+     * 创建一条 Observal 数据
+     * @param ctx
+     * @returns {Promise<string>}
+     */
     @PostMapping({value: '/dpe/observal/createObservalData/:patientId'})
     @ApiOperation({value: 'add new observal data', notes: 'add new observal data'})
     @RequestBody({value: 'Observal'})
@@ -39,7 +67,7 @@ class ObservalController {
 
         const patientId = ctx.params.patientId;
         if (!patientId) {
-            return ctx.response.body = Response.buildParamError('Patient ID is required');
+            return ctx.response.body = buildParamError('Patient ID is required');
         }
 
         const requestData = ctx.request.body;
@@ -48,10 +76,15 @@ class ObservalController {
             return ctx.response.body = error;
         }
 
-        ctx.response.body = await ObservalService.createObservalData(patientId, requestData);
+        ctx.response.body = await createObservalData(patientId, requestData);
 
     }
 
+    /**
+     * 更新一条 Observal 数据
+     * @param ctx
+     * @returns {Promise<string>}
+     */
     @PostMapping({value: '/dpe/observal/updateObservalData/:patientId'})
     @ApiOperation({value: 'update observal data', notes: 'update observal data'})
     @RequestBody({value: 'Observal'})
@@ -59,7 +92,7 @@ class ObservalController {
 
         const patientId = ctx.params.patientId;
         if (!patientId) {
-            return ctx.response.body = Response.buildParamError('Patient ID is required');
+            return ctx.response.body = buildParamError('Patient ID is required');
         }
 
         const requestData = ctx.request.body;
@@ -68,10 +101,15 @@ class ObservalController {
             return ctx.response.body = error;
         }
 
-        ctx.response.body = await ObservalService.updateObservalData(patientId, requestData);
+        ctx.response.body = await updateObservalData(patientId, requestData);
 
     }
 
+    /**
+     * 创建或更新一条 Observal 数据
+     * @param ctx
+     * @returns {Promise<string>}
+     */
     @PostMapping({value: '/dpe/observal/createOrUpdateObservalData/:patientId'})
     @ApiOperation({value: 'add or update observal data', notes: 'add or update observal data'})
     @RequestBody({value: 'Observal'})
@@ -79,7 +117,7 @@ class ObservalController {
 
         const patientId = ctx.params.patientId;
         if (!patientId) {
-            return ctx.response.body = Response.buildParamError('Patient ID is required');
+            return ctx.response.body = buildParamError('Patient ID is required');
         }
 
         const requestData = ctx.request.body;
@@ -88,7 +126,7 @@ class ObservalController {
             return ctx.response.body = error;
         }
 
-        ctx.response.body = await ObservalService.createOrUpdateObservalData(patientId, requestData);
+        ctx.response.body = await createOrUpdateObservalData(patientId, requestData);
 
     }
 
