@@ -3,50 +3,66 @@
  */
 
 // Services
-import AnalgesiaService from '../service/AnalgesiaService.js';
+import {
+    getAnalgesiaDataByPatientId,
+    createAnalgesiaData,
+    updateAnalgesiaData,
+    createOrUpdateAnalgesiaData
+} from '../service/AnalgesiaService.js';
 
 // Vendors
-import Response from '../utils/Response.js';
+import {buildParamError} from '../utils/Response.js';
 import {Api, ApiOperation, GetMapping, PostMapping, RequestBody} from '../utils/ApiDecorator';
 
 @Api({tags: 'Analgesia'})
 class AnalgesiaController {
 
+    /**
+     * 校验 request 数据
+     * @param patientId
+     * @param requestData
+     * @returns {string}
+     */
     static verifyRequestData(patientId, requestData) {
 
         if (!requestData) {
-            return Response.buildParamError('Request Data is required');
+            return buildParamError('Request Data is required');
         } else if (!patientId) {
-            return Response.buildParamError('Patient ID is required');
+            return buildParamError('Patient ID is required');
         } else if (!requestData) {
-            return Response.buildParamError('Analgesia Data is required');
+            return buildParamError('Analgesia Data is required');
         }
 
         return;
 
     }
 
+    /**
+     * 获取某个 Patient ID 的 Analgesia 数据
+     * @param ctx
+     * @returns {Promise<string>}
+     */
     @GetMapping({value: '/dpe/analgesia/getAnalgesiaDataByPatientId/:patientId'})
     @ApiOperation({value: 'get Analgesia Data by Patient Id', notes: ''})
     static async getAnalgesiaDataByPatientId(ctx) {
 
         const patientId = ctx.params.patientId;
         if (!patientId) {
-            return ctx.response.body = Response.buildParamError('Patient ID is required');
+            return ctx.response.body = buildParamError('Patient ID is required');
         }
 
-        ctx.response.body = await AnalgesiaService.getAnalgesiaDataByPatientId(patientId);
+        ctx.response.body = await getAnalgesiaDataByPatientId(patientId);
 
     }
 
     /**
-     * @param ctx
-     * @returns {Promise<*>}
-     *
+     * 创建一批 Analgesia 数据
      *  requestData: {
      *      patientId: String
      *      analgesiaData: Array
      *  }
+     * @param ctx
+     * @returns {Promise<*>}
      */
     @PostMapping({value: '/dpe/analgesia/createAnalgesiaData/:patientId'})
     @ApiOperation({value: 'add new analgesia data', notes: ''})
@@ -55,7 +71,7 @@ class AnalgesiaController {
 
         const patientId = ctx.params.patientId;
         if (!patientId) {
-            return ctx.response.body = Response.buildParamError('Patient ID is required');
+            return ctx.response.body = buildParamError('Patient ID is required');
         }
 
         const requestData = ctx.request.body;
@@ -64,18 +80,18 @@ class AnalgesiaController {
             return ctx.response.body = error;
         }
 
-        ctx.response.body = await AnalgesiaService.createAnalgesiaData(patientId, requestData);
+        ctx.response.body = await createAnalgesiaData(patientId, requestData);
 
     }
 
     /**
-     * @param ctx
-     * @returns {Promise<*>}
-     *
+     * 更新一批 Analgesia 数据
      *  requestData: {
      *      patientId: String
      *      analgesiaData: Array
      *  }
+     * @param ctx
+     * @returns {Promise<*>}
      */
     @PostMapping({value: '/dpe/analgesia/updateAnalgesiaData/:patientId'})
     @ApiOperation({value: 'update analgesia data', notes: ''})
@@ -84,7 +100,7 @@ class AnalgesiaController {
 
         const patientId = ctx.params.patientId;
         if (!patientId) {
-            return ctx.response.body = Response.buildParamError('Patient ID is required');
+            return ctx.response.body = buildParamError('Patient ID is required');
         }
 
         const requestData = ctx.request.body;
@@ -93,18 +109,18 @@ class AnalgesiaController {
             return ctx.response.body = error;
         }
 
-        ctx.response.body = await AnalgesiaService.updateAnalgesiaData(patientId, requestData);
+        ctx.response.body = await updateAnalgesiaData(patientId, requestData);
 
     }
 
     /**
-     * @param ctx
-     * @returns {Promise<*>}
-     *
+     * 创建或更新一批 Analgesia 数据
      *  requestData: {
      *      patientId: String
      *      analgesiaData: Array
      *  }
+     * @param ctx
+     * @returns {Promise<*>}
      */
     @PostMapping({value: '/dpe/analgesia/createOrUpdateAnalgesiaData/:patientId'})
     @ApiOperation({value: 'add or update analgesia data', notes: ''})
@@ -113,7 +129,7 @@ class AnalgesiaController {
 
         const patientId = ctx.params.patientId;
         if (!patientId) {
-            return ctx.response.body = Response.buildParamError('Patient ID is required');
+            return ctx.response.body = buildParamError('Patient ID is required');
         }
 
         const requestData = ctx.request.body;
@@ -122,7 +138,7 @@ class AnalgesiaController {
             return ctx.response.body = error;
         }
 
-        ctx.response.body = await AnalgesiaService.createOrUpdateAnalgesiaData(patientId, requestData);
+        ctx.response.body = await createOrUpdateAnalgesiaData(patientId, requestData);
 
     }
 
