@@ -1,10 +1,22 @@
+/**
+ * @file AnalgesiaCalculation.js
+ */
+
 const
 
+    /**
+     * 左侧或右侧
+     * @type {{LEFT: string, RIGHT: string}}
+     */
     Position = {
         LEFT: 'Left',
         RIGHT: 'Right'
     },
 
+    /**
+     * 行数据
+     * @type {{thoracicSensoryBlockLeft: null, bromageScore: null, fetalHeartRate: null, sacralSensoryBlockRight: null, pulseOxygenSaturation: null, heartRate: null, thoracicSensoryBlockRight: null, sacralSensoryBlockLeft: null, diastolicBloodPressure: null, hasContraction: boolean, systolicBloodPressure: null, vasScore: null}}
+     */
     BASE_DATA = {
         hasContraction: false,
         vasScore: null,
@@ -20,22 +32,41 @@ const
         fetalHeartRate: null
     },
 
-    DEFAULT_TIMEPOINTS = [0, 2, 4, 6, 8, 10, 12, 14, 16, 18,
-        20, 30, 2 * 60, 3.5 * 60, 5 * 60, 6.5 * 60, 8 * 60];
+    /**
+     * 默认的时间点
+     * @type {number[]}
+     */
+    DEFAULT_TIMEPOINTS = [
+        0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 30, 2 * 60, 3.5 * 60, 5 * 60, 6.5 * 60, 8 * 60
+    ];
 
-function getDefaultData(timePoints = DEFAULT_TIMEPOINTS) {
+/**
+ * 获取默认的麻醉数据
+ * @param timePoints
+ * @returns {({thoracicSensoryBlockLeft, bromageScore, fetalHeartRate, sacralSensoryBlockRight, pulseOxygenSaturation, heartRate, thoracicSensoryBlockRight, sacralSensoryBlockLeft, diastolicBloodPressure, hasContraction, systolicBloodPressure, vasScore}&{timePoint: number})[]}
+ */
+export function getDefaultData(timePoints = DEFAULT_TIMEPOINTS) {
     return timePoints.map(timePoint => ({
         ...BASE_DATA,
         timePoint
     }));
 }
 
-function fullFillAnalgesiaData(analgesiaData) {
+/**
+ * 将现有的 analgesia 数据和默认的麻醉数据合并，插入现有数据中没有的时间点
+ * @param analgesiaData
+ * @returns {({thoracicSensoryBlockLeft, bromageScore, fetalHeartRate, sacralSensoryBlockRight, pulseOxygenSaturation, heartRate, thoracicSensoryBlockRight, sacralSensoryBlockLeft, diastolicBloodPressure, hasContraction, systolicBloodPressure, vasScore}&{timePoint: number})[]}
+ */
+export function fullFillAnalgesiaData(analgesiaData) {
+
+    if (!analgesiaData || analgesiaData?.length < 1) {
+        return [];
+    }
 
     const data = getDefaultData();
     analgesiaData.sort((a, b) => a.timePoint - b.timePoint);
 
-    if (analgesiaData && analgesiaData.length > 0) {
+    if (analgesiaData?.length > 0) {
 
         for (let resItem of analgesiaData) {
 
@@ -68,7 +99,13 @@ function fullFillAnalgesiaData(analgesiaData) {
 
 }
 
-function getVasScore(analgesiaData, timePoint) {
+/**
+ * 获取 Vas 评分
+ * @param analgesiaData
+ * @param timePoint
+ * @returns {string}
+ */
+export function getVasScore(analgesiaData, timePoint) {
 
     if (!analgesiaData || analgesiaData.length < 1) {
         return '';
@@ -87,7 +124,13 @@ function getVasScore(analgesiaData, timePoint) {
 
 }
 
-function getVasScoreWithContraction(analgesiaData, timePoint) {
+/**
+ * 获取宫缩时的 Vas 评分
+ * @param analgesiaData
+ * @param timePoint
+ * @returns {string}
+ */
+export function getVasScoreWithContraction(analgesiaData, timePoint) {
 
     if (!analgesiaData || analgesiaData.length < 1) {
         return '';
@@ -106,7 +149,13 @@ function getVasScoreWithContraction(analgesiaData, timePoint) {
 
 }
 
-function isVasLessThan1(analgesiaData, timePoint) {
+/**
+ * Vas 评分是否小于1
+ * @param analgesiaData
+ * @param timePoint
+ * @returns {boolean}
+ */
+export function isVasLessThan1(analgesiaData, timePoint) {
 
     if (!analgesiaData || analgesiaData.length < 1) {
         return false;
@@ -129,12 +178,12 @@ function isVasLessThan1(analgesiaData, timePoint) {
 }
 
 /**
- * 获取VAS评分小于等于1的时间点
- * 首先找到最早有宫缩且VAS评分<=1的时间点，如果找到的前一时间点VAS评分<=1取前一时间点，否则取找到的时间点
+ * 获取 VAS 评分 <= 1 的时间点
+ * 首先找到最早有宫缩且 VAS 评分 <= 1 的时间点，如果找到的前一时间点 VAS 评分 <= 1 取前一时间点，否则取找到的时间点
  * @param analgesiaData
  * @returns {*}
  */
-function timePointOfVasLessThan1(analgesiaData) {
+export function getTimePointOfVasLessThan1(analgesiaData) {
 
     if (!analgesiaData || analgesiaData.length < 1) {
         return null;
@@ -162,7 +211,15 @@ function timePointOfVasLessThan1(analgesiaData) {
 
 }
 
-function isSacralSensoryInTime(analgesiaData, sensory, timePoint, position) {
+/**
+ * 是否在指定时间内达到最低阻滞
+ * @param analgesiaData
+ * @param sensory
+ * @param timePoint
+ * @param position
+ * @returns {boolean}
+ */
+export function isSacralSensoryInTime(analgesiaData, sensory, timePoint, position) {
 
     if (!analgesiaData || analgesiaData.length < 1) {
         return false;
@@ -184,7 +241,13 @@ function isSacralSensoryInTime(analgesiaData, sensory, timePoint, position) {
 
 }
 
-function maxThoracicSensoryBlock(analgesiaData, position) {
+/**
+ * 获取最大的最高阻滞
+ * @param analgesiaData
+ * @param position
+ * @returns {null|any}
+ */
+export function getMaxThoracicSensoryBlock(analgesiaData, position) {
 
     if (!analgesiaData || analgesiaData.length < 1) {
         return null;
@@ -198,7 +261,13 @@ function maxThoracicSensoryBlock(analgesiaData, position) {
 
 }
 
-function minSacralSensoryBlock(analgesiaData, position) {
+/**
+ * 获取最小的最低阻滞
+ * @param analgesiaData
+ * @param position
+ * @returns {null|any}
+ */
+export function getMinSacralSensoryBlock(analgesiaData, position) {
 
     if (!analgesiaData || analgesiaData.length < 1) {
         return null;
@@ -212,7 +281,12 @@ function minSacralSensoryBlock(analgesiaData, position) {
 
 }
 
-function isUnilateralSensoryBlock(analgesiaData) {
+/**
+ * 是否有单侧阻滞
+ * @param analgesiaData
+ * @returns {boolean}
+ */
+export function isUnilateralSensoryBlock(analgesiaData) {
 
     if (!analgesiaData || analgesiaData.length < 1) {
         return false;
@@ -231,7 +305,13 @@ function isUnilateralSensoryBlock(analgesiaData) {
 
 }
 
-function timePointOfThoracicSensoryBlock(analgesiaData, sensoryBlock) {
+/**
+ * 获取指定最高阻滞的时间点
+ * @param analgesiaData
+ * @param sensoryBlock
+ * @returns {null|number|Analgesia.timePoint|{set, field, type}|where.timePoint|{}}
+ */
+export function getTimePointOfThoracicSensoryBlock(analgesiaData, sensoryBlock) {
 
     if (!analgesiaData || analgesiaData.length < 1) {
         return null;
@@ -249,7 +329,13 @@ function timePointOfThoracicSensoryBlock(analgesiaData, sensoryBlock) {
 
 }
 
-function timePointOfSacralSensoryBlock(analgesiaData, sensoryBlock) {
+/**
+ * 获取指定最低阻滞的时间点
+ * @param analgesiaData
+ * @param sensoryBlock
+ * @returns {number|Analgesia.timePoint|{set, field, type}|*|where.timePoint|{}|null}
+ */
+export function getTimePointOfSacralSensoryBlock(analgesiaData, sensoryBlock) {
 
     if (!analgesiaData || analgesiaData.length < 1) {
         return null;
@@ -267,7 +353,12 @@ function timePointOfSacralSensoryBlock(analgesiaData, sensoryBlock) {
 
 }
 
-function isFetalHeartRateDecreased(analgesiaData) {
+/**
+ * 是否有胎儿心率降低
+ * @param analgesiaData
+ * @returns {boolean}
+ */
+export function isFetalHeartRateDecreased(analgesiaData) {
 
     if (!analgesiaData || analgesiaData.length < 1) {
         return false;
@@ -292,7 +383,7 @@ function isFetalHeartRateDecreased(analgesiaData) {
  * @param timePoint
  * @returns {boolean}
  */
-function isAdequatePainRelief(analgesiaData, timePoint) {
+export function isAdequatePainRelief(analgesiaData, timePoint) {
 
     if (!analgesiaData || analgesiaData.length < 1) {
         return false;
@@ -354,13 +445,13 @@ export default {
     getVasScore,
     getVasScoreWithContraction,
     isVasLessThan1,
-    timePointOfVasLessThan1,
+    getTimePointOfVasLessThan1,
     isSacralSensoryInTime,
-    maxThoracicSensoryBlock,
-    minSacralSensoryBlock,
+    getMaxThoracicSensoryBlock,
+    getMinSacralSensoryBlock,
     isUnilateralSensoryBlock,
-    timePointOfThoracicSensoryBlock,
-    timePointOfSacralSensoryBlock,
+    getTimePointOfThoracicSensoryBlock,
+    getTimePointOfSacralSensoryBlock,
     isFetalHeartRateDecreased,
     isAdequatePainRelief
 

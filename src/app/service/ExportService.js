@@ -166,7 +166,7 @@ async function getExportDPEData(data, sensoryBlocks) {
 
                 result.isVasLessThan1In20 = boolHandler(AC.isVasLessThan1(analgesiaData, 20));
                 result.isVasLessThan1In30 = boolHandler(AC.isVasLessThan1(analgesiaData, 30));
-                result.timePointOfVasLessThan1 = numHandler(AC.timePointOfVasLessThan1(analgesiaData));
+                result.timePointOfVasLessThan1 = numHandler(AC.getTimePointOfVasLessThan1(analgesiaData));
                 result.isAdequatePainReliefIn0 = boolHandler(AC.isAdequatePainRelief(analgesiaData, 0));
                 result.isAdequatePainReliefIn2 = boolHandler(AC.isAdequatePainRelief(analgesiaData, 2));
                 result.isAdequatePainReliefIn4 = boolHandler(AC.isAdequatePainRelief(analgesiaData, 4));
@@ -193,15 +193,15 @@ async function getExportDPEData(data, sensoryBlocks) {
                 result.isS2In30Both = boolHandler(isS2In30Left && isS2In30Right);
                 result.vasIn120 = numHandler(AC.getVasScore(analgesiaData, 120));
                 result.vasIn210 = numHandler(AC.getVasScore(analgesiaData, 210));
-                result.maxThoracicSensoryBlockLeft = numHandler(AC.maxThoracicSensoryBlock(analgesiaData, AC.Position.LEFT));
-                result.maxThoracicSensoryBlockRight = numHandler(AC.maxThoracicSensoryBlock(analgesiaData, AC.Position.RIGHT));
-                result.minSacralSensoryBlockLeft = numHandler(AC.minSacralSensoryBlock(analgesiaData, AC.Position.LEFT));
-                result.minSacralSensoryBlockRight = numHandler(AC.minSacralSensoryBlock(analgesiaData, AC.Position.RIGHT));
+                result.maxThoracicSensoryBlockLeft = numHandler(AC.getMaxThoracicSensoryBlock(analgesiaData, AC.Position.LEFT));
+                result.maxThoracicSensoryBlockRight = numHandler(AC.getMaxThoracicSensoryBlock(analgesiaData, AC.Position.RIGHT));
+                result.minSacralSensoryBlockLeft = numHandler(AC.getMinSacralSensoryBlock(analgesiaData, AC.Position.LEFT));
+                result.minSacralSensoryBlockRight = numHandler(AC.getMinSacralSensoryBlock(analgesiaData, AC.Position.RIGHT));
                 result.isUnilateralSensoryBlock = boolHandler(AC.isUnilateralSensoryBlock(analgesiaData));
-                result.timePointOfT8 = numHandler(AC.timePointOfThoracicSensoryBlock(analgesiaData, t8Value));
-                result.timePointOfT10 = numHandler(AC.timePointOfThoracicSensoryBlock(analgesiaData, t10Value));
-                result.timePointOfS1 = numHandler(AC.timePointOfSacralSensoryBlock(analgesiaData, s1Value));
-                result.timePointOfS2 = numHandler(AC.timePointOfSacralSensoryBlock(analgesiaData, s2Value));
+                result.timePointOfT8 = numHandler(AC.getTimePointOfThoracicSensoryBlock(analgesiaData, t8Value));
+                result.timePointOfT10 = numHandler(AC.getTimePointOfThoracicSensoryBlock(analgesiaData, t10Value));
+                result.timePointOfS1 = numHandler(AC.getTimePointOfSacralSensoryBlock(analgesiaData, s1Value));
+                result.timePointOfS2 = numHandler(AC.getTimePointOfSacralSensoryBlock(analgesiaData, s2Value));
                 result.isFetalHeartRateDecreased = boolHandler(AC.isFetalHeartRateDecreased(analgesiaData));
 
             }
