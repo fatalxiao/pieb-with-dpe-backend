@@ -3,8 +3,8 @@
  */
 
 // Daos
-import PatientDao from '../dao/PatientDao.js';
-import SensoryBlockDao from '../dao/SensoryBlockDao.js';
+import {getFullPatients} from '../dao/PatientDao.js';
+import {getSensoryBlocks} from '../dao/SensoryBlockDao.js';
 
 // Vendors
 import {
@@ -28,8 +28,8 @@ import {formatBoolean, formatNumber} from '../utils/ExportFormat.js';
  */
 export async function getExportDPEData(data, sensoryBlocks) {
 
-    data = data || await PatientDao.getFullPatients();
-    sensoryBlocks = sensoryBlocks || await SensoryBlockDao.getSensoryBlocks();
+    data = data || await getFullPatients();
+    sensoryBlocks = sensoryBlocks || await getSensoryBlocks();
 
     const header = [
             {name: '组别', key: 'groupName'},
@@ -312,7 +312,7 @@ export async function getExportDPEData(data, sensoryBlocks) {
  */
 export async function getExportMeanVAS(data) {
 
-    data = data || await PatientDao.getFullPatients();
+    data = data || await getFullPatients();
 
     const header = [
             {name: '组别', key: 'groupName'},
@@ -376,7 +376,7 @@ export async function getExportMeanVAS(data) {
  */
 export async function getExportMeanVASWithContraction(data) {
 
-    data = data || await PatientDao.getFullPatients();
+    data = data || await getFullPatients();
 
     const header = [
             {name: '组别', key: 'groupName'},
@@ -440,7 +440,7 @@ export async function getExportMeanVASWithContraction(data) {
  */
 export async function getExportLaterMeanVAS(data) {
 
-    data = data || await PatientDao.getFullPatients();
+    data = data || await getFullPatients();
 
     const header = [
             {name: '组别', key: 'groupName'},
@@ -489,8 +489,8 @@ export async function getExportLaterMeanVAS(data) {
  */
 export async function getExportData(data, sensoryBlocks) {
 
-    data = data || await PatientDao.getFullPatients();
-    sensoryBlocks = sensoryBlocks || await SensoryBlockDao.getSensoryBlocks();
+    data = data || await getFullPatients();
+    sensoryBlocks = sensoryBlocks || await getSensoryBlocks();
 
     return {
         dpeData: await getExportDPEData(data, sensoryBlocks),

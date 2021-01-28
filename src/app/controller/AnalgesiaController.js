@@ -1,4 +1,11 @@
+/**
+ * @file AnalgesiaController.js
+ */
+
+// Services
 import AnalgesiaService from '../service/AnalgesiaService.js';
+
+// Vendors
 import Response from '../utils/Response.js';
 import {Api, ApiOperation, GetMapping, PostMapping, RequestBody} from '../utils/ApiDecorator';
 

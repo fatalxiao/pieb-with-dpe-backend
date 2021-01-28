@@ -3,10 +3,19 @@
  */
 
 // Daos
-import ObservalDao from '../dao/ObservalDao.js';
+import {
+    getObservalDataByPatientId,
+    isObservalDataExist,
+    createObservalData,
+    updateObservalData,
+    createOrUpdateObservalData
+} from '../dao/ObservalDao.js';
 
 // Vendors
-import Response from '../utils/Response.js';
+import {
+    buildSuccess,
+    buildError
+} from '../utils/Response.js';
 
 /**
  * 获取某个 Patient ID 的 Observal 数据
@@ -14,7 +23,7 @@ import Response from '../utils/Response.js';
  * @returns {Promise<string>}
  */
 export async function getObservalDataByPatientId(patientId) {
-    return Response.buildSuccess(await ObservalDao.getObservalDataByPatientId(patientId));
+    return buildSuccess(await getObservalDataByPatientId(patientId));
 };
 
 /**
@@ -28,22 +37,22 @@ export async function getObservalDataByPatientId(patientId) {
  */
 export async function createObservalData(patientId, data) {
 
-    if (await ObservalDao.isObservalDataExist(patientId)) {
-        return Response.buildError(`Patient ID ${patientId} Observal Data is exist.`);
+    if (await isObservalDataExist(patientId)) {
+        return buildError(`Patient ID ${patientId} Observal Data is exist.`);
     }
 
     let result;
 
     try {
-        result = await ObservalDao.createObservalData({
+        result = await createObservalData({
             ...data,
             patientId
         });
     } catch (e) {
-        return Response.buildError('Add Observal Data failure.');
+        return buildError('Add Observal Data failure.');
     }
 
-    return Response.buildSuccess(result);
+    return buildSuccess(result);
 
 };
 
@@ -58,22 +67,22 @@ export async function createObservalData(patientId, data) {
  */
 export async function updateObservalData(patientId, data) {
 
-    if (!await ObservalDao.isObservalDataExist(patientId)) {
-        return Response.buildError(`Patient ID ${patientId} Observal Data is not exist.`);
+    if (!await isObservalDataExist(patientId)) {
+        return buildError(`Patient ID ${patientId} Observal Data is not exist.`);
     }
 
     let result;
 
     try {
-        result = await ObservalDao.updateObservalData({
+        result = await updateObservalData({
             ...data,
             patientId
         });
     } catch (e) {
-        return Response.buildError('Update Observal Data failure.');
+        return buildError('Update Observal Data failure.');
     }
 
-    return Response.buildSuccess(result);
+    return buildSuccess(result);
 
 };
 
@@ -91,15 +100,15 @@ export async function createOrUpdateObservalData(patientId, data) {
     let result;
 
     try {
-        result = await ObservalDao.createOrUpdateObservalData({
+        result = await createOrUpdateObservalData({
             ...data,
             patientId
         });
     } catch (e) {
-        return Response.buildError('Update Observal Data failure.');
+        return buildError('Update Observal Data failure.');
     }
 
-    return Response.buildSuccess(result);
+    return buildSuccess(result);
 
 };
 

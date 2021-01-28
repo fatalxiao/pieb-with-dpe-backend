@@ -3,10 +3,19 @@
  */
 
 // Daos
-import AnalgesiaDao from '../dao/AnalgesiaDao.js';
+import {
+    getAnalgesiaDataByPatientId,
+    isAnalgesiaDataExist,
+    createAnalgesiaData,
+    updateAnalgesiaData,
+    createOrUpdateAnalgesiaData
+} from '../dao/AnalgesiaDao.js';
 
 // Vendors
-import Response from '../utils/Response.js';
+import {
+    buildSuccess,
+    buildError
+} from '../utils/Response.js';
 
 /**
  * 获取某个 Patient ID 的 Analgesia 数据
@@ -14,7 +23,7 @@ import Response from '../utils/Response.js';
  * @returns {Promise<string>}
  */
 export async function getAnalgesiaDataByPatientId(patientId) {
-    return Response.buildSuccess(await AnalgesiaDao.getAnalgesiaDataByPatientId(patientId));
+    return buildSuccess(await getAnalgesiaDataByPatientId(patientId));
 };
 
 /**
@@ -37,13 +46,13 @@ export async function createAnalgesiaData(patientId, data) {
             patientId
         };
 
-        if (await AnalgesiaDao.isAnalgesiaDataExist(patientId, analgesiaData.timePoint)) {
+        if (await isAnalgesiaDataExist(patientId, analgesiaData.timePoint)) {
             error.push(`Patient ID ${patientId}, timePoint ${analgesiaData.timePoint} data is exist.`);
             continue;
         }
 
         try {
-            await AnalgesiaDao.createAnalgesiaData(analgesiaData);
+            await createAnalgesiaData(analgesiaData);
         } catch (e) {
             error.push(`Patient ID ${patientId}, timePoint ${analgesiaData.timePoint} create failure.`);
         }
@@ -51,10 +60,10 @@ export async function createAnalgesiaData(patientId, data) {
     }
 
     if (error.length > 0) {
-        return Response.buildError(error.join(' '));
+        return buildError(error.join(' '));
     }
 
-    return Response.buildSuccess(data.length);
+    return buildSuccess(data.length);
 
 };
 
@@ -78,13 +87,13 @@ export async function updateAnalgesiaData(patientId, data) {
             patientId
         };
 
-        if (!await AnalgesiaDao.isAnalgesiaDataExist(patientId, analgesiaData.timePoint)) {
+        if (!await isAnalgesiaDataExist(patientId, analgesiaData.timePoint)) {
             error.push(`Patient ID ${patientId}, timePoint ${analgesiaData.timePoint} data is not exist.`);
             continue;
         }
 
         try {
-            await AnalgesiaDao.updateAnalgesiaData(analgesiaData);
+            await updateAnalgesiaData(analgesiaData);
         } catch (e) {
             error.push(`Patient ID ${patientId}, timePoint ${analgesiaData.timePoint} update failure.`);
         }
@@ -92,10 +101,10 @@ export async function updateAnalgesiaData(patientId, data) {
     }
 
     if (error.length > 0) {
-        return Response.buildError(error.join(' '));
+        return buildError(error.join(' '));
     }
 
-    return Response.buildSuccess(data.length);
+    return buildSuccess(data.length);
 
 };
 
@@ -120,7 +129,7 @@ export async function createOrUpdateAnalgesiaData(patientId, data) {
         };
 
         try {
-            await AnalgesiaDao.createOrUpdateAnalgesiaData(analgesiaData);
+            await createOrUpdateAnalgesiaData(analgesiaData);
         } catch (e) {
             error.push(`Patient ID ${patientId}, timePoint ${analgesiaData.timePoint} update failure.`);
         }
@@ -128,10 +137,10 @@ export async function createOrUpdateAnalgesiaData(patientId, data) {
     }
 
     if (error.length > 0) {
-        return Response.buildError(error.join(' '));
+        return buildError(error.join(' '));
     }
 
-    return Response.buildSuccess(data.length);
+    return buildSuccess(data.length);
 
 };
 

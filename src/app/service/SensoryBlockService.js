@@ -1,8 +1,19 @@
-import SensoryBlockDao from '../dao/SensoryBlockDao.js';
-import Response from '../utils/Response.js';
+/**
+ * @file SensoryBlockService.js
+ */
 
-async function getSensoryBlocks() {
-    return Response.buildSuccess(await SensoryBlockDao.getSensoryBlocks());
+// Daos
+import {getSensoryBlocks} from '../dao/SensoryBlockDao.js';
+
+// Vendors
+import {buildSuccess} from '../utils/Response.js';
+
+/**
+ * 获取所有 Sensory Blocks 数据
+ * @returns {Promise<string>}
+ */
+export async function getSensoryBlocks() {
+    return buildSuccess(await getSensoryBlocks());
 };
 
 export default {
