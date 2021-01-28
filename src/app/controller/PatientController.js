@@ -1,52 +1,85 @@
-import xlsx from 'node-xlsx';
-import moment from 'moment';
+/**
+ * @file PatientController.js
+ */
 
+// Services
 import PatientService from '../service/PatientService.js';
 import ExportService from '../service/ExportService.js';
-import Response from '../utils/Response.js';
+
+// Decorators
 import {Api, GetMapping, PostMapping} from '../utils/ApiDecorator';
+
+// Vendors
+import xlsx from 'node-xlsx';
+import moment from 'moment';
+import {buildParamError} from '../utils/Response.js';
 
 @Api({tags: 'Patient'})
 class PatientController {
 
+    /**
+     * 校验创建时的 request 数据
+     * @param requestData
+     * @returns {string}
+     */
     static verifyCreateData(requestData) {
 
         if (!requestData) {
-            return Response.buildParamError('Request Data is required');
+            return buildParamError('Request Data is required');
         } else if (!requestData.id) {
-            return Response.buildParamError('ID is required');
+            return buildParamError('ID is required');
         } else if (!requestData.groupId) {
-            return Response.buildParamError('Group is required');
+            return buildParamError('Group is required');
         } else if (!requestData.name) {
-            return Response.buildParamError('Name is required');
+            return buildParamError('Name is required');
         }
 
         return;
 
     }
 
+    /**
+     * 校验更新时的 request 数据
+     * @param requestData
+     * @returns {string}
+     */
     static verifyUpdateData(requestData) {
 
         if (!requestData) {
-            return Response.buildParamError('Request Data is required');
+            return buildParamError('Request Data is required');
         } else if (!requestData.id) {
-            return Response.buildParamError('ID is required');
+            return buildParamError('ID is required');
         }
 
         return;
 
     }
 
+    /**
+     * 获取用于列表的 Patients 数据
+     * @param ctx
+     * @returns {Promise<void>}
+     */
     @GetMapping({value: '/dpe/patient/getPatients'})
     static async getPatients(ctx) {
         ctx.response.body = await PatientService.getPatients();
     }
 
+    /**
+     * 获取完全的 Patients 数据
+     * @param ctx
+     * @returns {Promise<void>}
+     */
     @GetMapping({value: '/dpe/patient/getFullPatients'})
     static async getFullPatients(ctx) {
         ctx.response.body = await PatientService.getFullPatients();
     }
 
+    /**
+     * 导出 excel 数据
+     * @param ctx
+     * @returns {Promise<void>}
+     */
     @GetMapping({value: '/dpe/patient/exportPatients'})
     static async exportPatients(ctx) {
 
@@ -71,18 +104,28 @@ class PatientController {
 
     }
 
+    /**
+     * 根据 ID 获取 Patient 数据
+     * @param ctx
+     * @returns {Promise<string>}
+     */
     @GetMapping({value: '/dpe/patient/getPatientById/:id'})
     static async getPatientById(ctx) {
 
         const id = ctx.params.id;
         if (!id) {
-            return ctx.response.body = Response.buildParamError('Patient ID is required');
+            return ctx.response.body = buildParamError('Patient ID is required');
         }
 
         ctx.response.body = await PatientService.getPatientById(id);
 
     }
 
+    /**
+     * 创建一条 Patient 数据
+     * @param ctx
+     * @returns {Promise<string>}
+     */
     @PostMapping({value: '/dpe/patient/createPatient'})
     static async createPatient(ctx) {
 
@@ -97,6 +140,11 @@ class PatientController {
 
     }
 
+    /**
+     * 更新一条 Patient 数据
+     * @param ctx
+     * @returns {Promise<string>}
+     */
     @PostMapping({value: '/dpe/patient/updatePatient'})
     static async updatePatient(ctx) {
 
@@ -111,6 +159,11 @@ class PatientController {
 
     }
 
+    /**
+     * 创建或更新一条 Patient 数据
+     * @param ctx
+     * @returns {Promise<string>}
+     */
     @PostMapping({value: '/dpe/patient/createOrUpdatePatient'})
     static async createOrUpdatePatient(ctx) {
 
@@ -125,24 +178,34 @@ class PatientController {
 
     }
 
+    /**
+     * 启用某个 ID 的 Patient
+     * @param ctx
+     * @returns {Promise<string>}
+     */
     @PostMapping({value: '/dpe/patient/enable/:id'})
     static async enablePatient(ctx) {
 
         const id = ctx.params.id;
         if (!id) {
-            return ctx.response.body = Response.buildParamError('Patient ID is required');
+            return ctx.response.body = buildParamError('Patient ID is required');
         }
 
         ctx.response.body = await PatientService.enablePatient(ctx.params.id);
 
     }
 
+    /**
+     * 禁用某个 ID 的 Patient
+     * @param ctx
+     * @returns {Promise<string>}
+     */
     @PostMapping({value: '/dpe/patient/disable/:id'})
     static async disablePatient(ctx) {
 
         const id = ctx.params.id;
         if (!id) {
-            return ctx.response.body = Response.buildParamError('Patient ID is required');
+            return ctx.response.body = buildParamError('Patient ID is required');
         }
 
         ctx.response.body = await PatientService.disablePatient(id);

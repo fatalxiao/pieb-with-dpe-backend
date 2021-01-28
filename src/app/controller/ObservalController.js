@@ -3,16 +3,13 @@
  */
 
 // Services
-import {
-    getObservalDataByPatientId,
-    createObservalData,
-    updateObservalData,
-    createOrUpdateObservalData
-} from '../service/ObservalService.js';
+import ObservalService from '../service/ObservalService.js';
+
+// Decorators
+import {Api, GetMapping, PostMapping} from '../utils/ApiDecorator';
 
 // Vendors
 import {buildParamError} from '../utils/Response.js';
-import {Api, GetMapping, PostMapping} from '../utils/ApiDecorator';
 
 @Api({tags: 'Observal'})
 class ObservalController {
@@ -50,7 +47,7 @@ class ObservalController {
             return ctx.response.body = buildParamError('Patient ID is required');
         }
 
-        ctx.response.body = await getObservalDataByPatientId(patientId);
+        ctx.response.body = await ObservalService.getObservalDataByPatientId(patientId);
 
     }
 
@@ -73,7 +70,7 @@ class ObservalController {
             return ctx.response.body = error;
         }
 
-        ctx.response.body = await createObservalData(patientId, requestData);
+        ctx.response.body = await ObservalService.createObservalData(patientId, requestData);
 
     }
 
@@ -96,7 +93,7 @@ class ObservalController {
             return ctx.response.body = error;
         }
 
-        ctx.response.body = await updateObservalData(patientId, requestData);
+        ctx.response.body = await ObservalService.updateObservalData(patientId, requestData);
 
     }
 
@@ -119,7 +116,7 @@ class ObservalController {
             return ctx.response.body = error;
         }
 
-        ctx.response.body = await createOrUpdateObservalData(patientId, requestData);
+        ctx.response.body = await ObservalService.createOrUpdateObservalData(patientId, requestData);
 
     }
 

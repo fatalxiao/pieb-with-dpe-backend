@@ -3,9 +3,9 @@
  */
 
 // Services
-import {getGroups} from '../service/GroupService.js';
+import GroupService from '../service/GroupService.js';
 
-// Vendors
+// Decorators
 import {Api, GetMapping} from '../utils/ApiDecorator.js';
 
 @Api({tags: 'Group'})
@@ -18,7 +18,7 @@ class GroupController {
      */
     @GetMapping({value: '/dpe/group/getGroups'})
     static async getGroups(ctx) {
-        ctx.response.body = await getGroups();
+        ctx.response.body = await GroupService.getGroups();
     }
 
 };

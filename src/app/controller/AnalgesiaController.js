@@ -3,16 +3,13 @@
  */
 
 // Services
-import {
-    getAnalgesiaDataByPatientId,
-    createAnalgesiaData,
-    updateAnalgesiaData,
-    createOrUpdateAnalgesiaData
-} from '../service/AnalgesiaService.js';
+import AnalgesiaService from '../service/AnalgesiaService.js';
+
+// Decorators
+import {Api, GetMapping, PostMapping} from '../utils/ApiDecorator';
 
 // Vendors
 import {buildParamError} from '../utils/Response.js';
-import {Api, GetMapping, PostMapping} from '../utils/ApiDecorator';
 
 @Api({tags: 'Analgesia'})
 class AnalgesiaController {
@@ -50,7 +47,7 @@ class AnalgesiaController {
             return ctx.response.body = buildParamError('Patient ID is required');
         }
 
-        ctx.response.body = await getAnalgesiaDataByPatientId(patientId);
+        ctx.response.body = await AnalgesiaService.getAnalgesiaDataByPatientId(patientId);
 
     }
 
@@ -77,7 +74,7 @@ class AnalgesiaController {
             return ctx.response.body = error;
         }
 
-        ctx.response.body = await createAnalgesiaData(patientId, requestData);
+        ctx.response.body = await AnalgesiaService.createAnalgesiaData(patientId, requestData);
 
     }
 
@@ -104,7 +101,7 @@ class AnalgesiaController {
             return ctx.response.body = error;
         }
 
-        ctx.response.body = await updateAnalgesiaData(patientId, requestData);
+        ctx.response.body = await AnalgesiaService.updateAnalgesiaData(patientId, requestData);
 
     }
 
@@ -131,7 +128,7 @@ class AnalgesiaController {
             return ctx.response.body = error;
         }
 
-        ctx.response.body = await createOrUpdateAnalgesiaData(patientId, requestData);
+        ctx.response.body = await AnalgesiaService.createOrUpdateAnalgesiaData(patientId, requestData);
 
     }
 
