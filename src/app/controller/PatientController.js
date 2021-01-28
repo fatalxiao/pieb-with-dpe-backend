@@ -4,7 +4,7 @@ import moment from 'moment';
 import PatientService from '../service/PatientService.js';
 import ExportService from '../service/ExportService.js';
 import Response from '../utils/Response.js';
-import {Api, ApiOperation, GetMapping, PostMapping} from '../utils/ApiDecorator';
+import {Api, GetMapping, PostMapping} from '../utils/ApiDecorator';
 
 @Api({tags: 'Patient'})
 class PatientController {
@@ -38,19 +38,16 @@ class PatientController {
     }
 
     @GetMapping({value: '/dpe/patient/getPatients'})
-    @ApiOperation({value: 'get patients', notes: ''})
     static async getPatients(ctx) {
         ctx.response.body = await PatientService.getPatients();
     }
 
     @GetMapping({value: '/dpe/patient/getFullPatients'})
-    @ApiOperation({value: 'get full patients', notes: ''})
     static async getFullPatients(ctx) {
         ctx.response.body = await PatientService.getFullPatients();
     }
 
     @GetMapping({value: '/dpe/patient/exportPatients'})
-    @ApiOperation({value: 'export patients', notes: ''})
     static async exportPatients(ctx) {
 
         const {dpeData, meanVASData, meanVASWithContractionData, laterMeanVASData} = await ExportService.getExportData();
@@ -75,7 +72,6 @@ class PatientController {
     }
 
     @GetMapping({value: '/dpe/patient/getPatientById/:id'})
-    @ApiOperation({value: 'get patient by id', notes: ''})
     static async getPatientById(ctx) {
 
         const id = ctx.params.id;
@@ -88,7 +84,6 @@ class PatientController {
     }
 
     @PostMapping({value: '/dpe/patient/createPatient'})
-    @ApiOperation({value: 'create new patient', notes: ''})
     static async createPatient(ctx) {
 
         const requestData = ctx.request.body;
@@ -103,7 +98,6 @@ class PatientController {
     }
 
     @PostMapping({value: '/dpe/patient/updatePatient'})
-    @ApiOperation({value: 'update patient', notes: ''})
     static async updatePatient(ctx) {
 
         const requestData = ctx.request.body;
@@ -118,7 +112,6 @@ class PatientController {
     }
 
     @PostMapping({value: '/dpe/patient/createOrUpdatePatient'})
-    @ApiOperation({value: 'create or update patient', notes: ''})
     static async createOrUpdatePatient(ctx) {
 
         const requestData = ctx.request.body;
@@ -133,7 +126,6 @@ class PatientController {
     }
 
     @PostMapping({value: '/dpe/patient/enable/:id'})
-    @ApiOperation({value: 'enable patient', notes: ''})
     static async enablePatient(ctx) {
 
         const id = ctx.params.id;
@@ -146,7 +138,6 @@ class PatientController {
     }
 
     @PostMapping({value: '/dpe/patient/disable/:id'})
-    @ApiOperation({value: 'disable patient', notes: ''})
     static async disablePatient(ctx) {
 
         const id = ctx.params.id;

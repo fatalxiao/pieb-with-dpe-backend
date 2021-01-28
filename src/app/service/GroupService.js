@@ -3,7 +3,7 @@
  */
 
 // Daos
-import {getGroups} from '../dao/GroupDao.js';
+import GroupDao from '../dao/GroupDao.js';
 
 // Vendors
 import {buildSuccess} from '../utils/Response.js';
@@ -13,7 +13,7 @@ import {buildSuccess} from '../utils/Response.js';
  * @returns {Promise<string>}
  */
 export async function getGroups() {
-    return buildSuccess(await getGroups());
+    return buildSuccess(await GroupDao.getGroups());
 };
 
 export default {

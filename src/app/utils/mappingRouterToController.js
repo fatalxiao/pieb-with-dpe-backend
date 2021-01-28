@@ -60,21 +60,6 @@ export function mappingPaths(controller, method, requestMethod, requestRoute) {
         }
     }
 
-    // 添加 RequestBody
-    if (REQUEST_PARAMETERS_BODY in method) {
-        for (let item of method[REQUEST_PARAMETERS_BODY]) {
-            config.parameters.push({
-                in: 'body',
-                name: 'body',
-                description: item.notes,
-                required: item.required,
-                schema: {
-                    $ref: `#/definitions/${item.value}`
-                }
-            });
-        }
-    }
-
 }
 
 /**

@@ -3,7 +3,7 @@
  */
 
 // Daos
-import {getSensoryBlocks} from '../dao/SensoryBlockDao.js';
+import SensoryBlockDao from '../dao/SensoryBlockDao.js';
 
 // Vendors
 import {buildSuccess} from '../utils/Response.js';
@@ -13,7 +13,7 @@ import {buildSuccess} from '../utils/Response.js';
  * @returns {Promise<string>}
  */
 export async function getSensoryBlocks() {
-    return buildSuccess(await getSensoryBlocks());
+    return buildSuccess(await SensoryBlockDao.getSensoryBlocks());
 };
 
 export default {

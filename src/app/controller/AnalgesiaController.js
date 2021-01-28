@@ -12,7 +12,7 @@ import {
 
 // Vendors
 import {buildParamError} from '../utils/Response.js';
-import {Api, ApiOperation, GetMapping, PostMapping, RequestBody} from '../utils/ApiDecorator';
+import {Api, GetMapping, PostMapping} from '../utils/ApiDecorator';
 
 @Api({tags: 'Analgesia'})
 class AnalgesiaController {
@@ -43,7 +43,6 @@ class AnalgesiaController {
      * @returns {Promise<string>}
      */
     @GetMapping({value: '/dpe/analgesia/getAnalgesiaDataByPatientId/:patientId'})
-    @ApiOperation({value: 'get Analgesia Data by Patient Id', notes: ''})
     static async getAnalgesiaDataByPatientId(ctx) {
 
         const patientId = ctx.params.patientId;
@@ -65,8 +64,6 @@ class AnalgesiaController {
      * @returns {Promise<*>}
      */
     @PostMapping({value: '/dpe/analgesia/createAnalgesiaData/:patientId'})
-    @ApiOperation({value: 'add new analgesia data', notes: ''})
-    @RequestBody({value: 'Analgesia'})
     static async createAnalgesiaData(ctx) {
 
         const patientId = ctx.params.patientId;
@@ -94,8 +91,6 @@ class AnalgesiaController {
      * @returns {Promise<*>}
      */
     @PostMapping({value: '/dpe/analgesia/updateAnalgesiaData/:patientId'})
-    @ApiOperation({value: 'update analgesia data', notes: ''})
-    @RequestBody({value: 'Analgesia'})
     static async updateAnalgesiaData(ctx) {
 
         const patientId = ctx.params.patientId;
@@ -123,8 +118,6 @@ class AnalgesiaController {
      * @returns {Promise<*>}
      */
     @PostMapping({value: '/dpe/analgesia/createOrUpdateAnalgesiaData/:patientId'})
-    @ApiOperation({value: 'add or update analgesia data', notes: ''})
-    @RequestBody({value: 'Analgesia'})
     static async createOrUpdateAnalgesiaData(ctx) {
 
         const patientId = ctx.params.patientId;

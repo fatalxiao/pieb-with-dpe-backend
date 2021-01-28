@@ -99,19 +99,6 @@ export const DeleteMapping = ({value}) => (target, name, descriptor) => {
 };
 
 /**
- * ApiOperation 标注
- * @param value
- * @param notes
- * @returns {function(*, *, *): *}
- * @constructor
- */
-export const ApiOperation = ({value, notes}) => (target, name, descriptor) => {
-    descriptor.value[REQUEST_SUMMARY] = value;
-    descriptor.value[REQUEST_DESCRIPTION] = notes;
-    return descriptor;
-};
-
-/**
  * PathVariable 标注
  * @param value
  * @param notes
@@ -165,32 +152,6 @@ export const ApiParam = ({value, type, notes, required}) => (target, name, descr
 
 };
 
-/**
- * RequestBody 标注
- * @param value
- * @param notes
- * @param required
- * @returns {function(*, *, *): *}
- * @constructor
- */
-export const RequestBody = ({value, notes, required}) => (target, name, descriptor) => {
-
-    const param = {
-        value,
-        notes,
-        required
-    };
-
-    if (REQUEST_PARAMETERS_BODY in descriptor.value) {
-        descriptor.value[REQUEST_PARAMETERS_BODY].push(param);
-    } else {
-        descriptor.value[REQUEST_PARAMETERS_BODY] = [param];
-    }
-
-    return descriptor;
-
-};
-
 export default {
 
     REQUEST_TAGS,
@@ -210,9 +171,7 @@ export default {
     PostMapping,
     PutMapping,
     DeleteMapping,
-    ApiOperation,
     PathVariable,
-    ApiParam,
-    RequestBody
+    ApiParam
 
 };

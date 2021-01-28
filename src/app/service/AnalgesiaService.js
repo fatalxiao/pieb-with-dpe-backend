@@ -3,13 +3,7 @@
  */
 
 // Daos
-import {
-    getAnalgesiaDataByPatientId,
-    isAnalgesiaDataExist,
-    createAnalgesiaData,
-    updateAnalgesiaData,
-    createOrUpdateAnalgesiaData
-} from '../dao/AnalgesiaDao.js';
+import AnalgesiaDao from '../dao/AnalgesiaDao.js';
 
 // Vendors
 import {
@@ -23,7 +17,7 @@ import {
  * @returns {Promise<string>}
  */
 export async function getAnalgesiaDataByPatientId(patientId) {
-    return buildSuccess(await getAnalgesiaDataByPatientId(patientId));
+    return buildSuccess(await AnalgesiaDao.getAnalgesiaDataByPatientId(patientId));
 };
 
 /**
@@ -46,13 +40,13 @@ export async function createAnalgesiaData(patientId, data) {
             patientId
         };
 
-        if (await isAnalgesiaDataExist(patientId, analgesiaData.timePoint)) {
+        if (await AnalgesiaDao.isAnalgesiaDataExist(patientId, analgesiaData.timePoint)) {
             error.push(`Patient ID ${patientId}, timePoint ${analgesiaData.timePoint} data is exist.`);
             continue;
         }
 
         try {
-            await createAnalgesiaData(analgesiaData);
+            await AnalgesiaDao.createAnalgesiaData(analgesiaData);
         } catch (e) {
             error.push(`Patient ID ${patientId}, timePoint ${analgesiaData.timePoint} create failure.`);
         }
@@ -87,13 +81,13 @@ export async function updateAnalgesiaData(patientId, data) {
             patientId
         };
 
-        if (!await isAnalgesiaDataExist(patientId, analgesiaData.timePoint)) {
+        if (!await AnalgesiaDao.isAnalgesiaDataExist(patientId, analgesiaData.timePoint)) {
             error.push(`Patient ID ${patientId}, timePoint ${analgesiaData.timePoint} data is not exist.`);
             continue;
         }
 
         try {
-            await updateAnalgesiaData(analgesiaData);
+            await AnalgesiaDao.updateAnalgesiaData(analgesiaData);
         } catch (e) {
             error.push(`Patient ID ${patientId}, timePoint ${analgesiaData.timePoint} update failure.`);
         }
@@ -129,7 +123,7 @@ export async function createOrUpdateAnalgesiaData(patientId, data) {
         };
 
         try {
-            await createOrUpdateAnalgesiaData(analgesiaData);
+            await AnalgesiaDao.createOrUpdateAnalgesiaData(analgesiaData);
         } catch (e) {
             error.push(`Patient ID ${patientId}, timePoint ${analgesiaData.timePoint} update failure.`);
         }

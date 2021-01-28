@@ -3,13 +3,7 @@
  */
 
 // Daos
-import {
-    getObservalDataByPatientId,
-    isObservalDataExist,
-    createObservalData,
-    updateObservalData,
-    createOrUpdateObservalData
-} from '../dao/ObservalDao.js';
+import ObservalDao from '../dao/ObservalDao.js';
 
 // Vendors
 import {
@@ -23,7 +17,7 @@ import {
  * @returns {Promise<string>}
  */
 export async function getObservalDataByPatientId(patientId) {
-    return buildSuccess(await getObservalDataByPatientId(patientId));
+    return buildSuccess(await ObservalDao.getObservalDataByPatientId(patientId));
 };
 
 /**
@@ -37,14 +31,14 @@ export async function getObservalDataByPatientId(patientId) {
  */
 export async function createObservalData(patientId, data) {
 
-    if (await isObservalDataExist(patientId)) {
+    if (await ObservalDao.isObservalDataExist(patientId)) {
         return buildError(`Patient ID ${patientId} Observal Data is exist.`);
     }
 
     let result;
 
     try {
-        result = await createObservalData({
+        result = await ObservalDao.createObservalData({
             ...data,
             patientId
         });
@@ -67,14 +61,14 @@ export async function createObservalData(patientId, data) {
  */
 export async function updateObservalData(patientId, data) {
 
-    if (!await isObservalDataExist(patientId)) {
+    if (!await ObservalDao.isObservalDataExist(patientId)) {
         return buildError(`Patient ID ${patientId} Observal Data is not exist.`);
     }
 
     let result;
 
     try {
-        result = await updateObservalData({
+        result = await ObservalDao.updateObservalData({
             ...data,
             patientId
         });
@@ -100,7 +94,7 @@ export async function createOrUpdateObservalData(patientId, data) {
     let result;
 
     try {
-        result = await createOrUpdateObservalData({
+        result = await ObservalDao.createOrUpdateObservalData({
             ...data,
             patientId
         });

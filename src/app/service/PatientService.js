@@ -3,17 +3,7 @@
  */
 
 // Daos
-import {
-    getPatients,
-    getFullPatients,
-    getPatientById,
-    isPatientExist,
-    createPatient,
-    updatePatient,
-    createOrUpdatePatient,
-    enablePatient,
-    disablePatient
-} from '../dao/PatientDao.js';
+import PatientDao from '../dao/PatientDao.js';
 
 // Vendors
 import {
@@ -26,7 +16,7 @@ import {
  * @returns {Promise<string>}
  */
 export async function getPatients() {
-    return buildSuccess(await getPatients());
+    return buildSuccess(await PatientDao.getPatients());
 };
 
 /**
@@ -34,7 +24,7 @@ export async function getPatients() {
  * @returns {Promise<string>}
  */
 export async function getFullPatients() {
-    return buildSuccess(await getFullPatients());
+    return buildSuccess(await PatientDao.getFullPatients());
 };
 
 /**
@@ -43,7 +33,7 @@ export async function getFullPatients() {
  * @returns {Promise<string>}
  */
 export async function getPatientById(id) {
-    return buildSuccess(await getPatientById(id));
+    return buildSuccess(await PatientDao.getPatientById(id));
 };
 
 /**
@@ -53,14 +43,14 @@ export async function getPatientById(id) {
  */
 export async function createPatient(data) {
 
-    if (await isPatientExist(data.id)) {
+    if (await PatientDao.isPatientExist(data.id)) {
         return buildError(`Patient ID ${data.id} is exist.`);
     }
 
     let result;
 
     try {
-        result = await createPatient(data);
+        result = await PatientDao.createPatient(data);
     } catch (e) {
         return buildError('Create Patient failure.');
     }
@@ -76,14 +66,14 @@ export async function createPatient(data) {
  */
 export async function updatePatient(data) {
 
-    if (!(await isPatientExist(data.id))) {
+    if (!(await PatientDao.isPatientExist(data.id))) {
         return buildError(`Patient ID ${data.id} is not exist.`);
     }
 
     let result;
 
     try {
-        result = await updatePatient(data);
+        result = await PatientDao.updatePatient(data);
     } catch (e) {
         return buildError('Update Patient failure.');
     }
@@ -102,7 +92,7 @@ export async function createOrUpdatePatient(data) {
     let result;
 
     try {
-        result = await createOrUpdatePatient(data);
+        result = await PatientDao.createOrUpdatePatient(data);
     } catch (e) {
         return buildError('Update Patient failure.');
     }
@@ -118,14 +108,14 @@ export async function createOrUpdatePatient(data) {
  */
 export async function enablePatient(id) {
 
-    if (!(await isPatientExist(id))) {
+    if (!(await PatientDao.isPatientExist(id))) {
         return buildError(`Patient ID ${id} is not exist.`);
     }
 
     let result;
 
     try {
-        result = await enablePatient(id);
+        result = await PatientDao.enablePatient(id);
     } catch (e) {
         return buildError('Enable Patient failure.');
     }
@@ -141,14 +131,14 @@ export async function enablePatient(id) {
  */
 export async function disablePatient(id) {
 
-    if (!(await isPatientExist(id))) {
+    if (!(await PatientDao.isPatientExist(id))) {
         return buildError(`Patient ID ${id} is not exist.`);
     }
 
     let result;
 
     try {
-        result = await disablePatient(id);
+        result = await PatientDao.disablePatient(id);
     } catch (e) {
         return buildError('Enable Patient failure.');
     }
