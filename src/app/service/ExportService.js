@@ -208,12 +208,12 @@ async function getExportDPEData(data, sensoryBlocks) {
 
             if (item.observal) {
 
-                const durationOfFirstPcaTime = OC.durationOfFirstPcaTime(item.observal),
-                    durationOfFirstManualBolusTime = OC.durationOfFirstManualBolusTime(item.observal),
-                    durationOfAnalgesia = OC.durationOfAnalgesia(item.observal),
-                    anestheticsConsumption = OC.anestheticsConsumption(item.observal),
-                    ropivacaineConsumption = OC.ropivacaineConsumption(item.observal),
-                    sufentanilConsumption = OC.sufentanilConsumption(item.observal);
+                const durationOfFirstPcaTime = OC.getDurationOfFirstPcaTime(item.observal),
+                    durationOfFirstManualBolusTime = OC.getDurationOfFirstManualBolusTime(item.observal),
+                    durationOfAnalgesia = OC.getDurationOfAnalgesia(item.observal),
+                    anestheticsConsumption = OC.getAnestheticsConsumption(item.observal),
+                    ropivacaineConsumption = OC.getRopivacaineConsumption(item.observal),
+                    sufentanilConsumption = OC.getSufentanilConsumption(item.observal);
 
                 result.pcaCount = numHandler(item.observal.pcaCount);
                 result.durationOfFirstPcaTime = numHandler(durationOfFirstPcaTime);

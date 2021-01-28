@@ -1,5 +1,11 @@
+/**
+ * @file mappingRouterToController.js
+ */
+
 import fs from 'fs';
 import Router from 'koa-router';
+
+// Decorators
 import {
     REQUEST_TAGS, REQUEST_METHOD, REQUEST_ROUTE, REQUEST_SUMMARY, REQUEST_DESCRIPTION,
     REQUEST_PARAMETERS_PATH, REQUEST_PARAMETERS_PARAM, REQUEST_PARAMETERS_BODY
@@ -7,7 +13,14 @@ import {
 
 const router = Router();
 
-function mappingPaths(controller, method, requestMethod, requestRoute) {
+/**
+ * 将 controllers 与其标注配置的 path 绑定
+ * @param controller
+ * @param method
+ * @param requestMethod
+ * @param requestRoute
+ */
+export function mappingPaths(controller, method, requestMethod, requestRoute) {
 
     const config = {
         tags: [controller[REQUEST_TAGS]],
@@ -22,7 +35,7 @@ function mappingPaths(controller, method, requestMethod, requestRoute) {
         parameters: []
     };
 
-    // add PathVariable
+    // 添加 PathVariable
     if (REQUEST_PARAMETERS_PATH in method) {
         for (let item of method[REQUEST_PARAMETERS_PATH]) {
             config.parameters.push({
@@ -34,7 +47,7 @@ function mappingPaths(controller, method, requestMethod, requestRoute) {
         }
     }
 
-    // add ApiParam
+    // 添加 ApiParam
     if (REQUEST_PARAMETERS_PARAM in method) {
         for (let item of method[REQUEST_PARAMETERS_PARAM]) {
             config.parameters.push({
@@ -47,7 +60,7 @@ function mappingPaths(controller, method, requestMethod, requestRoute) {
         }
     }
 
-    // add RequestBody
+    // 添加 RequestBody
     if (REQUEST_PARAMETERS_BODY in method) {
         for (let item of method[REQUEST_PARAMETERS_BODY]) {
             config.parameters.push({
@@ -64,7 +77,12 @@ function mappingPaths(controller, method, requestMethod, requestRoute) {
 
 }
 
-function mappingMethod(controller, method) {
+/**
+ * 绑定 request method
+ * @param controller
+ * @param method
+ */
+export function mappingMethod(controller, method) {
 
     const requestMethod = method[REQUEST_METHOD],
         requestRoute = method[REQUEST_ROUTE];
@@ -77,7 +95,11 @@ function mappingMethod(controller, method) {
 
 }
 
-function mappingController(controller) {
+/**
+ * 绑定 controllers
+ * @param controller
+ */
+export function mappingController(controller) {
 
     if (!controller) {
         return;
@@ -98,7 +120,12 @@ function mappingController(controller) {
 
 }
 
-function mappingRouterToController(dir) {
+/**
+ * 遍历 /app/controller 文件夹下的所有文件
+ * @param dir
+ * @returns {dispatch}
+ */
+export function mappingRouterToController(dir) {
 
     // traversal all controll file
     fs.readdirSync(dir + '/app/controller').forEach(file =>

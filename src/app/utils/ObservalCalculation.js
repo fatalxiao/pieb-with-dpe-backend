@@ -1,6 +1,16 @@
+/**
+ * @file mappingRouterToController.js
+ */
+
+// Vendors
 import Time from '../utils/Time.js';
 
-function durationOfFirstPcaTime(observalData) {
+/**
+ * 根据 "麻醉开始时间" 和 "首次 PCA 时间"，计算两者间的时长
+ * @param observalData
+ * @returns {string|null}
+ */
+export function getDurationOfFirstPcaTime(observalData) {
 
     if (!observalData || !observalData.initialTime || !observalData.firstPcaTime) {
         return null;
@@ -10,7 +20,12 @@ function durationOfFirstPcaTime(observalData) {
 
 }
 
-function durationOfFirstManualBolusTime(observalData) {
+/**
+ * 根据 "麻醉开始时间" 和 "首次人工硬膜外追加时间"，计算两者间的时长
+ * @param observalData
+ * @returns {string|null}
+ */
+export function getDurationOfFirstManualBolusTime(observalData) {
 
     if (!observalData || !observalData.initialTime || !observalData.firstManualBolusTime) {
         return null;
@@ -21,22 +36,27 @@ function durationOfFirstManualBolusTime(observalData) {
 }
 
 /**
- * 单位分钟
+ * 根据 "麻醉开始时间" 和 "分娩时间"，计算两者间的时长
  * @param observalData
  * @returns {*}
  */
-function durationOfAnalgesia(observalData) {
+export function getDurationOfAnalgesia(observalData) {
 
     if (!observalData || !observalData.initialTime || !observalData.birthTime) {
         return null;
     }
 
-    // 总镇痛时间+60分钟
+    // 总镇痛时间 + 60 分钟
     return '' + (~~(Time.duration(observalData.initialTime, observalData.birthTime) / 1000 / 60) + 60);
 
 }
 
-function anestheticsConsumption(observalData) {
+/**
+ * 获取所有麻醉药的消耗量
+ * @param observalData
+ * @returns {null|*}
+ */
+export function getAnestheticsConsumption(observalData) {
 
     if (!observalData) {
         return null;
@@ -62,7 +82,12 @@ function anestheticsConsumption(observalData) {
 
 }
 
-function ropivacaineConsumption(observalData) {
+/**
+ * 获取罗哌卡因的消耗量
+ * @param observalData
+ * @returns {null|*}
+ */
+export function getRopivacaineConsumption(observalData) {
 
     if (!observalData) {
         return null;
@@ -88,7 +113,12 @@ function ropivacaineConsumption(observalData) {
 
 }
 
-function sufentanilConsumption(observalData) {
+/**
+ * 获取舒芬太尼的消耗量
+ * @param observalData
+ * @returns {null|*}
+ */
+export function getSufentanilConsumption(observalData) {
 
     if (!observalData) {
         return null;
@@ -115,10 +145,10 @@ function sufentanilConsumption(observalData) {
 }
 
 export default {
-    durationOfFirstPcaTime,
-    durationOfFirstManualBolusTime,
-    durationOfAnalgesia,
-    anestheticsConsumption,
-    ropivacaineConsumption,
-    sufentanilConsumption
+    getDurationOfFirstPcaTime,
+    getDurationOfFirstManualBolusTime,
+    getDurationOfAnalgesia,
+    getAnestheticsConsumption,
+    getRopivacaineConsumption,
+    getSufentanilConsumption
 };
