@@ -1,5 +1,5 @@
 /**
- * @file AnalgesiaDao.js
+ * @file GroupDao.js
  */
 
 // Models

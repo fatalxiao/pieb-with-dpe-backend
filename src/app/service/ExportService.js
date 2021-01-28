@@ -1,14 +1,32 @@
+/**
+ * @file ExportService.js
+ */
+
+// Daos
 import PatientDao from '../dao/PatientDao.js';
 import SensoryBlockDao from '../dao/SensoryBlockDao.js';
 
-import AC from '../utils/AnalgesiaCalculation.js';
-import OC from '../utils/ObservalCalculation.js';
-import ExportFormat from '../utils/ExportFormat.js';
+// Vendors
+import {
+    Position,
+    fullFillAnalgesiaData, getVasScore, getVasScoreWithContraction, isVasLessThan1,
+    getTimePointOfVasLessThan1, isSacralSensoryInTime, getMaxThoracicSensoryBlock,
+    getMinSacralSensoryBlock, isUnilateralSensoryBlock, getTimePointOfThoracicSensoryBlock,
+    getTimePointOfSacralSensoryBlock, isFetalHeartRateDecreased, isAdequatePainRelief
+} from '../utils/AnalgesiaCalculation.js';
+import {
+    getDurationOfFirstPcaTime, getDurationOfFirstManualBolusTime, getDurationOfAnalgesia,
+    getAnestheticsConsumption, getRopivacaineConsumption, getSufentanilConsumption
+} from '../utils/ObservalCalculation.js';
+import {formatBoolean, formatNumber} from '../utils/ExportFormat.js';
 
-const boolHandler = ExportFormat.formatBoolean,
-    numHandler = ExportFormat.formatNumber;
-
-async function getExportDPEData(data, sensoryBlocks) {
+/**
+ * 获取导出的 DPE 部分的数据
+ * @param data
+ * @param sensoryBlocks
+ * @returns {Promise<(*|null)[][]>}
+ */
+export async function getExportDPEData(data, sensoryBlocks) {
 
     data = data || await PatientDao.getFullPatients();
     sensoryBlocks = sensoryBlocks || await SensoryBlockDao.getSensoryBlocks();
@@ -131,139 +149,147 @@ async function getExportDPEData(data, sensoryBlocks) {
                 groupName: item.group ? item.group.name : '',
                 name: item.name,
                 id: item.id,
-                age: numHandler(item.age),
-                height: numHandler(item.height),
-                weight: numHandler(item.weight),
+                age: formatNumber(item.age),
+                height: formatNumber(item.height),
+                weight: formatNumber(item.weight),
                 bmi: item.weight && item.height ? (item.weight / ((item.height / 100) ** 2)).toFixed(2) : null,
-                gestationalDays: numHandler(item.gestationalDays),
-                initialVasScore: numHandler(item.initialVasScore * 10),
-                cervicalDilationAtTimeOfEA: numHandler(item.cervicalDilationAtTimeOfEA),
-                systolicBloodPressure: numHandler(item.systolicBloodPressure),
-                diastolicBloodPressure: numHandler(item.diastolicBloodPressure),
-                heartRate: numHandler(item.heartRate),
-                pulseOxygenSaturation: numHandler(item.pulseOxygenSaturation),
-                fetalHeartRate: numHandler(item.fetalHeartRate),
-                hasOxytocinAtTimeOfEA: boolHandler(item.hasOxytocinAtTimeOfEA),
-                hasInduction: boolHandler(item.hasInduction),
+                gestationalDays: formatNumber(item.gestationalDays),
+                initialVasScore: formatNumber(item.initialVasScore * 10),
+                cervicalDilationAtTimeOfEA: formatNumber(item.cervicalDilationAtTimeOfEA),
+                systolicBloodPressure: formatNumber(item.systolicBloodPressure),
+                diastolicBloodPressure: formatNumber(item.diastolicBloodPressure),
+                heartRate: formatNumber(item.heartRate),
+                pulseOxygenSaturation: formatNumber(item.pulseOxygenSaturation),
+                fetalHeartRate: formatNumber(item.fetalHeartRate),
+                hasOxytocinAtTimeOfEA: formatBoolean(item.hasOxytocinAtTimeOfEA),
+                hasInduction: formatBoolean(item.hasInduction),
                 desc: item.description ? [item.description] : []
             };
 
             if (item.analgesia) {
 
-                const analgesiaData = AC.fullFillAnalgesiaData(item.analgesia),
+                const analgesiaData = fullFillAnalgesiaData(item.analgesia),
 
-                    isS1In20Left = AC.isSacralSensoryInTime(analgesiaData, s1Value, 20, AC.Position.LEFT),
-                    isS1In20Right = AC.isSacralSensoryInTime(analgesiaData, s1Value, 20, AC.Position.RIGHT),
+                    isS1In20Left = isSacralSensoryInTime(analgesiaData, s1Value, 20, Position.LEFT),
+                    isS1In20Right = isSacralSensoryInTime(analgesiaData, s1Value, 20, Position.RIGHT),
 
-                    isS2In20Left = AC.isSacralSensoryInTime(analgesiaData, s2Value, 20, AC.Position.LEFT),
-                    isS2In20Right = AC.isSacralSensoryInTime(analgesiaData, s2Value, 20, AC.Position.RIGHT),
+                    isS2In20Left = isSacralSensoryInTime(analgesiaData, s2Value, 20, Position.LEFT),
+                    isS2In20Right = isSacralSensoryInTime(analgesiaData, s2Value, 20, Position.RIGHT),
 
-                    isS1In30Left = AC.isSacralSensoryInTime(analgesiaData, s1Value, 30, AC.Position.LEFT),
-                    isS1In30Right = AC.isSacralSensoryInTime(analgesiaData, s1Value, 30, AC.Position.RIGHT),
+                    isS1In30Left = isSacralSensoryInTime(analgesiaData, s1Value, 30, Position.LEFT),
+                    isS1In30Right = isSacralSensoryInTime(analgesiaData, s1Value, 30, Position.RIGHT),
 
-                    isS2In30Left = AC.isSacralSensoryInTime(analgesiaData, s2Value, 30, AC.Position.LEFT),
-                    isS2In30Right = AC.isSacralSensoryInTime(analgesiaData, s2Value, 30, AC.Position.RIGHT);
+                    isS2In30Left = isSacralSensoryInTime(analgesiaData, s2Value, 30, Position.LEFT),
+                    isS2In30Right = isSacralSensoryInTime(analgesiaData, s2Value, 30, Position.RIGHT);
 
-                result.isVasLessThan1In20 = boolHandler(AC.isVasLessThan1(analgesiaData, 20));
-                result.isVasLessThan1In30 = boolHandler(AC.isVasLessThan1(analgesiaData, 30));
-                result.timePointOfVasLessThan1 = numHandler(AC.getTimePointOfVasLessThan1(analgesiaData));
-                result.isAdequatePainReliefIn0 = boolHandler(AC.isAdequatePainRelief(analgesiaData, 0));
-                result.isAdequatePainReliefIn2 = boolHandler(AC.isAdequatePainRelief(analgesiaData, 2));
-                result.isAdequatePainReliefIn4 = boolHandler(AC.isAdequatePainRelief(analgesiaData, 4));
-                result.isAdequatePainReliefIn6 = boolHandler(AC.isAdequatePainRelief(analgesiaData, 6));
-                result.isAdequatePainReliefIn8 = boolHandler(AC.isAdequatePainRelief(analgesiaData, 8));
-                result.isAdequatePainReliefIn10 = boolHandler(AC.isAdequatePainRelief(analgesiaData, 10));
-                result.isAdequatePainReliefIn12 = boolHandler(AC.isAdequatePainRelief(analgesiaData, 12));
-                result.isAdequatePainReliefIn14 = boolHandler(AC.isAdequatePainRelief(analgesiaData, 14));
-                result.isAdequatePainReliefIn16 = boolHandler(AC.isAdequatePainRelief(analgesiaData, 16));
-                result.isAdequatePainReliefIn18 = boolHandler(AC.isAdequatePainRelief(analgesiaData, 18));
-                result.isAdequatePainReliefIn20 = boolHandler(AC.isAdequatePainRelief(analgesiaData, 20));
-                result.isAdequatePainReliefIn30 = boolHandler(AC.isAdequatePainRelief(analgesiaData, 30));
-                result.isS1In20Left = boolHandler(isS1In20Left);
-                result.isS1In20Right = boolHandler(isS1In20Right);
-                result.isS1In20Both = boolHandler(isS1In20Left && isS1In20Right);
-                result.isS2In20Left = boolHandler(isS2In20Left);
-                result.isS2In20Right = boolHandler(isS2In20Right);
-                result.isS2In20Both = boolHandler(isS2In20Left && isS2In20Right);
-                result.isS1In30Left = boolHandler(isS1In30Left);
-                result.isS1In30Right = boolHandler(isS1In30Right);
-                result.isS1In30Both = boolHandler(isS1In30Left && isS1In30Right);
-                result.isS2In30Left = boolHandler(isS2In30Left);
-                result.isS2In30Right = boolHandler(isS2In30Right);
-                result.isS2In30Both = boolHandler(isS2In30Left && isS2In30Right);
-                result.vasIn120 = numHandler(AC.getVasScore(analgesiaData, 120));
-                result.vasIn210 = numHandler(AC.getVasScore(analgesiaData, 210));
-                result.maxThoracicSensoryBlockLeft = numHandler(AC.getMaxThoracicSensoryBlock(analgesiaData, AC.Position.LEFT));
-                result.maxThoracicSensoryBlockRight = numHandler(AC.getMaxThoracicSensoryBlock(analgesiaData, AC.Position.RIGHT));
-                result.minSacralSensoryBlockLeft = numHandler(AC.getMinSacralSensoryBlock(analgesiaData, AC.Position.LEFT));
-                result.minSacralSensoryBlockRight = numHandler(AC.getMinSacralSensoryBlock(analgesiaData, AC.Position.RIGHT));
-                result.isUnilateralSensoryBlock = boolHandler(AC.isUnilateralSensoryBlock(analgesiaData));
-                result.timePointOfT8 = numHandler(AC.getTimePointOfThoracicSensoryBlock(analgesiaData, t8Value));
-                result.timePointOfT10 = numHandler(AC.getTimePointOfThoracicSensoryBlock(analgesiaData, t10Value));
-                result.timePointOfS1 = numHandler(AC.getTimePointOfSacralSensoryBlock(analgesiaData, s1Value));
-                result.timePointOfS2 = numHandler(AC.getTimePointOfSacralSensoryBlock(analgesiaData, s2Value));
-                result.isFetalHeartRateDecreased = boolHandler(AC.isFetalHeartRateDecreased(analgesiaData));
+                result.isVasLessThan1In20 = formatBoolean(isVasLessThan1(analgesiaData, 20));
+                result.isVasLessThan1In30 = formatBoolean(isVasLessThan1(analgesiaData, 30));
+                result.timePointOfVasLessThan1 = formatNumber(getTimePointOfVasLessThan1(analgesiaData));
+                result.isAdequatePainReliefIn0 = formatBoolean(isAdequatePainRelief(analgesiaData, 0));
+                result.isAdequatePainReliefIn2 = formatBoolean(isAdequatePainRelief(analgesiaData, 2));
+                result.isAdequatePainReliefIn4 = formatBoolean(isAdequatePainRelief(analgesiaData, 4));
+                result.isAdequatePainReliefIn6 = formatBoolean(isAdequatePainRelief(analgesiaData, 6));
+                result.isAdequatePainReliefIn8 = formatBoolean(isAdequatePainRelief(analgesiaData, 8));
+                result.isAdequatePainReliefIn10 = formatBoolean(isAdequatePainRelief(analgesiaData, 10));
+                result.isAdequatePainReliefIn12 = formatBoolean(isAdequatePainRelief(analgesiaData, 12));
+                result.isAdequatePainReliefIn14 = formatBoolean(isAdequatePainRelief(analgesiaData, 14));
+                result.isAdequatePainReliefIn16 = formatBoolean(isAdequatePainRelief(analgesiaData, 16));
+                result.isAdequatePainReliefIn18 = formatBoolean(isAdequatePainRelief(analgesiaData, 18));
+                result.isAdequatePainReliefIn20 = formatBoolean(isAdequatePainRelief(analgesiaData, 20));
+                result.isAdequatePainReliefIn30 = formatBoolean(isAdequatePainRelief(analgesiaData, 30));
+                result.isS1In20Left = formatBoolean(isS1In20Left);
+                result.isS1In20Right = formatBoolean(isS1In20Right);
+                result.isS1In20Both = formatBoolean(isS1In20Left && isS1In20Right);
+                result.isS2In20Left = formatBoolean(isS2In20Left);
+                result.isS2In20Right = formatBoolean(isS2In20Right);
+                result.isS2In20Both = formatBoolean(isS2In20Left && isS2In20Right);
+                result.isS1In30Left = formatBoolean(isS1In30Left);
+                result.isS1In30Right = formatBoolean(isS1In30Right);
+                result.isS1In30Both = formatBoolean(isS1In30Left && isS1In30Right);
+                result.isS2In30Left = formatBoolean(isS2In30Left);
+                result.isS2In30Right = formatBoolean(isS2In30Right);
+                result.isS2In30Both = formatBoolean(isS2In30Left && isS2In30Right);
+                result.vasIn120 = formatNumber(getVasScore(analgesiaData, 120));
+                result.vasIn210 = formatNumber(getVasScore(analgesiaData, 210));
+                result.maxThoracicSensoryBlockLeft = formatNumber(
+                    getMaxThoracicSensoryBlock(analgesiaData, Position.LEFT));
+                result.maxThoracicSensoryBlockRight = formatNumber(
+                    getMaxThoracicSensoryBlock(analgesiaData, Position.RIGHT));
+                result.minSacralSensoryBlockLeft = formatNumber(
+                    getMinSacralSensoryBlock(analgesiaData, Position.LEFT));
+                result.minSacralSensoryBlockRight = formatNumber(
+                    getMinSacralSensoryBlock(analgesiaData, Position.RIGHT));
+                result.isUnilateralSensoryBlock = formatBoolean(isUnilateralSensoryBlock(analgesiaData));
+                result.timePointOfT8 = formatNumber(getTimePointOfThoracicSensoryBlock(analgesiaData, t8Value));
+                result.timePointOfT10 = formatNumber(getTimePointOfThoracicSensoryBlock(analgesiaData, t10Value));
+                result.timePointOfS1 = formatNumber(getTimePointOfSacralSensoryBlock(analgesiaData, s1Value));
+                result.timePointOfS2 = formatNumber(getTimePointOfSacralSensoryBlock(analgesiaData, s2Value));
+                result.isFetalHeartRateDecreased = formatBoolean(isFetalHeartRateDecreased(analgesiaData));
 
             }
 
             if (item.observal) {
 
-                const durationOfFirstPcaTime = OC.getDurationOfFirstPcaTime(item.observal),
-                    durationOfFirstManualBolusTime = OC.getDurationOfFirstManualBolusTime(item.observal),
-                    durationOfAnalgesia = OC.getDurationOfAnalgesia(item.observal),
-                    anestheticsConsumption = OC.getAnestheticsConsumption(item.observal),
-                    ropivacaineConsumption = OC.getRopivacaineConsumption(item.observal),
-                    sufentanilConsumption = OC.getSufentanilConsumption(item.observal);
+                const durationOfFirstPcaTime = getDurationOfFirstPcaTime(item.observal),
+                    durationOfFirstManualBolusTime = getDurationOfFirstManualBolusTime(item.observal),
+                    durationOfAnalgesia = getDurationOfAnalgesia(item.observal),
+                    anestheticsConsumption = getAnestheticsConsumption(item.observal),
+                    ropivacaineConsumption = getRopivacaineConsumption(item.observal),
+                    sufentanilConsumption = getSufentanilConsumption(item.observal);
 
-                result.pcaCount = numHandler(item.observal.pcaCount);
-                result.durationOfFirstPcaTime = numHandler(durationOfFirstPcaTime);
-                result.manualBolusCount = numHandler(item.observal.manualBolusCount);
-                result.durationOfFirstManualBolusTime = numHandler(durationOfFirstManualBolusTime);
-                result.hasEpiduralCatheterAdjuestment = boolHandler(item.observal.hasEpiduralCatheterAdjuestment);
-                result.hasEpiduralCatheterReplacement = boolHandler(item.observal.hasEpiduralCatheterReplacement);
-                result.isUnabledToPunctureDura = boolHandler(item.observal.isUnabledToPunctureDura);
-                result.isIVEpiduralCatheterInsertion = boolHandler(item.observal.isIVEpiduralCatheterInsertion);
-                result.isIntrathecalEpiduralCatheterInsertion = boolHandler(item.observal.isIntrathecalEpiduralCatheterInsertion);
-                result.durationOfAnalgesia = numHandler(durationOfAnalgesia);
-                result.anestheticsConsumption = numHandler(anestheticsConsumption !== null ? anestheticsConsumption.toFixed(2) : null);
-                result.ropivacaineConsumption = numHandler(ropivacaineConsumption !== null ? ropivacaineConsumption.toFixed(2) : null);
-                result.sufentanilConsumption = numHandler(sufentanilConsumption !== null ? sufentanilConsumption.toFixed(2) : null);
-                result.durationOfFirstStageOfLabor = numHandler(item.observal.durationOfFirstStageOfLabor);
-                result.durationOfSecondStageOfLabor = numHandler(item.observal.durationOfSecondStageOfLabor);
+                result.pcaCount = formatNumber(item.observal.pcaCount);
+                result.durationOfFirstPcaTime = formatNumber(durationOfFirstPcaTime);
+                result.manualBolusCount = formatNumber(item.observal.manualBolusCount);
+                result.durationOfFirstManualBolusTime = formatNumber(durationOfFirstManualBolusTime);
+                result.hasEpiduralCatheterAdjuestment = formatBoolean(item.observal.hasEpiduralCatheterAdjuestment);
+                result.hasEpiduralCatheterReplacement = formatBoolean(item.observal.hasEpiduralCatheterReplacement);
+                result.isUnabledToPunctureDura = formatBoolean(item.observal.isUnabledToPunctureDura);
+                result.isIVEpiduralCatheterInsertion = formatBoolean(item.observal.isIVEpiduralCatheterInsertion);
+                result.isIntrathecalEpiduralCatheterInsertion = formatBoolean(
+                    item.observal.isIntrathecalEpiduralCatheterInsertion);
+                result.durationOfAnalgesia = formatNumber(durationOfAnalgesia);
+                result.anestheticsConsumption = formatNumber(
+                    anestheticsConsumption !== null ? anestheticsConsumption.toFixed(2) : null);
+                result.ropivacaineConsumption = formatNumber(
+                    ropivacaineConsumption !== null ? ropivacaineConsumption.toFixed(2) : null);
+                result.sufentanilConsumption = formatNumber(
+                    sufentanilConsumption !== null ? sufentanilConsumption.toFixed(2) : null);
+                result.durationOfFirstStageOfLabor = formatNumber(item.observal.durationOfFirstStageOfLabor);
+                result.durationOfSecondStageOfLabor = formatNumber(item.observal.durationOfSecondStageOfLabor);
                 result.anestheticsConsumptionPerTime = anestheticsConsumption !== null && durationOfAnalgesia !== null ?
                     (anestheticsConsumption / durationOfAnalgesia * 60).toFixed(1) : null;
                 result.ropivacaineConsumptionPerTime = ropivacaineConsumption !== null && durationOfAnalgesia !== null ?
                     (ropivacaineConsumption / durationOfAnalgesia * 60).toFixed(1) : null;
                 result.sufentanilConsumptionPerTime = sufentanilConsumption !== null && durationOfAnalgesia !== null ?
                     (sufentanilConsumption / durationOfAnalgesia * 60).toFixed(1) : null;
-                result.hasCaesareanSection = boolHandler(item.observal.hasCaesareanSection);
-                result.hasInstrumental = boolHandler(item.observal.hasInstrumental);
-                result.hasLateralEpisiotomy = boolHandler(item.observal.hasLateralEpisiotomy);
-                result.lateralEpisiotomyVasScore = numHandler(item.observal.lateralEpisiotomyVasScore);
-                result.hasPrenatalFever = boolHandler(item.observal.hasPrenatalFever);
-                result.prenatalFeverTemperature = numHandler(item.observal.prenatalFeverTemperature);
-                result.hasHypotension = boolHandler(item.observal.hasHypotension);
-                result.hasVasoactiveAgent = boolHandler(item.observal.hasVasoactiveAgent);
-                result.hasNausea = boolHandler(item.observal.hasNausea);
-                result.hasVomit = boolHandler(item.observal.hasVomit);
-                result.hasPruritus = boolHandler(item.observal.hasPruritus);
-                result.hasPostduralPunctureHeadache = boolHandler(item.observal.hasPostduralPunctureHeadache);
-                result.hasBackPain = boolHandler(item.observal.hasBackPain);
-                result.hasParesthesia = boolHandler(item.observal.hasParesthesia);
-                result.patientSatisfactionScore = numHandler(item.observal.patientSatisfactionScore !== null ?
+                result.hasCaesareanSection = formatBoolean(item.observal.hasCaesareanSection);
+                result.hasInstrumental = formatBoolean(item.observal.hasInstrumental);
+                result.hasLateralEpisiotomy = formatBoolean(item.observal.hasLateralEpisiotomy);
+                result.lateralEpisiotomyVasScore = formatNumber(item.observal.lateralEpisiotomyVasScore);
+                result.hasPrenatalFever = formatBoolean(item.observal.hasPrenatalFever);
+                result.prenatalFeverTemperature = formatNumber(item.observal.prenatalFeverTemperature);
+                result.hasHypotension = formatBoolean(item.observal.hasHypotension);
+                result.hasVasoactiveAgent = formatBoolean(item.observal.hasVasoactiveAgent);
+                result.hasNausea = formatBoolean(item.observal.hasNausea);
+                result.hasVomit = formatBoolean(item.observal.hasVomit);
+                result.hasPruritus = formatBoolean(item.observal.hasPruritus);
+                result.hasPostduralPunctureHeadache = formatBoolean(item.observal.hasPostduralPunctureHeadache);
+                result.hasBackPain = formatBoolean(item.observal.hasBackPain);
+                result.hasParesthesia = formatBoolean(item.observal.hasParesthesia);
+                result.patientSatisfactionScore = formatNumber(item.observal.patientSatisfactionScore !== null ?
                     item.observal.patientSatisfactionScore * 10 : '');
-                result.bloodLose = numHandler(item.observal.bloodLose);
-                result.foetalWeight = numHandler(item.observal.foetalWeight);
-                result.foetalHeight = numHandler(item.observal.foetalHeight);
-                result.foetalGender = numHandler(item.observal.foetalGender);
-                result.oneMinuteApgarScore = numHandler(item.observal.oneMinuteApgarScore);
-                result.fiveMinuteApgarScore = numHandler(item.observal.fiveMinuteApgarScore);
-                result.hasNicu = boolHandler(item.observal.hasNicu);
+                result.bloodLose = formatNumber(item.observal.bloodLose);
+                result.foetalWeight = formatNumber(item.observal.foetalWeight);
+                result.foetalHeight = formatNumber(item.observal.foetalHeight);
+                result.foetalGender = formatNumber(item.observal.foetalGender);
+                result.oneMinuteApgarScore = formatNumber(item.observal.oneMinuteApgarScore);
+                result.fiveMinuteApgarScore = formatNumber(item.observal.fiveMinuteApgarScore);
+                result.hasNicu = formatBoolean(item.observal.hasNicu);
                 result.nicuReason = item.observal.nicuReason;
-                result.arterialPh = numHandler(item.observal.arterialPh);
-                result.arterialBe = numHandler(item.observal.arterialBe);
-                result.venousPh = numHandler(item.observal.venousPh);
-                result.venousBe = numHandler(item.observal.venousBe);
+                result.arterialPh = formatNumber(item.observal.arterialPh);
+                result.arterialBe = formatNumber(item.observal.arterialBe);
+                result.venousPh = formatNumber(item.observal.venousPh);
+                result.venousBe = formatNumber(item.observal.venousBe);
                 item.observal.description && result.desc.push(item.observal.description);
             }
 
@@ -279,7 +305,12 @@ async function getExportDPEData(data, sensoryBlocks) {
 
 };
 
-async function getExportMeanVAS(data) {
+/**
+ * 获取导出的平均 VAS 部分的数据
+ * @param data
+ * @returns {Promise<(*|null)[][]>}
+ */
+export async function getExportMeanVAS(data) {
 
     data = data || await PatientDao.getFullPatients();
 
@@ -311,20 +342,20 @@ async function getExportMeanVAS(data) {
 
             if (item.analgesia) {
 
-                const analgesiaData = AC.fullFillAnalgesiaData(item.analgesia);
+                const analgesiaData = fullFillAnalgesiaData(item.analgesia);
 
-                result.vasIn0 = numHandler(AC.getVasScore(analgesiaData, 0));
-                result.vasIn2 = numHandler(AC.getVasScore(analgesiaData, 2));
-                result.vasIn4 = numHandler(AC.getVasScore(analgesiaData, 4));
-                result.vasIn6 = numHandler(AC.getVasScore(analgesiaData, 6));
-                result.vasIn8 = numHandler(AC.getVasScore(analgesiaData, 8));
-                result.vasIn10 = numHandler(AC.getVasScore(analgesiaData, 10));
-                result.vasIn12 = numHandler(AC.getVasScore(analgesiaData, 12));
-                result.vasIn14 = numHandler(AC.getVasScore(analgesiaData, 14));
-                result.vasIn16 = numHandler(AC.getVasScore(analgesiaData, 16));
-                result.vasIn18 = numHandler(AC.getVasScore(analgesiaData, 18));
-                result.vasIn20 = numHandler(AC.getVasScore(analgesiaData, 20));
-                result.vasIn30 = numHandler(AC.getVasScore(analgesiaData, 30));
+                result.vasIn0 = formatNumber(getVasScore(analgesiaData, 0));
+                result.vasIn2 = formatNumber(getVasScore(analgesiaData, 2));
+                result.vasIn4 = formatNumber(getVasScore(analgesiaData, 4));
+                result.vasIn6 = formatNumber(getVasScore(analgesiaData, 6));
+                result.vasIn8 = formatNumber(getVasScore(analgesiaData, 8));
+                result.vasIn10 = formatNumber(getVasScore(analgesiaData, 10));
+                result.vasIn12 = formatNumber(getVasScore(analgesiaData, 12));
+                result.vasIn14 = formatNumber(getVasScore(analgesiaData, 14));
+                result.vasIn16 = formatNumber(getVasScore(analgesiaData, 16));
+                result.vasIn18 = formatNumber(getVasScore(analgesiaData, 18));
+                result.vasIn20 = formatNumber(getVasScore(analgesiaData, 20));
+                result.vasIn30 = formatNumber(getVasScore(analgesiaData, 30));
 
             }
 
@@ -338,7 +369,12 @@ async function getExportMeanVAS(data) {
 
 };
 
-async function getExportMeanVASWithContraction(data) {
+/**
+ * 获取导出的宫缩平均 VAS 部分的数据
+ * @param data
+ * @returns {Promise<(*|null)[][]>}
+ */
+export async function getExportMeanVASWithContraction(data) {
 
     data = data || await PatientDao.getFullPatients();
 
@@ -370,20 +406,20 @@ async function getExportMeanVASWithContraction(data) {
 
             if (item.analgesia) {
 
-                const analgesiaData = AC.fullFillAnalgesiaData(item.analgesia);
+                const analgesiaData = fullFillAnalgesiaData(item.analgesia);
 
-                result.vasIn0 = numHandler(AC.getVasScoreWithContraction(analgesiaData, 0));
-                result.vasIn2 = numHandler(AC.getVasScoreWithContraction(analgesiaData, 2));
-                result.vasIn4 = numHandler(AC.getVasScoreWithContraction(analgesiaData, 4));
-                result.vasIn6 = numHandler(AC.getVasScoreWithContraction(analgesiaData, 6));
-                result.vasIn8 = numHandler(AC.getVasScoreWithContraction(analgesiaData, 8));
-                result.vasIn10 = numHandler(AC.getVasScoreWithContraction(analgesiaData, 10));
-                result.vasIn12 = numHandler(AC.getVasScoreWithContraction(analgesiaData, 12));
-                result.vasIn14 = numHandler(AC.getVasScoreWithContraction(analgesiaData, 14));
-                result.vasIn16 = numHandler(AC.getVasScoreWithContraction(analgesiaData, 16));
-                result.vasIn18 = numHandler(AC.getVasScoreWithContraction(analgesiaData, 18));
-                result.vasIn20 = numHandler(AC.getVasScoreWithContraction(analgesiaData, 20));
-                result.vasIn30 = numHandler(AC.getVasScoreWithContraction(analgesiaData, 30));
+                result.vasIn0 = formatNumber(getVasScoreWithContraction(analgesiaData, 0));
+                result.vasIn2 = formatNumber(getVasScoreWithContraction(analgesiaData, 2));
+                result.vasIn4 = formatNumber(getVasScoreWithContraction(analgesiaData, 4));
+                result.vasIn6 = formatNumber(getVasScoreWithContraction(analgesiaData, 6));
+                result.vasIn8 = formatNumber(getVasScoreWithContraction(analgesiaData, 8));
+                result.vasIn10 = formatNumber(getVasScoreWithContraction(analgesiaData, 10));
+                result.vasIn12 = formatNumber(getVasScoreWithContraction(analgesiaData, 12));
+                result.vasIn14 = formatNumber(getVasScoreWithContraction(analgesiaData, 14));
+                result.vasIn16 = formatNumber(getVasScoreWithContraction(analgesiaData, 16));
+                result.vasIn18 = formatNumber(getVasScoreWithContraction(analgesiaData, 18));
+                result.vasIn20 = formatNumber(getVasScoreWithContraction(analgesiaData, 20));
+                result.vasIn30 = formatNumber(getVasScoreWithContraction(analgesiaData, 30));
 
             }
 
@@ -397,7 +433,12 @@ async function getExportMeanVASWithContraction(data) {
 
 };
 
-async function getExportLaterMeanVAS(data) {
+/**
+ * 获取导出的平均 VAS 部分的数据
+ * @param data
+ * @returns {Promise<(*|null)[][]>}
+ */
+export async function getExportLaterMeanVAS(data) {
 
     data = data || await PatientDao.getFullPatients();
 
@@ -421,12 +462,12 @@ async function getExportLaterMeanVAS(data) {
 
             if (item.analgesia) {
 
-                const analgesiaData = AC.fullFillAnalgesiaData(item.analgesia);
+                const analgesiaData = fullFillAnalgesiaData(item.analgesia);
 
-                result.vasIn30 = numHandler(AC.getVasScore(analgesiaData, 30));
-                result.vasIn120 = numHandler(AC.getVasScore(analgesiaData, 120));
-                result.vasIn210 = numHandler(AC.getVasScore(analgesiaData, 210));
-                result.vasIn300 = numHandler(AC.getVasScore(analgesiaData, 300));
+                result.vasIn30 = formatNumber(getVasScore(analgesiaData, 30));
+                result.vasIn120 = formatNumber(getVasScore(analgesiaData, 120));
+                result.vasIn210 = formatNumber(getVasScore(analgesiaData, 210));
+                result.vasIn300 = formatNumber(getVasScore(analgesiaData, 300));
 
             }
 
@@ -440,7 +481,13 @@ async function getExportLaterMeanVAS(data) {
 
 };
 
-async function getExportData(data, sensoryBlocks) {
+/**
+ * 获取导出的所有数据
+ * @param data
+ * @param sensoryBlocks
+ * @returns {Promise<{meanVASData: (*|null)[][], laterMeanVASData: (*|null)[][], meanVASWithContractionData: (*|null)[][], dpeData: (*|null)[][]}>}
+ */
+export async function getExportData(data, sensoryBlocks) {
 
     data = data || await PatientDao.getFullPatients();
     sensoryBlocks = sensoryBlocks || await SensoryBlockDao.getSensoryBlocks();

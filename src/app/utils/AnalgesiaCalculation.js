@@ -2,43 +2,41 @@
  * @file AnalgesiaCalculation.js
  */
 
-const
+/**
+ * 左侧或右侧
+ * @type {{LEFT: string, RIGHT: string}}
+ */
+export const Position = {
+    LEFT: 'Left',
+    RIGHT: 'Right'
+};
 
-    /**
-     * 左侧或右侧
-     * @type {{LEFT: string, RIGHT: string}}
-     */
-    Position = {
-        LEFT: 'Left',
-        RIGHT: 'Right'
-    },
+/**
+ * 行数据
+ * @type {{thoracicSensoryBlockLeft: null, bromageScore: null, fetalHeartRate: null, sacralSensoryBlockRight: null, pulseOxygenSaturation: null, heartRate: null, thoracicSensoryBlockRight: null, sacralSensoryBlockLeft: null, diastolicBloodPressure: null, hasContraction: boolean, systolicBloodPressure: null, vasScore: null}}
+ */
+export const BASE_DATA = {
+    hasContraction: false,
+    vasScore: null,
+    thoracicSensoryBlockLeft: null,
+    thoracicSensoryBlockRight: null,
+    sacralSensoryBlockLeft: null,
+    sacralSensoryBlockRight: null,
+    bromageScore: null,
+    systolicBloodPressure: null,
+    diastolicBloodPressure: null,
+    heartRate: null,
+    pulseOxygenSaturation: null,
+    fetalHeartRate: null
+};
 
-    /**
-     * 行数据
-     * @type {{thoracicSensoryBlockLeft: null, bromageScore: null, fetalHeartRate: null, sacralSensoryBlockRight: null, pulseOxygenSaturation: null, heartRate: null, thoracicSensoryBlockRight: null, sacralSensoryBlockLeft: null, diastolicBloodPressure: null, hasContraction: boolean, systolicBloodPressure: null, vasScore: null}}
-     */
-    BASE_DATA = {
-        hasContraction: false,
-        vasScore: null,
-        thoracicSensoryBlockLeft: null,
-        thoracicSensoryBlockRight: null,
-        sacralSensoryBlockLeft: null,
-        sacralSensoryBlockRight: null,
-        bromageScore: null,
-        systolicBloodPressure: null,
-        diastolicBloodPressure: null,
-        heartRate: null,
-        pulseOxygenSaturation: null,
-        fetalHeartRate: null
-    },
-
-    /**
-     * 默认的时间点
-     * @type {number[]}
-     */
-    DEFAULT_TIMEPOINTS = [
-        0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 30, 2 * 60, 3.5 * 60, 5 * 60, 6.5 * 60, 8 * 60
-    ];
+/**
+ * 默认的时间点
+ * @type {number[]}
+ */
+export const DEFAULT_TIMEPOINTS = [
+    0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 30, 2 * 60, 3.5 * 60, 5 * 60, 6.5 * 60, 8 * 60
+];
 
 /**
  * 获取默认的麻醉数据
@@ -440,6 +438,8 @@ export function isAdequatePainRelief(analgesiaData, timePoint) {
 export default {
 
     Position,
+    BASE_DATA,
+    DEFAULT_TIMEPOINTS,
 
     fullFillAnalgesiaData,
     getVasScore,

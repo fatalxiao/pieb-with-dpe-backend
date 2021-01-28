@@ -1,20 +1,32 @@
+/**
+ * @file AnalgesiaService.js
+ */
+
+// Daos
 import AnalgesiaDao from '../dao/AnalgesiaDao.js';
+
+// Vendors
 import Response from '../utils/Response.js';
 
-async function getAnalgesiaDataByPatientId(patientId) {
+/**
+ * 获取某个 Patient ID 的 Analgesia 数据
+ * @param patientId
+ * @returns {Promise<string>}
+ */
+export async function getAnalgesiaDataByPatientId(patientId) {
     return Response.buildSuccess(await AnalgesiaDao.getAnalgesiaDataByPatientId(patientId));
 };
 
 /**
- * @param data
- * @returns {Promise<*>}
- *
+ * 创建一批 Analgesia 数据
  *  data: {
  *      patientId: String
  *      analgesiaData: Array
  *  }
+ * @param data
+ * @returns {Promise<*>}
  */
-async function createAnalgesiaData(patientId, data) {
+export async function createAnalgesiaData(patientId, data) {
 
     const error = [];
 
@@ -47,15 +59,15 @@ async function createAnalgesiaData(patientId, data) {
 };
 
 /**
- * @param data
- * @returns {Promise<*>}
- *
+ * 更新一批 Analgesia 数据
  *  data: {
  *      patientId: String
  *      analgesiaData: Array
  *  }
+ * @param data
+ * @returns {Promise<*>}
  */
-async function updateAnalgesiaData(patientId, data) {
+export async function updateAnalgesiaData(patientId, data) {
 
     const error = [];
 
@@ -88,15 +100,15 @@ async function updateAnalgesiaData(patientId, data) {
 };
 
 /**
- * @param data
- * @returns {Promise<*>}
- *
+ * 创建或更新一批 Analgesia 数据
  *  data: {
  *      patientId: String
  *      analgesiaData: Array
  *  }
+ * @param data
+ * @returns {Promise<*>}
  */
-async function createOrUpdateAnalgesiaData(patientId, data) {
+export async function createOrUpdateAnalgesiaData(patientId, data) {
 
     const error = [];
 

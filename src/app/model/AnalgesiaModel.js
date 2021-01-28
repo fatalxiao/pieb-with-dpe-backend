@@ -1,5 +1,5 @@
 /**
- * @file app.js
+ * @file AnalgesiaModel.js
  */
 
 import Sequelize from 'sequelize';
