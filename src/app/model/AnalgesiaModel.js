@@ -9,7 +9,7 @@ import SensoryBlock from './SensoryBlockModel';
 
 // Vendors
 import SequelizeGenerator from '../utils/SequelizeGenerator.js';
-import DataFormat from '../utils/DataFormat.js';
+import {formatNumberField} from '../utils/DataFormat';
 
 const sequelizeInstance = SequelizeGenerator(),
 
@@ -29,79 +29,59 @@ const sequelizeInstance = SequelizeGenerator(),
         timePoint: {
             field: 'time_point',
             type: Sequelize.INTEGER,
-            set(value) {
-                this.setDataValue('timePoint', DataFormat.formatNumberField(value));
-            }
+            set: value => this.setDataValue('timePoint', formatNumberField(value))
         },
         vasScore: {
             field: 'vas_score',
             type: Sequelize.FLOAT,
             set(value) {
-                this.setDataValue('vasScore', DataFormat.formatNumberField(value));
+                this.setDataValue('vasScore', formatNumberField(value));
             }
         },
         thoracicSensoryBlockLeftValue: {
             field: 'thoracic_sensory_block_left_value',
             type: Sequelize.INTEGER,
-            set(value) {
-                this.setDataValue('thoracicSensoryBlockLeftValue', DataFormat.formatNumberField(value));
-            }
+            set: value => this.setDataValue('thoracicSensoryBlockLeftValue', formatNumberField(value))
         },
         thoracicSensoryBlockRightValue: {
             field: 'thoracic_sensory_block_right_value',
             type: Sequelize.INTEGER,
-            set(value) {
-                this.setDataValue('thoracicSensoryBlockRightValue', DataFormat.formatNumberField(value));
-            }
+            set: value => this.setDataValue('thoracicSensoryBlockRightValue', formatNumberField(value))
         },
         sacralSensoryBlockLeftValue: {
             field: 'sacral_sensory_block_left_value',
             type: Sequelize.INTEGER,
-            set(value) {
-                this.setDataValue('sacralSensoryBlockLeftValue', DataFormat.formatNumberField(value));
-            }
+            set: value => this.setDataValue('sacralSensoryBlockLeftValue', formatNumberField(value))
         },
         sacralSensoryBlockRightValue: {
             field: 'sacral_sensory_block_right_value',
             type: Sequelize.INTEGER,
-            set(value) {
-                this.setDataValue('sacralSensoryBlockRightValue', DataFormat.formatNumberField(value));
-            }
+            set: value => this.setDataValue('sacralSensoryBlockRightValue', formatNumberField(value))
         },
         bromageScore: {
             field: 'bromage_score',
             type: Sequelize.INTEGER,
-            set(value) {
-                this.setDataValue('bromageScore', DataFormat.formatNumberField(value));
-            }
+            set: value => this.setDataValue('bromageScore', formatNumberField(value))
         },
         systolicBloodPressure: {
             field: 'systolic_blood_pressure',
             type: Sequelize.INTEGER,
-            set(value) {
-                this.setDataValue('systolicBloodPressure', DataFormat.formatNumberField(value));
-            }
+            set: value => this.setDataValue('systolicBloodPressure', formatNumberField(value))
         },
         diastolicBloodPressure: {
             field: 'diastolic_blood_pressure',
             type: Sequelize.INTEGER,
-            set(value) {
-                this.setDataValue('diastolicBloodPressure', DataFormat.formatNumberField(value));
-            }
+            set: value => this.setDataValue('diastolicBloodPressure', formatNumberField(value))
         },
         heartRate: {
             field: 'heart_rate',
             type: Sequelize.INTEGER,
-            set(value) {
-                this.setDataValue('heartRate', DataFormat.formatNumberField(value));
-            }
+            set: value => this.setDataValue('heartRate', formatNumberField(value))
         },
         fetalHeartRate: {
             field: 'fetal_heart_rate',
             type: Sequelize.INTEGER,
-            set(value) {
-                this.setDataValue('fetalHeartRate', DataFormat.formatNumberField(value));
-            }
+            set: value => this.setDataValue('fetalHeartRate', formatNumberField(value))
         }
     }, {
         freezeTableName: true,

@@ -9,7 +9,7 @@ import SequelizeGenerator from '../utils/SequelizeGenerator.js';
 
 const sequelizeInstance = SequelizeGenerator(),
 
-    Group = sequelizeInstance.define('pieb_with_dpe_group', {
+    Group = sequelizeInstance.define('patient_group', {
         id: {
             field: 'id',
             type: Sequelize.INTEGER,

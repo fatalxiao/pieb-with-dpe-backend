@@ -1,14 +1,34 @@
+/**
+ * @file ObservalModel.js
+ */
+
+// Vendors
 import moment from 'moment';
 
-function formatNumberField(value) {
+/**
+ * 格式化 Number 字段
+ * @param value
+ * @returns {null}
+ */
+export function formatNumberField(value) {
     return value !== '' && value !== undefined ? value : null;
 }
 
-function formatDateTimeField(value) {
+/**
+ * 格式化 DateTime 字段
+ * @param value
+ * @returns {null}
+ */
+export function formatDateTimeField(value) {
     return moment(value).isValid() ? value : null;
 }
 
-function formatResDateTime(value) {
+/**
+ * 格式化 ResDate 字段
+ * @param value
+ * @returns {string}
+ */
+export function formatResDateTime(value) {
 
     if (!value) {
         return '';
