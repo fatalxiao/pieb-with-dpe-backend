@@ -1,4 +1,8 @@
-const Mappings = {
+/**
+ * @file Response.js
+ */
+
+export const Mappings = {
 
     SUCCESS: [2000, 'success'],
 
@@ -7,7 +11,14 @@ const Mappings = {
 
 };
 
-function build([code, msg], data) {
+/**
+ * 格式化 Response
+ * @param code
+ * @param msg
+ * @param data
+ * @returns {string}
+ */
+export function build([code, msg], data) {
 
     const json = {
         code,
@@ -22,15 +33,30 @@ function build([code, msg], data) {
 
 }
 
-function buildSuccess(data) {
+/**
+ * 格式化 Success Response
+ * @param data
+ * @returns {string}
+ */
+export function buildSuccess(data) {
     return build(Mappings.SUCCESS, data);
 }
 
-function buildError(data) {
+/**
+ * 格式化 Error Response
+ * @param data
+ * @returns {string}
+ */
+export function buildError(data) {
     return build(Mappings.ERROR, data);
 }
 
-function buildParamError(data) {
+/**
+ * 格式化 Param Incorrect Response
+ * @param data
+ * @returns {string}
+ */
+export function buildParamError(data) {
     return build(Mappings.PARAM_INCORRECT, data);
 }
 

@@ -1,10 +1,20 @@
+/**
+ * @file SequelizeGenerator.js
+ */
+
 import Sequelize from 'sequelize';
+
+// Statics
 import config from '../../config.js';
 
 const databaseConfig = config.database;
 let sequelize;
 
-function generateSequelize() {
+/**
+ * 生成 Sequelize 实例并初始化
+ * @returns {*}
+ */
+export function generateSequelize() {
 
     if (sequelize) {
         return sequelize;

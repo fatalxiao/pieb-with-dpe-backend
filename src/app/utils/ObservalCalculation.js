@@ -1,9 +1,9 @@
 /**
- * @file mappingRouterToController.js
+ * @file ObservalCalculation.js
  */
 
 // Vendors
-import Time from '../utils/Time.js';
+import {duration} from '../utils/Time.js';
 
 /**
  * 根据 "麻醉开始时间" 和 "首次 PCA 时间"，计算两者间的时长
@@ -16,7 +16,7 @@ export function getDurationOfFirstPcaTime(observalData) {
         return null;
     }
 
-    return '' + (~~(Time.duration(observalData.initialTime, observalData.firstPcaTime) / 1000 / 60));
+    return '' + (~~(duration(observalData.initialTime, observalData.firstPcaTime) / 1000 / 60));
 
 }
 
@@ -31,7 +31,7 @@ export function getDurationOfFirstManualBolusTime(observalData) {
         return null;
     }
 
-    return '' + (~~(Time.duration(observalData.initialTime, observalData.firstManualBolusTime) / 1000 / 60));
+    return '' + (~~(duration(observalData.initialTime, observalData.firstManualBolusTime) / 1000 / 60));
 
 }
 
@@ -47,7 +47,7 @@ export function getDurationOfAnalgesia(observalData) {
     }
 
     // 总镇痛时间 + 60 分钟
-    return '' + (~~(Time.duration(observalData.initialTime, observalData.birthTime) / 1000 / 60) + 60);
+    return '' + (~~(duration(observalData.initialTime, observalData.birthTime) / 1000 / 60) + 60);
 
 }
 
