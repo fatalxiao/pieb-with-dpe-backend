@@ -5,7 +5,7 @@
 import Sequelize from 'sequelize';
 
 // Models
-import Group from './GroupModel';
+import PatientGroup from './PatientGroupModel';
 import Analgesia from './AnalgesiaModel';
 import Observal from './ObservalModel';
 
@@ -136,7 +136,7 @@ const sequelizeInstance = SequelizeGenerator(),
         paranoid: true
     });
 
-Patient.belongsTo(Group, {
+Patient.belongsTo(PatientGroup, {
     as: 'group',
     foreignKey: 'groupId'
 });

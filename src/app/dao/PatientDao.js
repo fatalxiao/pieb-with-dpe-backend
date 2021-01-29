@@ -6,7 +6,7 @@ import Sequelize from 'sequelize';
 
 // Models
 import PatientModel from '../model/PatientModel.js';
-import Group from '../model/GroupModel.js';
+import Group from '../model/PatientGroupModel.js';
 
 /**
  * 获取用于列表的 Patients 数据

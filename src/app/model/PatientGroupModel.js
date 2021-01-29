@@ -1,5 +1,5 @@
 /**
- * @file GroupModel.js
+ * @file PatientGroupModel.js
  */
 
 import Sequelize from 'sequelize';
@@ -9,7 +9,7 @@ import SequelizeGenerator from '../utils/SequelizeGenerator.js';
 
 const sequelizeInstance = SequelizeGenerator(),
 
-    Group = sequelizeInstance.define('patient_group', {
+    PatientGroup = sequelizeInstance.define('patient_group', {
         id: {
             field: 'id',
             type: Sequelize.INTEGER,
@@ -27,4 +27,4 @@ const sequelizeInstance = SequelizeGenerator(),
         timestamps: false
     });
 
-export default Group;
+export default PatientGroup;
