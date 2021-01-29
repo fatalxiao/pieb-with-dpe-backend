@@ -8,6 +8,9 @@ import EPPlacementPointService from '../service/EPPlacementPointService.js';
 // Decorators
 import {Api, GetMapping} from '../utils/ApiDecorator.js';
 
+// Statics
+import {baseUrl} from '../../config';
+
 @Api({tags: 'EPPlacementPoint'})
 class EPPlacementPointController {
 
@@ -16,7 +19,7 @@ class EPPlacementPointController {
      * @param ctx
      * @returns {Promise<void>}
      */
-    @GetMapping({value: '/dpe/epPlacementPoint/getEPPlacementPoints'})
+    @GetMapping({value: `${baseUrl}/epPlacementPoint/getEPPlacementPoints`})
     static async getEPPlacementPoints(ctx) {
         ctx.response.body = await EPPlacementPointService.getEPPlacementPoints();
     }

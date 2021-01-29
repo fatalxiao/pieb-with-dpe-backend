@@ -8,6 +8,9 @@ import AnalgesiaService from '../service/AnalgesiaService.js';
 // Decorators
 import {Api, GetMapping, PostMapping} from '../utils/ApiDecorator';
 
+// Statics
+import {baseUrl} from '../../config';
+
 // Vendors
 import {buildParamError} from '../utils/Response.js';
 
@@ -39,7 +42,7 @@ class AnalgesiaController {
      * @param ctx
      * @returns {Promise<string>}
      */
-    @GetMapping({value: '/dpe/analgesia/getAnalgesiaDataByPatientId/:patientId'})
+    @GetMapping({value: `${baseUrl}/analgesia/getAnalgesiaDataByPatientId/:patientId`})
     static async getAnalgesiaDataByPatientId(ctx) {
 
         const patientId = ctx.params.patientId;
@@ -60,7 +63,7 @@ class AnalgesiaController {
      * @param ctx
      * @returns {Promise<*>}
      */
-    @PostMapping({value: '/dpe/analgesia/createAnalgesiaData/:patientId'})
+    @PostMapping({value: `${baseUrl}/analgesia/createAnalgesiaData/:patientId`})
     static async createAnalgesiaData(ctx) {
 
         const patientId = ctx.params.patientId;
@@ -87,7 +90,7 @@ class AnalgesiaController {
      * @param ctx
      * @returns {Promise<*>}
      */
-    @PostMapping({value: '/dpe/analgesia/updateAnalgesiaData/:patientId'})
+    @PostMapping({value: `${baseUrl}/analgesia/updateAnalgesiaData/:patientId`})
     static async updateAnalgesiaData(ctx) {
 
         const patientId = ctx.params.patientId;
@@ -114,7 +117,7 @@ class AnalgesiaController {
      * @param ctx
      * @returns {Promise<*>}
      */
-    @PostMapping({value: '/dpe/analgesia/createOrUpdateAnalgesiaData/:patientId'})
+    @PostMapping({value: `${baseUrl}/analgesia/createOrUpdateAnalgesiaData/:patientId`})
     static async createOrUpdateAnalgesiaData(ctx) {
 
         const patientId = ctx.params.patientId;

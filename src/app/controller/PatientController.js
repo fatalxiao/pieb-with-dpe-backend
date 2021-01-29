@@ -9,6 +9,9 @@ import ExportService from '../service/ExportService.js';
 // Decorators
 import {Api, GetMapping, PostMapping} from '../utils/ApiDecorator';
 
+// Statics
+import {baseUrl} from '../../config';
+
 // Vendors
 import xlsx from 'node-xlsx';
 import moment from 'moment';
@@ -60,7 +63,7 @@ class PatientController {
      * @param ctx
      * @returns {Promise<void>}
      */
-    @GetMapping({value: '/dpe/patient/getPatients'})
+    @GetMapping({value: `${baseUrl}/patient/getPatients`})
     static async getPatients(ctx) {
         ctx.response.body = await PatientService.getPatients();
     }
@@ -70,7 +73,7 @@ class PatientController {
      * @param ctx
      * @returns {Promise<void>}
      */
-    @GetMapping({value: '/dpe/patient/getFullPatients'})
+    @GetMapping({value: `${baseUrl}/patient/getFullPatients`})
     static async getFullPatients(ctx) {
         ctx.response.body = await PatientService.getFullPatients();
     }
@@ -80,10 +83,15 @@ class PatientController {
      * @param ctx
      * @returns {Promise<void>}
      */
-    @GetMapping({value: '/dpe/patient/exportPatients'})
+    @GetMapping({value: `${baseUrl}/patient/exportPatients`})
     static async exportPatients(ctx) {
 
-        const {dpeData, meanVASData, meanVASWithContractionData, laterMeanVASData} = await ExportService.getExportData();
+        const {
+            dpeData,
+            meanVASData,
+            meanVASWithContractionData,
+            laterMeanVASData
+        } = await ExportService.getExportData();
 
         ctx.set('Content-Type', 'application/vnd.openxmlformats');
         ctx.set('Content-Disposition', `attachment;filename=DPE data ${moment().format('YYYY-MM-DD')}.xlsx`);
@@ -109,7 +117,7 @@ class PatientController {
      * @param ctx
      * @returns {Promise<string>}
      */
-    @GetMapping({value: '/dpe/patient/getPatientById/:id'})
+    @GetMapping({value: `${baseUrl}/patient/getPatientById/:id`})
     static async getPatientById(ctx) {
 
         const id = ctx.params.id;
@@ -126,7 +134,7 @@ class PatientController {
      * @param ctx
      * @returns {Promise<string>}
      */
-    @PostMapping({value: '/dpe/patient/createPatient'})
+    @PostMapping({value: `${baseUrl}/patient/createPatient`})
     static async createPatient(ctx) {
 
         const requestData = ctx.request.body;
@@ -145,7 +153,7 @@ class PatientController {
      * @param ctx
      * @returns {Promise<string>}
      */
-    @PostMapping({value: '/dpe/patient/updatePatient'})
+    @PostMapping({value: `${baseUrl}/patient/updatePatient`})
     static async updatePatient(ctx) {
 
         const requestData = ctx.request.body;
@@ -164,7 +172,7 @@ class PatientController {
      * @param ctx
      * @returns {Promise<string>}
      */
-    @PostMapping({value: '/dpe/patient/createOrUpdatePatient'})
+    @PostMapping({value: `${baseUrl}/patient/createOrUpdatePatient`})
     static async createOrUpdatePatient(ctx) {
 
         const requestData = ctx.request.body;
@@ -183,7 +191,7 @@ class PatientController {
      * @param ctx
      * @returns {Promise<string>}
      */
-    @PostMapping({value: '/dpe/patient/enable/:id'})
+    @PostMapping({value: `${baseUrl}/patient/enable/:id`})
     static async enablePatient(ctx) {
 
         const id = ctx.params.id;
@@ -200,7 +208,7 @@ class PatientController {
      * @param ctx
      * @returns {Promise<string>}
      */
-    @PostMapping({value: '/dpe/patient/disable/:id'})
+    @PostMapping({value: `${baseUrl}/patient/disable/:id`})
     static async disablePatient(ctx) {
 
         const id = ctx.params.id;

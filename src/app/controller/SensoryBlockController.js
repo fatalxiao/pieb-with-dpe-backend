@@ -8,10 +8,13 @@ import SensoryBlockService from '../service/SensoryBlockService.js';
 // Decorators
 import {Api, GetMapping} from '../utils/ApiDecorator';
 
+// Statics
+import {baseUrl} from '../../config';
+
 @Api({tags: 'SensoryBlock'})
 class SensoryBlockController {
 
-    @GetMapping({value: '/dpe/sensoryBlock/getSensoryBlocks'})
+    @GetMapping({value: `${baseUrl}/sensoryBlock/getSensoryBlocks`})
     static async getSensoryBlocks(ctx) {
         ctx.response.body = await SensoryBlockService.getSensoryBlocks();
     }

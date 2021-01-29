@@ -8,6 +8,9 @@ import ObservalService from '../service/ObservalService.js';
 // Decorators
 import {Api, GetMapping, PostMapping} from '../utils/ApiDecorator';
 
+// Statics
+import {baseUrl} from '../../config';
+
 // Vendors
 import {buildParamError} from '../utils/Response.js';
 
@@ -39,7 +42,7 @@ class ObservalController {
      * @param ctx
      * @returns {Promise<string>}
      */
-    @GetMapping({value: '/dpe/observal/getObservalDataByPatientId/:patientId'})
+    @GetMapping({value: `${baseUrl}/observal/getObservalDataByPatientId/:patientId`})
     static async getObservalDataByPatientId(ctx) {
 
         const patientId = ctx.params.patientId;
@@ -56,7 +59,7 @@ class ObservalController {
      * @param ctx
      * @returns {Promise<string>}
      */
-    @PostMapping({value: '/dpe/observal/createObservalData/:patientId'})
+    @PostMapping({value: `${baseUrl}/observal/createObservalData/:patientId`})
     static async createObservalData(ctx) {
 
         const patientId = ctx.params.patientId;
@@ -79,7 +82,7 @@ class ObservalController {
      * @param ctx
      * @returns {Promise<string>}
      */
-    @PostMapping({value: '/dpe/observal/updateObservalData/:patientId'})
+    @PostMapping({value: `${baseUrl}/observal/updateObservalData/:patientId`})
     static async updateObservalData(ctx) {
 
         const patientId = ctx.params.patientId;
@@ -102,7 +105,7 @@ class ObservalController {
      * @param ctx
      * @returns {Promise<string>}
      */
-    @PostMapping({value: '/dpe/observal/createOrUpdateObservalData/:patientId'})
+    @PostMapping({value: `${baseUrl}/observal/createOrUpdateObservalData/:patientId`})
     static async createOrUpdateObservalData(ctx) {
 
         const patientId = ctx.params.patientId;
