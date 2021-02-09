@@ -29,7 +29,6 @@ export function generateSequelize() {
             port: databaseConfig.port,
             dialect: 'mysql',
             freezeTableName: true,
-            operatorsAliases: false,
 
             pool: {
                 max: 5,
@@ -39,8 +38,7 @@ export function generateSequelize() {
             },
 
             define: {
-                underscored: true,
-                operatorsAliases: false
+                underscored: true
             },
 
             timezone: '+08:00'
