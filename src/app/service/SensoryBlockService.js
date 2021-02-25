@@ -14,7 +14,7 @@ import {buildSuccess} from '../utils/Response.js';
  */
 export async function getSensoryBlocks() {
     return buildSuccess(await SensoryBlockDao.getSensoryBlocks());
-};
+}
 
 export default {
     getSensoryBlocks

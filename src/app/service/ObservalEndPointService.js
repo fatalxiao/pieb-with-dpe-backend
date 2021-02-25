@@ -14,7 +14,7 @@ import {buildSuccess} from '../utils/Response.js';
  */
 export async function getObservalEndPoints() {
     return buildSuccess(await ObservalEndPointDao.getObservalEndPoints());
-};
+}
 
 export default {
     getObservalEndPoints

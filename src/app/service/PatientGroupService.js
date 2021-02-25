@@ -14,7 +14,7 @@ import {buildSuccess} from '../utils/Response.js';
  */
 export async function getPatientGroups() {
     return buildSuccess(await PatientGroupDao.getPatientGroups());
-};
+}
 
 export default {
     getPatientGroups

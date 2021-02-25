@@ -18,7 +18,7 @@ import {
  */
 export async function getObservalDataByPatientId(patientId) {
     return buildSuccess(await ObservalDao.getObservalDataByPatientId(patientId));
-};
+}
 
 /**
  * 创建一条 Observal 数据
@@ -26,6 +26,8 @@ export async function getObservalDataByPatientId(patientId) {
  *      patientId: String
  *      observalData: Object
  *  }
+ *
+ * @param patientId
  * @param data
  * @returns {Promise<*>}
  */
@@ -48,7 +50,7 @@ export async function createObservalData(patientId, data) {
 
     return buildSuccess(result);
 
-};
+}
 
 /**
  * 更新一条 Observal 数据
@@ -56,6 +58,8 @@ export async function createObservalData(patientId, data) {
  *      patientId: String
  *      observalData: Object
  *  }
+ *
+ * @param patientId
  * @param data
  * @returns {Promise<*>}
  */
@@ -78,7 +82,7 @@ export async function updateObservalData(patientId, data) {
 
     return buildSuccess(result);
 
-};
+}
 
 /**
  * 创建或更新一条 Observal 数据
@@ -86,6 +90,8 @@ export async function updateObservalData(patientId, data) {
  *      patientId: String
  *      observalData: Object
  *  }
+ *
+ * @param patientId
  * @param data
  * @returns {Promise<*>}
  */
@@ -104,7 +110,7 @@ export async function createOrUpdateObservalData(patientId, data) {
 
     return buildSuccess(result);
 
-};
+}
 
 export default {
 
