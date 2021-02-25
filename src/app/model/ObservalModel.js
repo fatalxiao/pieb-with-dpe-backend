@@ -93,6 +93,20 @@ const sequelizeInstance = SequelizeGenerator(),
                 this.setDataValue('bolus', formatNumberField(value));
             }
         },
+        pcaCount: {
+            field: 'pca_count',
+            type: Sequelize.INTEGER,
+            set(value) {
+                this.setDataValue('pcaCount', formatNumberField(value));
+            }
+        },
+        manualBolusCount: {
+            field: 'manual_bolus_count',
+            type: Sequelize.INTEGER,
+            set(value) {
+                this.setDataValue('manualBolusCount', formatNumberField(value));
+            }
+        },
         firstPcaTime: {
             field: 'first_pca_time',
             type: Sequelize.DATE,
@@ -103,12 +117,9 @@ const sequelizeInstance = SequelizeGenerator(),
                 this.setDataValue('firstPcaTime', formatDateTimeField(value));
             }
         },
-        pcaCount: {
-            field: 'pca_count',
-            type: Sequelize.INTEGER,
-            set(value) {
-                this.setDataValue('pcaCount', formatNumberField(value));
-            }
+        hasVasoactiveAgent: {
+            field: 'has_vasoactive_agent',
+            type: Sequelize.BOOLEAN
         },
         firstManualBolusTime: {
             field: 'first_manual_bolus_time',
@@ -119,17 +130,6 @@ const sequelizeInstance = SequelizeGenerator(),
             set(value) {
                 this.setDataValue('firstManualBolusTime', formatDateTimeField(value));
             }
-        },
-        manualBolusCount: {
-            field: 'manual_bolus_count',
-            type: Sequelize.INTEGER,
-            set(value) {
-                this.setDataValue('manualBolusCount', formatNumberField(value));
-            }
-        },
-        hasVasoactiveAgent: {
-            field: 'has_vasoactive_agent',
-            type: Sequelize.BOOLEAN
         },
         hasHypotension: {
             field: 'has_hypotension',
