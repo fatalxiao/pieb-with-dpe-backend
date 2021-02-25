@@ -10,7 +10,7 @@ import Group from '../model/PatientGroupModel.js';
 
 /**
  * 获取用于列表的 Patients 数据
- * @returns {Promise<Model<any, TModelAttributes>[]>}
+ * @returns {Promise}
  */
 export async function getPatients() {
     return await PatientModel.findAll({
@@ -27,7 +27,7 @@ export async function getPatients() {
 
 /**
  * 获取完全的 Patients 数据
- * @returns {Promise<Model<any, TModelAttributes>[]>}
+ * @returns {Promise}
  */
 export async function getFullPatients() {
     return await PatientModel.findAll({
@@ -54,7 +54,7 @@ export async function isPatientExist(id) {
 /**
  * 根据 ID 获取 Patient 数据
  * @param id
- * @returns {Promise<Model<any, any>>}
+ * @returns {Promise}
  */
 export async function getPatientById(id) {
     return await PatientModel.findOne({
@@ -75,13 +75,13 @@ export async function getPatientById(id) {
  * @returns {Promise<void>}
  */
 export async function createPatient(data) {
-    return await PatientModel.create(data);
+    return PatientModel.create(data);
 }
 
 /**
  * 更新一条 Patient 数据
  * @param data
- * @returns {Promise<[number, Model<any, TModelAttributes>[]]>}
+ * @returns {Promise}
  */
 export async function updatePatient(data) {
     return await PatientModel.update(data, {
@@ -94,7 +94,7 @@ export async function updatePatient(data) {
 /**
  * 创建或更新一条 Patient 数据
  * @param data
- * @returns {Promise<Promise<void>|Promise<(number|Model<any, TModelAttributes>[])[]>>}
+ * @returns {Promise}
  */
 export async function createOrUpdatePatient(data) {
     if (await isPatientExist(data.id)) {
@@ -107,7 +107,7 @@ export async function createOrUpdatePatient(data) {
 /**
  * 启用某个 ID 的 Patient
  * @param id
- * @returns {Promise<[number, Model<any, TModelAttributes>[]]>}
+ * @returns {Promise}
  */
 export async function enablePatient(id) {
     return await PatientModel.update({
@@ -122,7 +122,7 @@ export async function enablePatient(id) {
 /**
  * 禁用某个 ID 的 Patient
  * @param id
- * @returns {Promise<[number, Model<any, TModelAttributes>[]]>}
+ * @returns {Promise}
  */
 export async function disablePatient(id) {
     return await PatientModel.update({

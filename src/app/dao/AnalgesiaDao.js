@@ -11,7 +11,7 @@ import SensoryBlock from '../model/SensoryBlockModel';
 /**
  * 根据 patient ID 获取 Analgesia 数据
  * @param patientId
- * @returns {Promise<Model<any, TModelAttributes>[]>}
+ * @returns {Promise}
  */
 export async function getAnalgesiaDataByPatientId(patientId) {
     return await Analgesia.findAll({
@@ -68,16 +68,16 @@ export async function isAnalgesiaDataExist(patientId, timePoint) {
 /**
  * 创建一条 Analgesia 数据
  * @param data
- * @returns {Promise<void>}
+ * @returns {Promise<data>}
  */
 export async function createAnalgesiaData(data) {
-    return await Analgesia.create(data);
+    return Analgesia.create(data);
 }
 
 /**
  * 更新一条 Analgesia 数据
  * @param data
- * @returns {Promise<[number, Model<any, TModelAttributes>[]]>}
+ * @returns {Promise}
  */
 export async function updateAnalgesiaData(data) {
     return await Analgesia.update(data, {
@@ -91,7 +91,7 @@ export async function updateAnalgesiaData(data) {
 /**
  * 更新或创建一条 Analgesia 数据
  * @param data
- * @returns {Promise<Promise<void>|Promise<(number|Model<any, TModelAttributes>[])[]>>}
+ * @returns {Promise}
  */
 export async function createOrUpdateAnalgesiaData(data) {
     if (await isAnalgesiaDataExist(data.patientId, data.timePoint)) {
