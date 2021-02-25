@@ -2,14 +2,15 @@
  * @file mappingRouterToController.js
  */
 
-import fs from 'fs';
-import Router from 'koa-router';
-
 // Decorators
 import {
     REQUEST_TAGS, REQUEST_METHOD, REQUEST_ROUTE, REQUEST_SUMMARY, REQUEST_DESCRIPTION,
-    REQUEST_PARAMETERS_PATH, REQUEST_PARAMETERS_PARAM, REQUEST_PARAMETERS_BODY
+    REQUEST_PARAMETERS_PATH, REQUEST_PARAMETERS_PARAM
 } from './ApiDecorator';
+
+// Vendors
+import fs from 'fs';
+import Router from 'koa-router';
 
 const router = Router();
 
@@ -39,10 +40,10 @@ export function mappingPaths(controller, method, requestMethod, requestRoute) {
     if (REQUEST_PARAMETERS_PATH in method) {
         for (let item of method[REQUEST_PARAMETERS_PATH]) {
             config.parameters.push({
-                name: item.value,
+                name: item?.value,
                 in: 'query',
-                description: item.notes,
-                required: item.required
+                description: item?.notes,
+                required: item?.required
             });
         }
     }
@@ -51,11 +52,11 @@ export function mappingPaths(controller, method, requestMethod, requestRoute) {
     if (REQUEST_PARAMETERS_PARAM in method) {
         for (let item of method[REQUEST_PARAMETERS_PARAM]) {
             config.parameters.push({
-                name: item.value,
+                name: item?.value,
                 in: 'body',
-                description: item.notes,
-                required: item.required,
-                type: param.type
+                description: item?.notes,
+                required: item?.required,
+                type: item?.type
             });
         }
     }
@@ -108,7 +109,6 @@ export function mappingController(controller) {
 /**
  * 遍历 /app/controller 文件夹下的所有文件
  * @param dir
- * @returns {dispatch}
  */
 export function mappingRouterToController(dir) {
 
@@ -119,6 +119,6 @@ export function mappingRouterToController(dir) {
 
     return router.routes();
 
-};
+}
 
 export default mappingRouterToController;

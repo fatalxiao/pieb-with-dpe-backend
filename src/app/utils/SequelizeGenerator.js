@@ -2,7 +2,7 @@
  * @file SequelizeGenerator.js
  */
 
-import Sequelize from 'sequelize';
+import {Sequelize} from 'sequelize';
 
 // Statics
 import config from '../../config.js';

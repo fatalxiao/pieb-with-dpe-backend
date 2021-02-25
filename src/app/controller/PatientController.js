@@ -26,7 +26,6 @@ class PatientController {
      * @returns {string}
      */
     static verifyCreateData(requestData) {
-
         if (!requestData) {
             return buildParamError('Request Data is required');
         } else if (!requestData.id) {
@@ -36,9 +35,6 @@ class PatientController {
         } else if (!requestData.name) {
             return buildParamError('Name is required');
         }
-
-        return;
-
     }
 
     /**
@@ -47,15 +43,11 @@ class PatientController {
      * @returns {string}
      */
     static verifyUpdateData(requestData) {
-
         if (!requestData) {
             return buildParamError('Request Data is required');
         } else if (!requestData.id) {
             return buildParamError('ID is required');
         }
-
-        return;
-
     }
 
     /**
@@ -220,6 +212,6 @@ class PatientController {
 
     }
 
-};
+}
 
 export default PatientController;

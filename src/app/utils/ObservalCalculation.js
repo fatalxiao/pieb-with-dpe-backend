@@ -3,7 +3,7 @@
  */
 
 // Vendors
-import {duration} from '../utils/Time.js';
+import {duration} from './Time';
 
 /**
  * 根据 "麻醉开始时间" 和 "首次 PCA 时间"，计算两者间的时长

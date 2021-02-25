@@ -22,7 +22,7 @@ export const database = {
     host: 'localhost',
     port: 3306,
     username: 'root',
-    // password: 'root',
+    password: '',
     database: 'pieb_with_dpe',
     charset: 'UTF8_BIM'
 };

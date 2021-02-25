@@ -17,7 +17,7 @@ import {
  */
 export async function getPatients() {
     return buildSuccess(await PatientDao.getPatients());
-};
+}
 
 /**
  * 获取完全的 Patients 数据
@@ -25,7 +25,7 @@ export async function getPatients() {
  */
 export async function getFullPatients() {
     return buildSuccess(await PatientDao.getFullPatients());
-};
+}
 
 /**
  * 根据 ID 获取 Patient 数据
@@ -34,7 +34,7 @@ export async function getFullPatients() {
  */
 export async function getPatientById(id) {
     return buildSuccess(await PatientDao.getPatientById(id));
-};
+}
 
 /**
  * 创建一条 Patient 数据
@@ -57,7 +57,7 @@ export async function createPatient(data) {
 
     return buildSuccess(result);
 
-};
+}
 
 /**
  * 更新一条 Patient 数据
@@ -80,7 +80,7 @@ export async function updatePatient(data) {
 
     return buildSuccess(result);
 
-};
+}
 
 /**
  * 创建或更新一条 Patient 数据
@@ -99,7 +99,7 @@ export async function createOrUpdatePatient(data) {
 
     return buildSuccess(result);
 
-};
+}
 
 /**
  * 启用某个 ID 的 Patient
@@ -122,7 +122,7 @@ export async function enablePatient(id) {
 
     return buildSuccess(result);
 
-};
+}
 
 /**
  * 禁用某个 ID 的 Patient
@@ -145,7 +145,7 @@ export async function disablePatient(id) {
 
     return buildSuccess(result);
 
-};
+}
 
 export default {
 
