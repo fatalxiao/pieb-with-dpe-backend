@@ -138,35 +138,35 @@ export async function getExportDPEData(data, sensoryBlocks) {
             {name: '备注', key: 'desc'}
         ],
 
-        s1Value = sensoryBlocks.findOne(item => item.type === 2 && item.name === 'S1').value,
-        s2Value = sensoryBlocks.findOne(item => item.type === 2 && item.name === 'S2').value,
-        t8Value = sensoryBlocks.findOne(item => item.type === 1 && item.name === 'T8').value,
-        t10Value = sensoryBlocks.findOne(item => item.type === 1 && item.name === 'T10').value,
+        s1Value = sensoryBlocks.findOne(item => item?.type === 2 && item?.name === 'S1').value,
+        s2Value = sensoryBlocks.findOne(item => item?.type === 2 && item?.name === 'S2').value,
+        t8Value = sensoryBlocks.findOne(item => item?.type === 1 && item?.name === 'T8').value,
+        t10Value = sensoryBlocks.findOne(item => item?.type === 1 && item?.name === 'T10').value,
 
-        excelData = data.filter(item => item.status).map(item => {
+        excelData = data.filter(item => item?.status).map(item => {
 
             const result = {
-                groupName: item.group ? item.group.name : '',
-                name: item.name,
-                id: item.id,
-                age: formatNumber(item.age),
-                height: formatNumber(item.height),
-                weight: formatNumber(item.weight),
-                bmi: item.weight && item.height ? (item.weight / ((item.height / 100) ** 2)).toFixed(2) : null,
-                gestationalDays: formatNumber(item.gestationalDays),
-                initialVasScore: formatNumber(item.initialVasScore * 10),
-                cervicalDilationAtTimeOfEA: formatNumber(item.cervicalDilationAtTimeOfEA),
-                systolicBloodPressure: formatNumber(item.systolicBloodPressure),
-                diastolicBloodPressure: formatNumber(item.diastolicBloodPressure),
-                heartRate: formatNumber(item.heartRate),
-                pulseOxygenSaturation: formatNumber(item.pulseOxygenSaturation),
-                fetalHeartRate: formatNumber(item.fetalHeartRate),
-                hasOxytocinAtTimeOfEA: formatBoolean(item.hasOxytocinAtTimeOfEA),
-                hasInduction: formatBoolean(item.hasInduction),
-                desc: item.description ? [item.description] : []
+                groupName: item?.group ? item?.group.name : '',
+                name: item?.name,
+                id: item?.id,
+                age: formatNumber(item?.age),
+                height: formatNumber(item?.height),
+                weight: formatNumber(item?.weight),
+                bmi: item?.weight && item?.height ? (item?.weight / ((item?.height / 100) ** 2)).toFixed(2) : null,
+                gestationalDays: formatNumber(item?.gestationalDays),
+                initialVasScore: formatNumber(item?.initialVasScore * 10),
+                cervicalDilationAtTimeOfEA: formatNumber(item?.cervicalDilationAtTimeOfEA),
+                systolicBloodPressure: formatNumber(item?.systolicBloodPressure),
+                diastolicBloodPressure: formatNumber(item?.diastolicBloodPressure),
+                heartRate: formatNumber(item?.heartRate),
+                pulseOxygenSaturation: formatNumber(item?.pulseOxygenSaturation),
+                fetalHeartRate: formatNumber(item?.fetalHeartRate),
+                hasOxytocinAtTimeOfEA: formatBoolean(item?.hasOxytocinAtTimeOfEA),
+                hasInduction: formatBoolean(item?.hasInduction),
+                desc: item?.description ? [item?.description] : []
             };
 
-            if (item.analgesia) {
+            if (item?.analgesia) {
 
                 const analgesiaData = fullFillAnalgesiaData(item.analgesia),
 
@@ -212,13 +212,17 @@ export async function getExportDPEData(data, sensoryBlocks) {
                 result.vasIn120 = formatNumber(getVasScore(analgesiaData, 120));
                 result.vasIn210 = formatNumber(getVasScore(analgesiaData, 210));
                 result.maxThoracicSensoryBlockLeft = formatNumber(
-                    getMaxThoracicSensoryBlock(analgesiaData, Position.LEFT));
+                    getMaxThoracicSensoryBlock(analgesiaData, Position.LEFT)
+                );
                 result.maxThoracicSensoryBlockRight = formatNumber(
-                    getMaxThoracicSensoryBlock(analgesiaData, Position.RIGHT));
+                    getMaxThoracicSensoryBlock(analgesiaData, Position.RIGHT)
+                );
                 result.minSacralSensoryBlockLeft = formatNumber(
-                    getMinSacralSensoryBlock(analgesiaData, Position.LEFT));
+                    getMinSacralSensoryBlock(analgesiaData, Position.LEFT)
+                );
                 result.minSacralSensoryBlockRight = formatNumber(
-                    getMinSacralSensoryBlock(analgesiaData, Position.RIGHT));
+                    getMinSacralSensoryBlock(analgesiaData, Position.RIGHT)
+                );
                 result.isUnilateralSensoryBlock = formatBoolean(isUnilateralSensoryBlock(analgesiaData));
                 result.timePointOfT8 = formatNumber(getTimePointOfThoracicSensoryBlock(analgesiaData, t8Value));
                 result.timePointOfT10 = formatNumber(getTimePointOfThoracicSensoryBlock(analgesiaData, t10Value));
@@ -228,82 +232,114 @@ export async function getExportDPEData(data, sensoryBlocks) {
 
             }
 
-            if (item.observal) {
+            if (item?.observal) {
 
-                const durationOfFirstPcaTime = getDurationOfFirstPcaTime(item.observal),
+                const {
+                        pcaCount, manualBolusCount, hasEpiduralCatheterAdjuestment, hasEpiduralCatheterReplacement,
+                        isUnabledToPunctureDura, isIVEpiduralCatheterInsertion, isIntrathecalEpiduralCatheterInsertion,
+                        durationOfFirstStageOfLabor, durationOfSecondStageOfLabor, hasCaesareanSection, hasInstrumental,
+                        hasLateralEpisiotomy, lateralEpisiotomyVasScore, hasPrenatalFever, prenatalFeverTemperature,
+                        hasHypotension, hasVasoactiveAgent, hasNausea, hasVomit, hasPruritus,
+                        hasPostduralPunctureHeadache, hasBackPain, hasParesthesia, patientSatisfactionScore,
+                        bloodLose, foetalWeight, foetalHeight, foetalGender, oneMinuteApgarScore, fiveMinuteApgarScore,
+                        hasNicu, nicuReason, arterialPh, arterialBe, venousPh, venousBe, description
+                    } = item.observal,
+
+                    durationOfFirstPcaTime = getDurationOfFirstPcaTime(item.observal),
                     durationOfFirstManualBolusTime = getDurationOfFirstManualBolusTime(item.observal),
                     durationOfAnalgesia = getDurationOfAnalgesia(item.observal),
                     anestheticsConsumption = getAnestheticsConsumption(item.observal),
                     ropivacaineConsumption = getRopivacaineConsumption(item.observal),
                     sufentanilConsumption = getSufentanilConsumption(item.observal);
 
-                result.pcaCount = formatNumber(item.observal.pcaCount);
+                result.pcaCount = formatNumber(pcaCount);
                 result.durationOfFirstPcaTime = formatNumber(durationOfFirstPcaTime);
-                result.manualBolusCount = formatNumber(item.observal.manualBolusCount);
+                result.manualBolusCount = formatNumber(manualBolusCount);
                 result.durationOfFirstManualBolusTime = formatNumber(durationOfFirstManualBolusTime);
-                result.hasEpiduralCatheterAdjuestment = formatBoolean(item.observal.hasEpiduralCatheterAdjuestment);
-                result.hasEpiduralCatheterReplacement = formatBoolean(item.observal.hasEpiduralCatheterReplacement);
-                result.isUnabledToPunctureDura = formatBoolean(item.observal.isUnabledToPunctureDura);
-                result.isIVEpiduralCatheterInsertion = formatBoolean(item.observal.isIVEpiduralCatheterInsertion);
-                result.isIntrathecalEpiduralCatheterInsertion = formatBoolean(
-                    item.observal.isIntrathecalEpiduralCatheterInsertion);
+                result.hasEpiduralCatheterAdjuestment = formatBoolean(hasEpiduralCatheterAdjuestment);
+                result.hasEpiduralCatheterReplacement = formatBoolean(hasEpiduralCatheterReplacement);
+                result.isUnabledToPunctureDura = formatBoolean(isUnabledToPunctureDura);
+                result.isIVEpiduralCatheterInsertion = formatBoolean(isIVEpiduralCatheterInsertion);
+                result.isIntrathecalEpiduralCatheterInsertion = formatBoolean(isIntrathecalEpiduralCatheterInsertion);
                 result.durationOfAnalgesia = formatNumber(durationOfAnalgesia);
                 result.anestheticsConsumption = formatNumber(
-                    anestheticsConsumption !== null ? anestheticsConsumption.toFixed(2) : null);
+                    anestheticsConsumption !== null ?
+                        anestheticsConsumption.toFixed(2)
+                        :
+                        null
+                );
                 result.ropivacaineConsumption = formatNumber(
-                    ropivacaineConsumption !== null ? ropivacaineConsumption.toFixed(2) : null);
+                    ropivacaineConsumption !== null ?
+                        ropivacaineConsumption.toFixed(2)
+                        :
+                        null
+                );
                 result.sufentanilConsumption = formatNumber(
-                    sufentanilConsumption !== null ? sufentanilConsumption.toFixed(2) : null);
-                result.durationOfFirstStageOfLabor = formatNumber(item.observal.durationOfFirstStageOfLabor);
-                result.durationOfSecondStageOfLabor = formatNumber(item.observal.durationOfSecondStageOfLabor);
+                    sufentanilConsumption !== null ?
+                        sufentanilConsumption.toFixed(2)
+                        :
+                        null
+                );
+                result.durationOfFirstStageOfLabor = formatNumber(durationOfFirstStageOfLabor);
+                result.durationOfSecondStageOfLabor = formatNumber(durationOfSecondStageOfLabor);
                 result.anestheticsConsumptionPerTime = anestheticsConsumption !== null && durationOfAnalgesia !== null ?
-                    (anestheticsConsumption / durationOfAnalgesia * 60).toFixed(1) : null;
+                    (anestheticsConsumption / durationOfAnalgesia * 60).toFixed(1)
+                    :
+                    null;
                 result.ropivacaineConsumptionPerTime = ropivacaineConsumption !== null && durationOfAnalgesia !== null ?
-                    (ropivacaineConsumption / durationOfAnalgesia * 60).toFixed(1) : null;
+                    (ropivacaineConsumption / durationOfAnalgesia * 60).toFixed(1)
+                    :
+                    null;
                 result.sufentanilConsumptionPerTime = sufentanilConsumption !== null && durationOfAnalgesia !== null ?
-                    (sufentanilConsumption / durationOfAnalgesia * 60).toFixed(1) : null;
-                result.hasCaesareanSection = formatBoolean(item.observal.hasCaesareanSection);
-                result.hasInstrumental = formatBoolean(item.observal.hasInstrumental);
-                result.hasLateralEpisiotomy = formatBoolean(item.observal.hasLateralEpisiotomy);
-                result.lateralEpisiotomyVasScore = formatNumber(item.observal.lateralEpisiotomyVasScore);
-                result.hasPrenatalFever = formatBoolean(item.observal.hasPrenatalFever);
-                result.prenatalFeverTemperature = formatNumber(item.observal.prenatalFeverTemperature);
-                result.hasHypotension = formatBoolean(item.observal.hasHypotension);
-                result.hasVasoactiveAgent = formatBoolean(item.observal.hasVasoactiveAgent);
-                result.hasNausea = formatBoolean(item.observal.hasNausea);
-                result.hasVomit = formatBoolean(item.observal.hasVomit);
-                result.hasPruritus = formatBoolean(item.observal.hasPruritus);
-                result.hasPostduralPunctureHeadache = formatBoolean(item.observal.hasPostduralPunctureHeadache);
-                result.hasBackPain = formatBoolean(item.observal.hasBackPain);
-                result.hasParesthesia = formatBoolean(item.observal.hasParesthesia);
-                result.patientSatisfactionScore = formatNumber(item.observal.patientSatisfactionScore !== null ?
-                    item.observal.patientSatisfactionScore * 10 : '');
-                result.bloodLose = formatNumber(item.observal.bloodLose);
-                result.foetalWeight = formatNumber(item.observal.foetalWeight);
-                result.foetalHeight = formatNumber(item.observal.foetalHeight);
-                result.foetalGender = formatNumber(item.observal.foetalGender);
-                result.oneMinuteApgarScore = formatNumber(item.observal.oneMinuteApgarScore);
-                result.fiveMinuteApgarScore = formatNumber(item.observal.fiveMinuteApgarScore);
-                result.hasNicu = formatBoolean(item.observal.hasNicu);
-                result.nicuReason = item.observal.nicuReason;
-                result.arterialPh = formatNumber(item.observal.arterialPh);
-                result.arterialBe = formatNumber(item.observal.arterialBe);
-                result.venousPh = formatNumber(item.observal.venousPh);
-                result.venousBe = formatNumber(item.observal.venousBe);
-                item.observal.description && result.desc.push(item.observal.description);
+                    (sufentanilConsumption / durationOfAnalgesia * 60).toFixed(1)
+                    :
+                    null;
+                result.hasCaesareanSection = formatBoolean(hasCaesareanSection);
+                result.hasInstrumental = formatBoolean(hasInstrumental);
+                result.hasLateralEpisiotomy = formatBoolean(hasLateralEpisiotomy);
+                result.lateralEpisiotomyVasScore = formatNumber(lateralEpisiotomyVasScore);
+                result.hasPrenatalFever = formatBoolean(hasPrenatalFever);
+                result.prenatalFeverTemperature = formatNumber(prenatalFeverTemperature);
+                result.hasHypotension = formatBoolean(hasHypotension);
+                result.hasVasoactiveAgent = formatBoolean(hasVasoactiveAgent);
+                result.hasNausea = formatBoolean(hasNausea);
+                result.hasVomit = formatBoolean(hasVomit);
+                result.hasPruritus = formatBoolean(hasPruritus);
+                result.hasPostduralPunctureHeadache = formatBoolean(hasPostduralPunctureHeadache);
+                result.hasBackPain = formatBoolean(hasBackPain);
+                result.hasParesthesia = formatBoolean(hasParesthesia);
+                result.patientSatisfactionScore = formatNumber(
+                    patientSatisfactionScore !== null ?
+                        patientSatisfactionScore * 10
+                        :
+                        ''
+                );
+                result.bloodLose = formatNumber(bloodLose);
+                result.foetalWeight = formatNumber(foetalWeight);
+                result.foetalHeight = formatNumber(foetalHeight);
+                result.foetalGender = formatNumber(foetalGender);
+                result.oneMinuteApgarScore = formatNumber(oneMinuteApgarScore);
+                result.fiveMinuteApgarScore = formatNumber(fiveMinuteApgarScore);
+                result.hasNicu = formatBoolean(hasNicu);
+                result.nicuReason = nicuReason;
+                result.arterialPh = formatNumber(arterialPh);
+                result.arterialBe = formatNumber(arterialBe);
+                result.venousPh = formatNumber(venousPh);
+                result.venousBe = formatNumber(venousBe);
+                description && result.desc.push(description);
             }
 
             result.desc = result.desc.join('，');
 
-            return header.map(item => result[item.key] || null);
+            return header.map(item => result[item?.key] || null);
 
         });
 
-    excelData.unshift(header.map(item => item.name));
+    excelData.unshift(header.map(item => item?.name));
 
     return excelData;
 
-};
+}
 
 /**
  * 获取导出的平均 VAS 部分的数据
@@ -332,17 +368,17 @@ export async function getExportMeanVAS(data) {
             {name: '30min时VAS评分', key: 'vasIn30'}
         ],
 
-        excelData = data.filter(item => item.status).map(item => {
+        excelData = data.filter(item => item?.status).map(item => {
 
             const result = {
-                groupName: item.group ? item.group.name : '',
-                name: item.name,
-                id: item.id
+                groupName: item?.group ? item?.group.name : '',
+                name: item?.name,
+                id: item?.id
             };
 
-            if (item.analgesia) {
+            if (item?.analgesia) {
 
-                const analgesiaData = fullFillAnalgesiaData(item.analgesia);
+                const analgesiaData = fullFillAnalgesiaData(item?.analgesia);
 
                 result.vasIn0 = formatNumber(getVasScore(analgesiaData, 0));
                 result.vasIn2 = formatNumber(getVasScore(analgesiaData, 2));
@@ -359,11 +395,11 @@ export async function getExportMeanVAS(data) {
 
             }
 
-            return header.map(item => result[item.key] || null);
+            return header.map(item => result[item?.key] || null);
 
         });
 
-    excelData.unshift(header.map(item => item.name));
+    excelData.unshift(header.map(item => item?.name));
 
     return excelData;
 
@@ -396,17 +432,17 @@ export async function getExportMeanVASWithContraction(data) {
             {name: '30min时有宫缩的VAS评分', key: 'vasIn30'}
         ],
 
-        excelData = data.filter(item => item.status).map(item => {
+        excelData = data.filter(item => item?.status).map(item => {
 
             const result = {
-                groupName: item.group ? item.group.name : '',
-                name: item.name,
-                id: item.id
+                groupName: item?.group ? item?.group.name : '',
+                name: item?.name,
+                id: item?.id
             };
 
-            if (item.analgesia) {
+            if (item?.analgesia) {
 
-                const analgesiaData = fullFillAnalgesiaData(item.analgesia);
+                const analgesiaData = fullFillAnalgesiaData(item?.analgesia);
 
                 result.vasIn0 = formatNumber(getVasScoreWithContraction(analgesiaData, 0));
                 result.vasIn2 = formatNumber(getVasScoreWithContraction(analgesiaData, 2));
@@ -423,11 +459,11 @@ export async function getExportMeanVASWithContraction(data) {
 
             }
 
-            return header.map(item => result[item.key] || null);
+            return header.map(item => result[item?.key] || null);
 
         });
 
-    excelData.unshift(header.map(item => item.name));
+    excelData.unshift(header.map(item => item?.name));
 
     return excelData;
 
@@ -452,17 +488,17 @@ export async function getExportLaterMeanVAS(data) {
             {name: '5h时VAS评分', key: 'vasIn300'}
         ],
 
-        excelData = data.filter(item => item.status).map(item => {
+        excelData = data.filter(item => item?.status).map(item => {
 
             const result = {
-                groupName: item.group ? item.group.name : '',
-                name: item.name,
-                id: item.id
+                groupName: item?.group ? item?.group.name : '',
+                name: item?.name,
+                id: item?.id
             };
 
-            if (item.analgesia) {
+            if (item?.analgesia) {
 
-                const analgesiaData = fullFillAnalgesiaData(item.analgesia);
+                const analgesiaData = fullFillAnalgesiaData(item?.analgesia);
 
                 result.vasIn30 = formatNumber(getVasScore(analgesiaData, 30));
                 result.vasIn120 = formatNumber(getVasScore(analgesiaData, 120));
@@ -471,11 +507,11 @@ export async function getExportLaterMeanVAS(data) {
 
             }
 
-            return header.map(item => result[item.key] || null);
+            return header.map(item => result[item?.key] || null);
 
         });
 
-    excelData.unshift(header.map(item => item.name));
+    excelData.unshift(header.map(item => item?.name));
 
     return excelData;
 

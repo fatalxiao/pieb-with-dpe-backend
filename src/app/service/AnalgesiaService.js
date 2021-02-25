@@ -18,7 +18,7 @@ import {
  */
 export async function getAnalgesiaDataByPatientId(patientId) {
     return buildSuccess(await AnalgesiaDao.getAnalgesiaDataByPatientId(patientId));
-};
+}
 
 /**
  * 创建一批 Analgesia 数据
@@ -26,6 +26,8 @@ export async function getAnalgesiaDataByPatientId(patientId) {
  *      patientId: String
  *      analgesiaData: Array
  *  }
+ *
+ * @param patientId
  * @param data
  * @returns {Promise<*>}
  */
@@ -59,7 +61,7 @@ export async function createAnalgesiaData(patientId, data) {
 
     return buildSuccess(data.length);
 
-};
+}
 
 /**
  * 更新一批 Analgesia 数据
@@ -67,6 +69,8 @@ export async function createAnalgesiaData(patientId, data) {
  *      patientId: String
  *      analgesiaData: Array
  *  }
+ *
+ * @param patientId
  * @param data
  * @returns {Promise<*>}
  */
@@ -100,7 +104,7 @@ export async function updateAnalgesiaData(patientId, data) {
 
     return buildSuccess(data.length);
 
-};
+}
 
 /**
  * 创建或更新一批 Analgesia 数据
@@ -108,6 +112,8 @@ export async function updateAnalgesiaData(patientId, data) {
  *      patientId: String
  *      analgesiaData: Array
  *  }
+ *
+ * @param patientId
  * @param data
  * @returns {Promise<*>}
  */
@@ -136,7 +142,7 @@ export async function createOrUpdateAnalgesiaData(patientId, data) {
 
     return buildSuccess(data.length);
 
-};
+}
 
 export default {
 
