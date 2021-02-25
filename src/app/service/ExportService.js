@@ -145,30 +145,40 @@ export async function getExportDPEData(data, sensoryBlocks) {
 
         excelData = data.filter(item => item?.status).map(item => {
 
-            const result = {
-                groupName: item?.group ? item?.group.name : '',
-                name: item?.name,
-                id: item?.id,
-                age: formatNumber(item?.age),
-                height: formatNumber(item?.height),
-                weight: formatNumber(item?.weight),
-                bmi: item?.weight && item?.height ? (item?.weight / ((item?.height / 100) ** 2)).toFixed(2) : null,
-                gestationalDays: formatNumber(item?.gestationalDays),
-                initialVasScore: formatNumber(item?.initialVasScore * 10),
-                cervicalDilationAtTimeOfEA: formatNumber(item?.cervicalDilationAtTimeOfEA),
-                systolicBloodPressure: formatNumber(item?.systolicBloodPressure),
-                diastolicBloodPressure: formatNumber(item?.diastolicBloodPressure),
-                heartRate: formatNumber(item?.heartRate),
-                pulseOxygenSaturation: formatNumber(item?.pulseOxygenSaturation),
-                fetalHeartRate: formatNumber(item?.fetalHeartRate),
-                hasOxytocinAtTimeOfEA: formatBoolean(item?.hasOxytocinAtTimeOfEA),
-                hasInduction: formatBoolean(item?.hasInduction),
-                desc: item?.description ? [item?.description] : []
-            };
+            if (!item) {
+                return null;
+            }
 
-            if (item?.analgesia) {
+            const {
+                    id, name, group, age, height, weight, gestationalDays, initialVasScore, cervicalDilationAtTimeOfEA,
+                    systolicBloodPressure, diastolicBloodPressure, heartRate, pulseOxygenSaturation, fetalHeartRate,
+                    hasOxytocinAtTimeOfEA, hasInduction, description, analgesia, observal
+                } = item,
 
-                const analgesiaData = fullFillAnalgesiaData(item.analgesia),
+                result = {
+                    id,
+                    name,
+                    groupName: group?.name || '',
+                    age: formatNumber(age),
+                    height: formatNumber(height),
+                    weight: formatNumber(weight),
+                    bmi: weight && height ? (weight / ((height / 100) ** 2)).toFixed(2) : null,
+                    gestationalDays: formatNumber(gestationalDays),
+                    initialVasScore: formatNumber(initialVasScore * 10),
+                    cervicalDilationAtTimeOfEA: formatNumber(cervicalDilationAtTimeOfEA),
+                    systolicBloodPressure: formatNumber(systolicBloodPressure),
+                    diastolicBloodPressure: formatNumber(diastolicBloodPressure),
+                    heartRate: formatNumber(heartRate),
+                    pulseOxygenSaturation: formatNumber(pulseOxygenSaturation),
+                    fetalHeartRate: formatNumber(fetalHeartRate),
+                    hasOxytocinAtTimeOfEA: formatBoolean(hasOxytocinAtTimeOfEA),
+                    hasInduction: formatBoolean(hasInduction),
+                    desc: description ? [description] : []
+                };
+
+            if (analgesia) {
+
+                const analgesiaData = fullFillAnalgesiaData(analgesia),
 
                     isS1In20Left = isSacralSensoryInTime(analgesiaData, s1Value, 20, Position.LEFT),
                     isS1In20Right = isSacralSensoryInTime(analgesiaData, s1Value, 20, Position.RIGHT),
@@ -232,7 +242,7 @@ export async function getExportDPEData(data, sensoryBlocks) {
 
             }
 
-            if (item?.observal) {
+            if (observal) {
 
                 const {
                         pcaCount, manualBolusCount, hasEpiduralCatheterAdjuestment, hasEpiduralCatheterReplacement,
@@ -243,14 +253,14 @@ export async function getExportDPEData(data, sensoryBlocks) {
                         hasPostduralPunctureHeadache, hasBackPain, hasParesthesia, patientSatisfactionScore,
                         bloodLose, foetalWeight, foetalHeight, foetalGender, oneMinuteApgarScore, fiveMinuteApgarScore,
                         hasNicu, nicuReason, arterialPh, arterialBe, venousPh, venousBe, description
-                    } = item.observal,
+                    } = observal,
 
-                    durationOfFirstPcaTime = getDurationOfFirstPcaTime(item.observal),
-                    durationOfFirstManualBolusTime = getDurationOfFirstManualBolusTime(item.observal),
-                    durationOfAnalgesia = getDurationOfAnalgesia(item.observal),
-                    anestheticsConsumption = getAnestheticsConsumption(item.observal),
-                    ropivacaineConsumption = getRopivacaineConsumption(item.observal),
-                    sufentanilConsumption = getSufentanilConsumption(item.observal);
+                    durationOfFirstPcaTime = getDurationOfFirstPcaTime(observal),
+                    durationOfFirstManualBolusTime = getDurationOfFirstManualBolusTime(observal),
+                    durationOfAnalgesia = getDurationOfAnalgesia(observal),
+                    anestheticsConsumption = getAnestheticsConsumption(observal),
+                    ropivacaineConsumption = getRopivacaineConsumption(observal),
+                    sufentanilConsumption = getSufentanilConsumption(observal);
 
                 result.pcaCount = formatNumber(pcaCount);
                 result.durationOfFirstPcaTime = formatNumber(durationOfFirstPcaTime);
@@ -370,15 +380,21 @@ export async function getExportMeanVAS(data) {
 
         excelData = data.filter(item => item?.status).map(item => {
 
-            const result = {
-                groupName: item?.group ? item?.group.name : '',
-                name: item?.name,
-                id: item?.id
-            };
+            if (!item) {
+                return null;
+            }
 
-            if (item?.analgesia) {
+            const {id, name, group, analgesia} = item,
 
-                const analgesiaData = fullFillAnalgesiaData(item?.analgesia);
+                result = {
+                    id,
+                    name,
+                    groupName: group?.name || ''
+                };
+
+            if (analgesia) {
+
+                const analgesiaData = fullFillAnalgesiaData(analgesia);
 
                 result.vasIn0 = formatNumber(getVasScore(analgesiaData, 0));
                 result.vasIn2 = formatNumber(getVasScore(analgesiaData, 2));
@@ -403,7 +419,7 @@ export async function getExportMeanVAS(data) {
 
     return excelData;
 
-};
+}
 
 /**
  * 获取导出的宫缩平均 VAS 部分的数据
@@ -434,15 +450,21 @@ export async function getExportMeanVASWithContraction(data) {
 
         excelData = data.filter(item => item?.status).map(item => {
 
-            const result = {
-                groupName: item?.group ? item?.group.name : '',
-                name: item?.name,
-                id: item?.id
-            };
+            if (!item) {
+                return null;
+            }
 
-            if (item?.analgesia) {
+            const {id, group, name, analgesia} = item,
 
-                const analgesiaData = fullFillAnalgesiaData(item?.analgesia);
+                result = {
+                    groupName: group?.name || '',
+                    name: name,
+                    id: id
+                };
+
+            if (analgesia) {
+
+                const analgesiaData = fullFillAnalgesiaData(analgesia);
 
                 result.vasIn0 = formatNumber(getVasScoreWithContraction(analgesiaData, 0));
                 result.vasIn2 = formatNumber(getVasScoreWithContraction(analgesiaData, 2));
@@ -459,7 +481,7 @@ export async function getExportMeanVASWithContraction(data) {
 
             }
 
-            return header.map(item => result[item?.key] || null);
+            return header.map(item => result[item.key] || null);
 
         });
 
@@ -467,7 +489,7 @@ export async function getExportMeanVASWithContraction(data) {
 
     return excelData;
 
-};
+}
 
 /**
  * 获取导出的平均 VAS 部分的数据
@@ -490,15 +512,21 @@ export async function getExportLaterMeanVAS(data) {
 
         excelData = data.filter(item => item?.status).map(item => {
 
-            const result = {
-                groupName: item?.group ? item?.group.name : '',
-                name: item?.name,
-                id: item?.id
-            };
+            if (!item) {
+                return null;
+            }
 
-            if (item?.analgesia) {
+            const {id, name, group, analgesia} = item,
 
-                const analgesiaData = fullFillAnalgesiaData(item?.analgesia);
+                result = {
+                    id,
+                    name,
+                    groupName: group?.name || ''
+                };
+
+            if (analgesia) {
+
+                const analgesiaData = fullFillAnalgesiaData(analgesia);
 
                 result.vasIn30 = formatNumber(getVasScore(analgesiaData, 30));
                 result.vasIn120 = formatNumber(getVasScore(analgesiaData, 120));
@@ -515,7 +543,7 @@ export async function getExportLaterMeanVAS(data) {
 
     return excelData;
 
-};
+}
 
 /**
  * 获取导出的所有数据
@@ -535,7 +563,7 @@ export async function getExportData(data, sensoryBlocks) {
         laterMeanVASData: await getExportLaterMeanVAS(data)
     };
 
-};
+}
 
 export default {
     getExportDPEData,
