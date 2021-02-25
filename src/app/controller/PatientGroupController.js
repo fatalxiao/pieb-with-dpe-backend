@@ -24,6 +24,6 @@ class PatientGroupController {
         ctx.response.body = await PatientGroupService.getPatientGroups();
     }
 
-};
+}
 
 export default PatientGroupController;

@@ -33,8 +33,6 @@ class ObservalController {
             return buildParamError('Observal Data is required');
         }
 
-        return;
-
     }
 
     /**
@@ -123,6 +121,6 @@ class ObservalController {
 
     }
 
-};
+}
 
 export default ObservalController;

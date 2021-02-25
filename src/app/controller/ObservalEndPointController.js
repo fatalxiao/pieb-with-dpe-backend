@@ -24,6 +24,6 @@ class ObservalEndPointController {
         ctx.response.body = await ObservalEndPointService.getObservalEndPoints();
     }
 
-};
+}
 
 export default ObservalEndPointController;

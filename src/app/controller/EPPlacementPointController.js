@@ -24,6 +24,6 @@ class EPPlacementPointController {
         ctx.response.body = await EPPlacementPointService.getEPPlacementPoints();
     }
 
-};
+}
 
 export default EPPlacementPointController;

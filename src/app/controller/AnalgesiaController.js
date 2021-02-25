@@ -33,8 +33,6 @@ class AnalgesiaController {
             return buildParamError('Analgesia Data is required');
         }
 
-        return;
-
     }
 
     /**
@@ -135,6 +133,6 @@ class AnalgesiaController {
 
     }
 
-};
+}
 
 export default AnalgesiaController;

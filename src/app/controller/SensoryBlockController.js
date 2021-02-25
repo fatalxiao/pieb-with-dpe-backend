@@ -19,6 +19,6 @@ class SensoryBlockController {
         ctx.response.body = await SensoryBlockService.getSensoryBlocks();
     }
 
-};
+}
 
 export default SensoryBlockController;
