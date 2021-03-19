@@ -20,7 +20,9 @@ export async function getPatients() {
         include: [{
             model: Group,
             as: 'group',
-            where: {id: Sequelize.col('patients.group_id')}
+            where: {
+                id: Sequelize.col('patients.group_id')
+            }
         }]
     });
 }

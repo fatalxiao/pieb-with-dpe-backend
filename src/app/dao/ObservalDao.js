@@ -6,6 +6,8 @@ import Sequelize from 'sequelize';
 
 // Models
 import Observal from '../model/ObservalModel.js';
+import EPPlacementPoint from '../model/EPPlacementPointModel';
+import ObservalEndPoint from '../model/ObservalEndPointModel';
 
 /**
  * 获取某个 patient ID 的 Observal 数据
@@ -16,7 +18,16 @@ export async function getObservalDataByPatientId(patientId) {
     return await Observal.findOne({
         where: {
             patientId: {[Sequelize.Op.eq]: patientId}
-        }
+        },
+        include: [{
+            model: EPPlacementPoint,
+            as: 'epPlacementPoint',
+            required: false
+        }, {
+            model: ObservalEndPoint,
+            as: 'observalEndPoint',
+            required: false
+        }]
     });
 }
 
