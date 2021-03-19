@@ -192,14 +192,14 @@ const sequelizeInstance = SequelizeGenerator(),
     });
 
 Observal.belongsTo(EPPlacementPoint, {
-    as: 'ep_placement_point',
-    foreignKey: 'ep_placement_point_id',
+    as: 'epPlacementPoint',
+    foreignKey: 'epPlacementPointId',
     targetKey: 'id'
 });
 
 Observal.belongsTo(ObservalEndPoint, {
-    as: 'observal_end_point',
-    foreignKey: 'observal_end_point_id',
+    as: 'observalEndPoint',
+    foreignKey: 'observalEndPointId',
     targetKey: 'id'
 });
 
