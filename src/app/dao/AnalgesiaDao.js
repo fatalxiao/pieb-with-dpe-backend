@@ -16,34 +16,44 @@ import SensoryBlock from '../model/SensoryBlockModel';
 export async function getAnalgesiaDataByPatientId(patientId) {
     return await Analgesia.findAll({
         where: {
-            patientId: {[Sequelize.Op.eq]: patientId}
+            patientId: {
+                [Sequelize.Op.eq]: patientId
+            }
         },
         include: [{
             model: SensoryBlock,
             as: 'thoracicSensoryBlockLeft',
             where: {
-                type: {[Sequelize.Op.eq]: 1}
+                type: {
+                    [Sequelize.Op.eq]: 1
+                }
             },
             required: false
         }, {
             model: SensoryBlock,
             as: 'thoracicSensoryBlockRight',
             where: {
-                type: {[Sequelize.Op.eq]: 1}
+                type: {
+                    [Sequelize.Op.eq]: 1
+                }
             },
             required: false
         }, {
             model: SensoryBlock,
             as: 'sacralSensoryBlockLeft',
             where: {
-                type: {[Sequelize.Op.eq]: 2}
+                type: {
+                    [Sequelize.Op.eq]: 2
+                }
             },
             required: false
         }, {
             model: SensoryBlock,
             as: 'sacralSensoryBlockRight',
             where: {
-                type: {[Sequelize.Op.eq]: 2}
+                type: {
+                    [Sequelize.Op.eq]: 2
+                }
             },
             required: false
         }]
@@ -59,8 +69,12 @@ export async function getAnalgesiaDataByPatientId(patientId) {
 export async function isAnalgesiaDataExist(patientId, timePoint) {
     return await Analgesia.count({
         where: {
-            patientId: {[Sequelize.Op.eq]: patientId},
-            timePoint: {[Sequelize.Op.eq]: timePoint}
+            patientId: {
+                [Sequelize.Op.eq]: patientId
+            },
+            timePoint: {
+                [Sequelize.Op.eq]: timePoint
+            }
         }
     }) > 0;
 }
@@ -82,8 +96,12 @@ export async function createAnalgesiaData(data) {
 export async function updateAnalgesiaData(data) {
     return await Analgesia.update(data, {
         where: {
-            patientId: {[Sequelize.Op.eq]: data.patientId},
-            timePoint: {[Sequelize.Op.eq]: data.timePoint}
+            patientId: {
+                [Sequelize.Op.eq]: data.patientId
+            },
+            timePoint: {
+                [Sequelize.Op.eq]: data.timePoint
+            }
         }
     });
 }

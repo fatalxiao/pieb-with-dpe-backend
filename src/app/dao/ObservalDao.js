@@ -17,7 +17,9 @@ import ObservalEndPoint from '../model/ObservalEndPointModel';
 export async function getObservalDataByPatientId(patientId) {
     return await Observal.findOne({
         where: {
-            patientId: {[Sequelize.Op.eq]: patientId}
+            patientId: {
+                [Sequelize.Op.eq]: patientId
+            }
         },
         include: [{
             model: EPPlacementPoint,
@@ -39,7 +41,9 @@ export async function getObservalDataByPatientId(patientId) {
 export async function isObservalDataExist(patientId) {
     return await Observal.count({
         where: {
-            patientId: {[Sequelize.Op.eq]: patientId}
+            patientId: {
+                [Sequelize.Op.eq]: patientId
+            }
         }
     }) > 0;
 }
@@ -61,7 +65,9 @@ export async function createObservalData(data) {
 export async function updateObservalData(data) {
     return await Observal.update(data, {
         where: {
-            patientId: {[Sequelize.Op.eq]: data.patientId}
+            patientId: {
+                [Sequelize.Op.eq]: data.patientId
+            }
         }
     });
 }
