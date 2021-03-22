@@ -22,6 +22,10 @@ var _sequelize = _interopRequireDefault(require("sequelize"));
 
 var _ObservalModel = _interopRequireDefault(require("../model/ObservalModel.js"));
 
+var _EPPlacementPointModel = _interopRequireDefault(require("../model/EPPlacementPointModel"));
+
+var _ObservalEndPointModel = _interopRequireDefault(require("../model/ObservalEndPointModel"));
+
 /**
  * @file ObservalDao.js
  */
@@ -52,7 +56,16 @@ function _getObservalDataByPatientId() {
             return _ObservalModel["default"].findOne({
               where: {
                 patientId: (0, _defineProperty2["default"])({}, _sequelize["default"].Op.eq, patientId)
-              }
+              },
+              include: [{
+                model: _EPPlacementPointModel["default"],
+                as: 'epPlacementPoint',
+                required: false
+              }, {
+                model: _ObservalEndPointModel["default"],
+                as: 'observalEndPoint',
+                required: false
+              }]
             });
 
           case 2:

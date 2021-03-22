@@ -196,13 +196,13 @@ var sequelizeInstance = (0, _SequelizeGenerator["default"])(),
   paranoid: true
 });
 Observal.belongsTo(_EPPlacementPointModel["default"], {
-  as: 'ep_placement_point',
-  foreignKey: 'ep_placement_point_id',
+  as: 'epPlacementPoint',
+  foreignKey: 'epPlacementPointId',
   targetKey: 'id'
 });
 Observal.belongsTo(_ObservalEndPointModel["default"], {
-  as: 'observal_end_point',
-  foreignKey: 'observal_end_point_id',
+  as: 'observalEndPoint',
+  foreignKey: 'observalEndPointId',
   targetKey: 'id'
 });
 var _default = Observal;
