@@ -20,7 +20,9 @@ export async function getPatients() {
         include: [{
             model: Group,
             as: 'group',
-            where: {id: Sequelize.col('patients.group_id')}
+            where: {
+                id: Sequelize.col('patients.group_id')
+            }
         }]
     });
 }
@@ -34,7 +36,9 @@ export async function getFullPatients() {
         order: [
             ['ctime', 'DESC']
         ],
-        include: [{all: true}]
+        include: [{
+            all: true
+        }]
     });
 }
 
@@ -46,7 +50,9 @@ export async function getFullPatients() {
 export async function isPatientExist(id) {
     return await PatientModel.count({
         where: {
-            id: {[Sequelize.Op.eq]: id}
+            id: {
+                [Sequelize.Op.eq]: id
+            }
         }
     }) > 0;
 }
@@ -59,12 +65,16 @@ export async function isPatientExist(id) {
 export async function getPatientById(id) {
     return await PatientModel.findOne({
         where: {
-            id: {[Sequelize.Op.eq]: id}
+            id: {
+                [Sequelize.Op.eq]: id
+            }
         },
         include: [{
             model: Group,
             as: 'group',
-            where: {id: Sequelize.col('patients.group_id')}
+            where: {
+                id: Sequelize.col('patients.group_id')
+            }
         }]
     });
 }
@@ -86,7 +96,9 @@ export async function createPatient(data) {
 export async function updatePatient(data) {
     return await PatientModel.update(data, {
         where: {
-            id: {[Sequelize.Op.eq]: data.id}
+            id: {
+                [Sequelize.Op.eq]: data.id
+            }
         }
     });
 }
@@ -114,7 +126,9 @@ export async function enablePatient(id) {
         status: 1
     }, {
         where: {
-            id: {[Sequelize.Op.eq]: id}
+            id: {
+                [Sequelize.Op.eq]: id
+            }
         }
     });
 }
@@ -129,7 +143,9 @@ export async function disablePatient(id) {
         status: 0
     }, {
         where: {
-            id: {[Sequelize.Op.eq]: id}
+            id: {
+                [Sequelize.Op.eq]: id
+            }
         }
     });
 }
