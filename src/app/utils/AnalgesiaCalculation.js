@@ -35,7 +35,7 @@ export const BASE_DATA = {
  * @type {number[]}
  */
 export const DEFAULT_TIMEPOINTS = [
-    0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 30, 2 * 60, 3.5 * 60, 5 * 60, 6.5 * 60, 8 * 60
+    0, 20, 60, 2 * 60, 3 * 60, 4 * 60, 5 * 60, 6 * 60
 ];
 
 /**
@@ -78,7 +78,7 @@ export function fullFillAnalgesiaData(analgesiaData) {
 
                 while (timePoint < resItem.timePoint) {
 
-                    timePoint += 1.5 * 60;
+                    timePoint += 60;
 
                     if (timePoint >= resItem.timePoint) {
                         data.push(resItem);
