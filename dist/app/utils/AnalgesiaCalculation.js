@@ -73,7 +73,7 @@ var BASE_DATA = {
  */
 
 exports.BASE_DATA = BASE_DATA;
-var DEFAULT_TIMEPOINTS = [0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 30, 2 * 60, 3.5 * 60, 5 * 60, 6.5 * 60, 8 * 60];
+var DEFAULT_TIMEPOINTS = [0, 20, 60, 2 * 60, 3 * 60, 4 * 60, 5 * 60, 6 * 60];
 /**
  * 获取默认的麻醉数据
  * @param timePoints
@@ -125,7 +125,7 @@ function fullFillAnalgesiaData(analgesiaData) {
             var timePoint = DEFAULT_TIMEPOINTS[DEFAULT_TIMEPOINTS.length - 1];
 
             while (timePoint < resItem.timePoint) {
-              timePoint += 1.5 * 60;
+              timePoint += 60;
 
               if (timePoint >= resItem.timePoint) {
                 data.push(resItem);
