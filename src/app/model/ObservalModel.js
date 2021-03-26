@@ -10,11 +10,7 @@ import ObservalEndPoint from './ObservalEndPointModel';
 
 // Vendors
 import SequelizeGenerator from '../utils/SequelizeGenerator.js';
-import {
-    formatNumberField,
-    formatDateTimeField,
-    formatResDateTime
-} from '../utils/DataFormat';
+import {formatNumberField} from '../utils/DataFormat';
 
 const sequelizeInstance = SequelizeGenerator(),
 
@@ -47,13 +43,7 @@ const sequelizeInstance = SequelizeGenerator(),
         },
         cervixFullyDilatedTime: {
             field: 'cervix_fully_dilated_time',
-            type: Sequelize.DATE,
-            get() {
-                formatResDateTime(this.getDataValue('cervixFullyDilatedTime'));
-            },
-            set(value) {
-                this.setDataValue('cervixFullyDilatedTime', formatDateTimeField(value));
-            }
+            type: Sequelize.STRING(8)
         },
         cervixDilatation: {
             field: 'cervix_dilatation',
@@ -103,13 +93,7 @@ const sequelizeInstance = SequelizeGenerator(),
         },
         firstPcaTime: {
             field: 'first_pca_time',
-            type: Sequelize.DATE,
-            get() {
-                formatResDateTime(this.getDataValue('firstPcaTime'));
-            },
-            set(value) {
-                this.setDataValue('firstPcaTime', formatDateTimeField(value));
-            }
+            type: Sequelize.STRING(8)
         },
         hasVasoactiveAgent: {
             field: 'has_vasoactive_agent',
@@ -117,13 +101,7 @@ const sequelizeInstance = SequelizeGenerator(),
         },
         firstManualBolusTime: {
             field: 'first_manual_bolus_time',
-            type: Sequelize.DATE,
-            get() {
-                formatResDateTime(this.getDataValue('firstManualBolusTime'));
-            },
-            set(value) {
-                this.setDataValue('firstManualBolusTime', formatDateTimeField(value));
-            }
+            type: Sequelize.STRING(8)
         },
         hasHypotension: {
             field: 'has_hypotension',
@@ -143,13 +121,7 @@ const sequelizeInstance = SequelizeGenerator(),
         },
         birthTime: {
             field: 'birth_time',
-            type: Sequelize.DATE,
-            get() {
-                formatResDateTime(this.getDataValue('birthTime'));
-            },
-            set(value) {
-                this.setDataValue('birthTime', formatDateTimeField(value));
-            }
+            type: Sequelize.STRING(8)
         },
         foetalWeight: {
             field: 'foetal_weight',
