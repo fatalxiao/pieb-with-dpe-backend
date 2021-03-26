@@ -64,13 +64,7 @@ const sequelizeInstance = SequelizeGenerator(),
         },
         initialTime: {
             field: 'initial_time',
-            type: Sequelize.DATE,
-            get() {
-                formatResDateTime(this.getDataValue('initialTime'));
-            },
-            set(value) {
-                this.setDataValue('initialTime', formatDateTimeField(value));
-            }
+            type: Sequelize.STRING(8)
         },
         initialDose: {
             field: 'initial_dose',

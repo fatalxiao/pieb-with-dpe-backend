@@ -15,12 +15,42 @@ export function formatNumberField(value) {
 }
 
 /**
+ * 格式化 Time 字段
+ * @param value
+ * @returns {null}
+ */
+export function formatTimeField(value) {
+    return moment(value).isValid() ? value : null;
+}
+
+/**
  * 格式化 DateTime 字段
  * @param value
  * @returns {null}
  */
 export function formatDateTimeField(value) {
     return moment(value).isValid() ? value : null;
+}
+
+/**
+ * 格式化 ResTime 字段
+ * @param value
+ * @returns {string}
+ */
+export function formatResTime(value) {
+
+    if (!value) {
+        return '';
+    }
+
+    const time = moment(value);
+
+    if (!time.isValid()) {
+        return '';
+    }
+
+    return moment(time).format('HH:mm:ss');
+
 }
 
 /**
@@ -46,6 +76,8 @@ export function formatResDateTime(value) {
 
 export default {
     formatNumberField,
+    formatTimeField,
     formatDateTimeField,
+    formatResTime,
     formatResDateTime
 };
