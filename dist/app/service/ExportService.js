@@ -235,6 +235,7 @@ function _getPiebOptimalIntervalDataData() {
                     cervixDilatation = observal.cervixDilatation,
                     pcaCount = observal.pcaCount,
                     firstPcaTime = observal.firstPcaTime,
+                    firstManualBolusTime = observal.firstManualBolusTime,
                     hasCaesareanSection = observal.hasCaesareanSection,
                     hasLateralEpisiotomy = observal.hasLateralEpisiotomy,
                     hasInstrumental = observal.hasInstrumental,
