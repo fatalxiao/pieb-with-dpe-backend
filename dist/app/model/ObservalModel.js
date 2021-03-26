@@ -52,13 +52,7 @@ var sequelizeInstance = (0, _SequelizeGenerator["default"])(),
   },
   cervixFullyDilatedTime: {
     field: 'cervix_fully_dilated_time',
-    type: _sequelize["default"].DATE,
-    get: function get() {
-      (0, _DataFormat.formatResDateTime)(this.getDataValue('cervixFullyDilatedTime'));
-    },
-    set: function set(value) {
-      this.setDataValue('cervixFullyDilatedTime', (0, _DataFormat.formatDateTimeField)(value));
-    }
+    type: _sequelize["default"].STRING(8)
   },
   cervixDilatation: {
     field: 'cervix_dilatation',
@@ -69,13 +63,7 @@ var sequelizeInstance = (0, _SequelizeGenerator["default"])(),
   },
   initialTime: {
     field: 'initial_time',
-    type: _sequelize["default"].DATE,
-    get: function get() {
-      (0, _DataFormat.formatResDateTime)(this.getDataValue('initialTime'));
-    },
-    set: function set(value) {
-      this.setDataValue('initialTime', (0, _DataFormat.formatDateTimeField)(value));
-    }
+    type: _sequelize["default"].STRING(8)
   },
   initialDose: {
     field: 'initial_dose',
@@ -114,13 +102,7 @@ var sequelizeInstance = (0, _SequelizeGenerator["default"])(),
   },
   firstPcaTime: {
     field: 'first_pca_time',
-    type: _sequelize["default"].DATE,
-    get: function get() {
-      (0, _DataFormat.formatResDateTime)(this.getDataValue('firstPcaTime'));
-    },
-    set: function set(value) {
-      this.setDataValue('firstPcaTime', (0, _DataFormat.formatDateTimeField)(value));
-    }
+    type: _sequelize["default"].STRING(8)
   },
   hasVasoactiveAgent: {
     field: 'has_vasoactive_agent',
@@ -128,13 +110,7 @@ var sequelizeInstance = (0, _SequelizeGenerator["default"])(),
   },
   firstManualBolusTime: {
     field: 'first_manual_bolus_time',
-    type: _sequelize["default"].DATE,
-    get: function get() {
-      (0, _DataFormat.formatResDateTime)(this.getDataValue('firstManualBolusTime'));
-    },
-    set: function set(value) {
-      this.setDataValue('firstManualBolusTime', (0, _DataFormat.formatDateTimeField)(value));
-    }
+    type: _sequelize["default"].STRING(8)
   },
   hasHypotension: {
     field: 'has_hypotension',
@@ -154,13 +130,7 @@ var sequelizeInstance = (0, _SequelizeGenerator["default"])(),
   },
   birthTime: {
     field: 'birth_time',
-    type: _sequelize["default"].DATE,
-    get: function get() {
-      (0, _DataFormat.formatResDateTime)(this.getDataValue('birthTime'));
-    },
-    set: function set(value) {
-      this.setDataValue('birthTime', (0, _DataFormat.formatDateTimeField)(value));
-    }
+    type: _sequelize["default"].STRING(8)
   },
   foetalWeight: {
     field: 'foetal_weight',
