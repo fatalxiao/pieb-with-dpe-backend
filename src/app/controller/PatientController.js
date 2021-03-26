@@ -78,28 +78,14 @@ class PatientController {
     @GetMapping({value: `${baseUrl}/patient/exportPatients`})
     static async exportPatients(ctx) {
 
-        const {
-            dpeData,
-            meanVASData,
-            meanVASWithContractionData,
-            laterMeanVASData
-        } = await ExportService.getExportData();
+        const {piebOptimalIntervalData} = await ExportService.getExportData();
 
         ctx.set('Content-Type', 'application/vnd.openxmlformats');
         ctx.set('Content-Disposition', `attachment;filename=DPE data ${moment().format('YYYY-MM-DD')}.xlsx`);
 
         ctx.response.body = xlsx.build([{
-            name: 'DPE Data',
-            data: dpeData
-        }, {
-            name: 'Mean VAS',
-            data: meanVASData
-        }, {
-            name: 'Mean VAS with Contraction',
-            data: meanVASWithContractionData
-        }, {
-            name: 'Later Mean VAS',
-            data: laterMeanVASData
+            name: 'PIEB optimal interval',
+            data: piebOptimalIntervalData
         }]);
 
     }

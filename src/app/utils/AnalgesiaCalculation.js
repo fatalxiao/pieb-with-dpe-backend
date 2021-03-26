@@ -435,6 +435,21 @@ export function isAdequatePainRelief(analgesiaData, timePoint) {
 
 }
 
+/**
+ * 获取 analgesiaData 中最大的 Bromage 评分
+ * @param analgesiaData
+ * @returns {number}
+ */
+export function getMaxBromageScore(analgesiaData) {
+
+    if (!analgesiaData || analgesiaData.length < 1) {
+        return 0;
+    }
+
+    return Math.max(...analgesiaData.map(item => item?.bromageScore || 0));
+
+}
+
 export default {
 
     Position,
@@ -453,6 +468,7 @@ export default {
     getTimePointOfThoracicSensoryBlock,
     getTimePointOfSacralSensoryBlock,
     isFetalHeartRateDecreased,
-    isAdequatePainRelief
+    isAdequatePainRelief,
+    getMaxBromageScore
 
 };
