@@ -81,7 +81,10 @@ class PatientController {
         const {piebOptimalIntervalData} = await ExportService.getExportData();
 
         ctx.set('Content-Type', 'application/vnd.openxmlformats');
-        ctx.set('Content-Disposition', `attachment;filename=DPE data ${moment().format('YYYY-MM-DD')}.xlsx`);
+        ctx.set(
+            'Content-Disposition',
+            `attachment;filename=PIEB optimal interval data ${moment().format('YYYY-MM-DD')}.xlsx`
+        );
 
         ctx.response.body = xlsx.build([{
             name: 'PIEB optimal interval',
