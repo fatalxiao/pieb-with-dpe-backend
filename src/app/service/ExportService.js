@@ -120,7 +120,7 @@ export async function getPiebOptimalIntervalDataData(data) {
 
                 const {
                     epPlacementPoint, initialTime, observalEndPoint, cervixFullyDilatedTime,
-                    cervixDilatation, pcaCount, firstPcaTime, hasCaesareanSection,
+                    cervixDilatation, pcaCount, firstPcaTime, firstManualBolusTime, hasCaesareanSection,
                     hasLateralEpisiotomy, hasInstrumental, hasHypotension, description
                 } = observal;
 
