@@ -80,6 +80,7 @@ class PatientController {
 
         const {piebOptimalIntervalData} = await ExportService.getExportData();
 
+        ctx.set('Content-Type', 'application/force-download');
         ctx.set('Content-Type', 'application/vnd.openxmlformats');
         ctx.set(
             'Content-Disposition',
