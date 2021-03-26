@@ -1,3 +1,4 @@
+DROP TABLE IF EXISTS `observal_data`;
 create table observal_data
 (
   id                                         int auto_increment
@@ -8,11 +9,11 @@ create table observal_data
   comment '硬膜外穿刺点位置',
   observal_end_point_id                      int                    null
   comment '观察终点',
-  cervix_fully_dilated_time                  datetime               null
+  cervix_fully_dilated_time                  varchar(8)             null
   comment '宫口开全时间',
   cervix_dilatation                          int                    null
   comment '宫颈扩张度',
-  initial_time                               datetime               null
+  initial_time                               varchar(8)             null
   comment '麻醉开始时间',
   initial_dose                               int                    null
   comment '负荷剂量(ml)',
@@ -24,11 +25,11 @@ create table observal_data
   comment 'PCA次数',
   manual_bolus_count                         int                    null
   comment '人工硬膜外追加次数',
-  first_pca_time                             datetime               null
+  first_pca_time                             varchar(8)             null
   comment '首次PCA时间',
   has_vasoactive_agent                       tinyint(1) default '0' null
   comment '是否使用血管活性药物',
-  first_manual_bolus_time                    datetime               null
+  first_manual_bolus_time                    varchar(8)             null
   comment '首次人工硬膜外追加时间',
   has_hypotension                            tinyint(1) default '0' null
   comment '是否有血压过低',
@@ -38,7 +39,7 @@ create table observal_data
   comment '是否有器械助产',
   has_lateral_episiotomy                     tinyint(1) default '0' null
   comment '是否有侧切',
-  birth_time                                 datetime               null
+  birth_time                                 varchar(8)             null
   comment '分娩时间',
   foetal_weight                              int                    null
   comment '胎儿体重',
