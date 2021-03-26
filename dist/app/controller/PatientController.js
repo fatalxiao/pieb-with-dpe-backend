@@ -182,6 +182,7 @@ var PatientController = (_dec = (0, _ApiDecorator.Api)({
               case 2:
                 _yield$ExportService$ = _context3.sent;
                 piebOptimalIntervalData = _yield$ExportService$.piebOptimalIntervalData;
+                ctx.set('Content-Type', 'application/force-download');
                 ctx.set('Content-Type', 'application/vnd.openxmlformats');
                 ctx.set('Content-Disposition', "attachment;filename=PIEB optimal interval data ".concat((0, _moment["default"])().format('YYYY-MM-DD'), ".xlsx"));
                 ctx.response.body = _nodeXlsx["default"].build([{
@@ -189,7 +190,7 @@ var PatientController = (_dec = (0, _ApiDecorator.Api)({
                   data: piebOptimalIntervalData
                 }]);
 
-              case 7:
+              case 8:
               case "end":
                 return _context3.stop();
             }
