@@ -19,6 +19,7 @@ exports.getTimePointOfThoracicSensoryBlock = getTimePointOfThoracicSensoryBlock;
 exports.getTimePointOfSacralSensoryBlock = getTimePointOfSacralSensoryBlock;
 exports.isFetalHeartRateDecreased = isFetalHeartRateDecreased;
 exports.isAdequatePainRelief = isAdequatePainRelief;
+exports.getMaxBromageScore = getMaxBromageScore;
 exports["default"] = exports.DEFAULT_TIMEPOINTS = exports.BASE_DATA = exports.Position = void 0;
 
 var _toConsumableArray2 = _interopRequireDefault(require("@babel/runtime/helpers/toConsumableArray"));
@@ -572,6 +573,22 @@ function isAdequatePainRelief(analgesiaData, timePoint) {
 
   return false;
 }
+/**
+ * 获取 analgesiaData 中最大的 Bromage 评分
+ * @param analgesiaData
+ * @returns {number}
+ */
+
+
+function getMaxBromageScore(analgesiaData) {
+  if (!analgesiaData || analgesiaData.length < 1) {
+    return 0;
+  }
+
+  return Math.max.apply(Math, (0, _toConsumableArray2["default"])(analgesiaData.map(function (item) {
+    return (item === null || item === void 0 ? void 0 : item.bromageScore) || 0;
+  })));
+}
 
 var _default = {
   Position: Position,
@@ -589,6 +606,7 @@ var _default = {
   getTimePointOfThoracicSensoryBlock: getTimePointOfThoracicSensoryBlock,
   getTimePointOfSacralSensoryBlock: getTimePointOfSacralSensoryBlock,
   isFetalHeartRateDecreased: isFetalHeartRateDecreased,
-  isAdequatePainRelief: isAdequatePainRelief
+  isAdequatePainRelief: isAdequatePainRelief,
+  getMaxBromageScore: getMaxBromageScore
 };
 exports["default"] = _default;

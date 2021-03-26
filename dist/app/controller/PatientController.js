@@ -170,7 +170,7 @@ var PatientController = (_dec = (0, _ApiDecorator.Api)({
     key: "exportPatients",
     value: function () {
       var _exportPatients = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee3(ctx) {
-        var _yield$ExportService$, dpeData, meanVASData, meanVASWithContractionData, laterMeanVASData;
+        var _yield$ExportService$, piebOptimalIntervalData;
 
         return _regenerator["default"].wrap(function _callee3$(_context3) {
           while (1) {
@@ -181,27 +181,15 @@ var PatientController = (_dec = (0, _ApiDecorator.Api)({
 
               case 2:
                 _yield$ExportService$ = _context3.sent;
-                dpeData = _yield$ExportService$.dpeData;
-                meanVASData = _yield$ExportService$.meanVASData;
-                meanVASWithContractionData = _yield$ExportService$.meanVASWithContractionData;
-                laterMeanVASData = _yield$ExportService$.laterMeanVASData;
+                piebOptimalIntervalData = _yield$ExportService$.piebOptimalIntervalData;
                 ctx.set('Content-Type', 'application/vnd.openxmlformats');
-                ctx.set('Content-Disposition', "attachment;filename=DPE data ".concat((0, _moment["default"])().format('YYYY-MM-DD'), ".xlsx"));
+                ctx.set('Content-Disposition', "attachment;filename=PIEB optimal interval data ".concat((0, _moment["default"])().format('YYYY-MM-DD'), ".xlsx"));
                 ctx.response.body = _nodeXlsx["default"].build([{
-                  name: 'DPE Data',
-                  data: dpeData
-                }, {
-                  name: 'Mean VAS',
-                  data: meanVASData
-                }, {
-                  name: 'Mean VAS with Contraction',
-                  data: meanVASWithContractionData
-                }, {
-                  name: 'Later Mean VAS',
-                  data: laterMeanVASData
+                  name: 'PIEB optimal interval',
+                  data: piebOptimalIntervalData
                 }]);
 
-              case 10:
+              case 7:
               case "end":
                 return _context3.stop();
             }
