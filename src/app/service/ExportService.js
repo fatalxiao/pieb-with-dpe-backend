@@ -45,6 +45,8 @@ export async function getPiebOptimalIntervalDataData(data) {
             {name: '20min VAS评分', key: 'vasIn20'},
             {name: '左侧最高头端阻滞平面', key: 'maxThoracicSensoryBlockLeft'},
             {name: '右侧最高头端阻滞平面', key: 'maxThoracicSensoryBlockRight'},
+            {name: '左侧最高头端阻滞平面（从1小时起）', key: 'maxThoracicSensoryBlockLeftFrom60'},
+            {name: '右侧最高头端阻滞平面（从1小时起）', key: 'maxThoracicSensoryBlockRightFrom60'},
             {name: '左侧尾端最低阻滞平面', key: 'minSacralSensoryBlockLeft'},
             {name: '右侧尾端最低阻滞平面', key: 'minSacralSensoryBlockRight'},
             {name: 'Bromage', key: 'bromageScore'},
@@ -108,6 +110,12 @@ export async function getPiebOptimalIntervalDataData(data) {
                 );
                 result.maxThoracicSensoryBlockRight = formatNumber(
                     getMaxThoracicSensoryBlock(analgesiaData, Position.RIGHT)
+                );
+                result.maxThoracicSensoryBlockLeftFrom60 = formatNumber(
+                    getMaxThoracicSensoryBlock(analgesiaData, Position.LEFT, 60)
+                );
+                result.maxThoracicSensoryBlockRightFrom60 = formatNumber(
+                    getMaxThoracicSensoryBlock(analgesiaData, Position.RIGHT, 60)
                 );
                 result.minSacralSensoryBlockLeft = formatNumber(
                     getMinSacralSensoryBlock(analgesiaData, Position.LEFT)

@@ -2,6 +2,9 @@
  * @file AnalgesiaCalculation.js
  */
 
+// Vendors
+import compact from 'lodash/compact';
+
 /**
  * 左侧或右侧
  * @type {{LEFT: string, RIGHT: string}}
@@ -243,17 +246,17 @@ export function isSacralSensoryInTime(analgesiaData, sensory, timePoint, positio
  * 获取最大的最高阻滞
  * @param analgesiaData
  * @param position
+ * @param minTimePoint
  * @returns {null|any}
  */
-export function getMaxThoracicSensoryBlock(analgesiaData, position) {
+export function getMaxThoracicSensoryBlock(analgesiaData, position, minTimePoint = 0) {
 
     if (!analgesiaData || analgesiaData.length < 1) {
         return null;
     }
 
-    analgesiaData.sort((a, b) => a.timePoint - b.timePoint);
-
-    const data = analgesiaData.map(item => item[`thoracicSensoryBlock${position}Value`]).filter(item => item);
+    const data = compact(analgesiaData).filter(item => item.timePoint >= minTimePoint)
+                                       .map(item => item[`thoracicSensoryBlock${position}Value`] || null);
 
     return data.length > 0 ? Math.max(...data) : null;
 
@@ -271,9 +274,7 @@ export function getMinSacralSensoryBlock(analgesiaData, position) {
         return null;
     }
 
-    analgesiaData.sort((a, b) => a.timePoint - b.timePoint);
-
-    const data = analgesiaData.map(item => item[`sacralSensoryBlock${position}Value`]).filter(item => item);
+    const data = compact(analgesiaData).map(item => item[`sacralSensoryBlock${position}Value`] || null);
 
     return data.length > 0 ? Math.max(...data) : null;
 
