@@ -26,6 +26,8 @@ var _toConsumableArray2 = _interopRequireDefault(require("@babel/runtime/helpers
 
 var _defineProperty2 = _interopRequireDefault(require("@babel/runtime/helpers/defineProperty"));
 
+var _compact = _interopRequireDefault(require("lodash/compact"));
+
 function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
 
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
@@ -35,10 +37,6 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { (0, _defineProperty2["default"])(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
-
-/**
- * @file AnalgesiaCalculation.js
- */
 
 /**
  * 左侧或右侧
@@ -330,22 +328,22 @@ function isSacralSensoryInTime(analgesiaData, sensory, timePoint, position) {
  * 获取最大的最高阻滞
  * @param analgesiaData
  * @param position
+ * @param minTimePoint
  * @returns {null|any}
  */
 
 
 function getMaxThoracicSensoryBlock(analgesiaData, position) {
+  var minTimePoint = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
+
   if (!analgesiaData || analgesiaData.length < 1) {
     return null;
   }
 
-  analgesiaData.sort(function (a, b) {
-    return a.timePoint - b.timePoint;
-  });
-  var data = analgesiaData.map(function (item) {
-    return item["thoracicSensoryBlock".concat(position, "Value")];
-  }).filter(function (item) {
-    return item;
+  var data = (0, _compact["default"])(analgesiaData).filter(function (item) {
+    return item.timePoint >= minTimePoint;
+  }).map(function (item) {
+    return item["thoracicSensoryBlock".concat(position, "Value")] || null;
   });
   return data.length > 0 ? Math.max.apply(Math, (0, _toConsumableArray2["default"])(data)) : null;
 }
@@ -362,13 +360,8 @@ function getMinSacralSensoryBlock(analgesiaData, position) {
     return null;
   }
 
-  analgesiaData.sort(function (a, b) {
-    return a.timePoint - b.timePoint;
-  });
-  var data = analgesiaData.map(function (item) {
-    return item["sacralSensoryBlock".concat(position, "Value")];
-  }).filter(function (item) {
-    return item;
+  var data = (0, _compact["default"])(analgesiaData).map(function (item) {
+    return item["sacralSensoryBlock".concat(position, "Value")] || null;
   });
   return data.length > 0 ? Math.max.apply(Math, (0, _toConsumableArray2["default"])(data)) : null;
 }

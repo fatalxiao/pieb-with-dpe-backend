@@ -131,6 +131,12 @@ function _getPiebOptimalIntervalDataData() {
               name: '右侧最高头端阻滞平面',
               key: 'maxThoracicSensoryBlockRight'
             }, {
+              name: '左侧最高头端阻滞平面（从1小时起）',
+              key: 'maxThoracicSensoryBlockLeftFrom60'
+            }, {
+              name: '右侧最高头端阻滞平面（从1小时起）',
+              key: 'maxThoracicSensoryBlockRightFrom60'
+            }, {
               name: '左侧尾端最低阻滞平面',
               key: 'minSacralSensoryBlockLeft'
             }, {
@@ -205,33 +211,61 @@ function _getPiebOptimalIntervalDataData() {
                   analgesia = item.analgesia,
                   observal = item.observal,
                   result = {
+                // 组别
                 groupName: (group === null || group === void 0 ? void 0 : group.name) || '',
+                // 住院号
                 id: id,
+                // 姓名
                 name: name,
+                // 年龄
                 age: (0, _ExportFormat.formatNumber)(age),
+                // 身高（cm）
                 height: (0, _ExportFormat.formatNumber)(height),
+                // 体重（kg）
                 weight: (0, _ExportFormat.formatNumber)(weight),
+                // BMI
                 bmi: weight && height ? (weight / Math.pow(height / 100, 2)).toFixed(2) : null,
+                // 孕周（天）
                 gestationalDays: (0, _ExportFormat.formatNumber)(gestationalDays),
+                // 基础收缩压
                 systolicBloodPressure: (0, _ExportFormat.formatNumber)(systolicBloodPressure),
+                // 基础舒张压
                 diastolicBloodPressure: (0, _ExportFormat.formatNumber)(diastolicBloodPressure),
-                heartRate: (0, _ExportFormat.formatNumber)(heartRate),
+                // 基础心率
+                eartRate: (0, _ExportFormat.formatNumber)(heartRate),
+                // 基础氧饱和度
                 pulseOxygenSaturation: (0, _ExportFormat.formatNumber)(pulseOxygenSaturation),
+                // 基础胎心率
                 fetalHeartRate: (0, _ExportFormat.formatNumber)(fetalHeartRate),
+                // 镇痛前宫口大小
                 cervicalDilationAtTimeOfEA: (0, _ExportFormat.formatNumber)(cervicalDilationAtTimeOfEA),
+                // 镇痛前VAS评分
                 initialVasScore: (0, _ExportFormat.formatNumber)(initialVasScore * 10),
+                // 镇痛前缩宫素使用
                 hasOxytocinAtTimeOfEA: (0, _ExportFormat.formatBoolean)(hasOxytocinAtTimeOfEA),
+                // 是否引产
                 hasInduction: (0, _ExportFormat.formatBoolean)(hasInduction),
+                // 备注
                 desc: description ? [description] : []
               };
 
               if (analgesia) {
-                var analgesiaData = (0, _AnalgesiaCalculation.fullFillAnalgesiaData)(analgesia);
-                result.vasIn20 = (0, _ExportFormat.formatNumber)((0, _AnalgesiaCalculation.getVasScore)(analgesiaData, 20));
-                result.maxThoracicSensoryBlockLeft = (0, _ExportFormat.formatNumber)((0, _AnalgesiaCalculation.getMaxThoracicSensoryBlock)(analgesiaData, _AnalgesiaCalculation.Position.LEFT));
-                result.maxThoracicSensoryBlockRight = (0, _ExportFormat.formatNumber)((0, _AnalgesiaCalculation.getMaxThoracicSensoryBlock)(analgesiaData, _AnalgesiaCalculation.Position.RIGHT));
-                result.minSacralSensoryBlockLeft = (0, _ExportFormat.formatNumber)((0, _AnalgesiaCalculation.getMinSacralSensoryBlock)(analgesiaData, _AnalgesiaCalculation.Position.LEFT));
-                result.minSacralSensoryBlockRight = (0, _ExportFormat.formatNumber)((0, _AnalgesiaCalculation.getMinSacralSensoryBlock)(analgesiaData, _AnalgesiaCalculation.Position.RIGHT));
+                var analgesiaData = (0, _AnalgesiaCalculation.fullFillAnalgesiaData)(analgesia); // 20min VAS评分
+
+                result.vasIn20 = (0, _ExportFormat.formatNumber)((0, _AnalgesiaCalculation.getVasScore)(analgesiaData, 20)); // 左侧最高头端阻滞平面
+
+                result.maxThoracicSensoryBlockLeft = (0, _ExportFormat.formatNumber)((0, _AnalgesiaCalculation.getMaxThoracicSensoryBlock)(analgesiaData, _AnalgesiaCalculation.Position.LEFT)); // 右侧最高头端阻滞平面
+
+                result.maxThoracicSensoryBlockRight = (0, _ExportFormat.formatNumber)((0, _AnalgesiaCalculation.getMaxThoracicSensoryBlock)(analgesiaData, _AnalgesiaCalculation.Position.RIGHT)); // 左侧最高头端阻滞平面（从1小时起）
+
+                result.maxThoracicSensoryBlockLeftFrom60 = (0, _ExportFormat.formatNumber)((0, _AnalgesiaCalculation.getMaxThoracicSensoryBlock)(analgesiaData, _AnalgesiaCalculation.Position.LEFT, 60)); // 右侧最高头端阻滞平面（从1小时起）
+
+                result.maxThoracicSensoryBlockRightFrom60 = (0, _ExportFormat.formatNumber)((0, _AnalgesiaCalculation.getMaxThoracicSensoryBlock)(analgesiaData, _AnalgesiaCalculation.Position.RIGHT, 60)); // 左侧尾端最低阻滞平面
+
+                result.minSacralSensoryBlockLeft = (0, _ExportFormat.formatNumber)((0, _AnalgesiaCalculation.getMinSacralSensoryBlock)(analgesiaData, _AnalgesiaCalculation.Position.LEFT)); // 右侧尾端最低阻滞平面
+
+                result.minSacralSensoryBlockRight = (0, _ExportFormat.formatNumber)((0, _AnalgesiaCalculation.getMinSacralSensoryBlock)(analgesiaData, _AnalgesiaCalculation.Position.RIGHT)); // Bromage
+
                 result.bromageScore = (0, _ExportFormat.formatNumber)((0, _AnalgesiaCalculation.getMaxBromageScore)(analgesiaData));
               }
 
@@ -248,23 +282,39 @@ function _getPiebOptimalIntervalDataData() {
                     hasLateralEpisiotomy = observal.hasLateralEpisiotomy,
                     hasInstrumental = observal.hasInstrumental,
                     hasHypotension = observal.hasHypotension,
-                    _description = observal.description;
-                result.epPlacementPoint = (0, _ExportFormat.formatString)(epPlacementPoint);
-                result.initialTime = (0, _ExportFormat.formatString)(initialTime);
-                result.observalEndPoint = (0, _ExportFormat.formatString)(observalEndPoint === null || observalEndPoint === void 0 ? void 0 : observalEndPoint.name);
-                result.cervixFullyDilatedTime = (0, _ExportFormat.formatString)(cervixFullyDilatedTime);
-                result.cervixDilatation = (0, _ExportFormat.formatString)(cervixDilatation);
-                result.hasPca = (0, _ExportFormat.formatBoolean)(+pcaCount > 0);
-                result.firstPcaTime = (0, _ExportFormat.formatString)(firstPcaTime);
-                result.durationOfFirstPcaTime = (0, _ExportFormat.formatDuration)((0, _Time.duration)(initialTime, firstPcaTime, 'HH:mm'));
-                result.firstManualBolusTime = (0, _ExportFormat.formatString)(firstManualBolusTime);
-                result.durationOfFirstManualBolusTime = (0, _ExportFormat.formatDuration)((0, _Time.duration)(initialTime, firstManualBolusTime, 'HH:mm'));
-                result.hasCaesareanSection = (0, _ExportFormat.formatBoolean)(hasCaesareanSection);
-                result.hasLateralEpisiotomy = (0, _ExportFormat.formatBoolean)(hasLateralEpisiotomy);
-                result.hasInstrumental = (0, _ExportFormat.formatBoolean)(hasInstrumental);
-                result.hasHypotension = (0, _ExportFormat.formatBoolean)(hasHypotension);
+                    _description = observal.description; // 穿刺位置
+
+                result.epPlacementPoint = (0, _ExportFormat.formatString)(epPlacementPoint); // 镇痛开始时间
+
+                result.initialTime = (0, _ExportFormat.formatString)(initialTime); // 观察终点
+
+                result.observalEndPoint = (0, _ExportFormat.formatString)(observalEndPoint === null || observalEndPoint === void 0 ? void 0 : observalEndPoint.name); // 宫口开全时间
+
+                result.cervixFullyDilatedTime = (0, _ExportFormat.formatString)(cervixFullyDilatedTime); // 镇痛后6h宫口大小
+
+                result.cervixDilatation = (0, _ExportFormat.formatString)(cervixDilatation); // 是否使用PCA
+
+                result.hasPca = (0, _ExportFormat.formatBoolean)(+pcaCount > 0); // 首次PCA时间
+
+                result.firstPcaTime = (0, _ExportFormat.formatString)(firstPcaTime); // 镇痛开始到首次PCA之间的时长（分钟）
+
+                result.durationOfFirstPcaTime = (0, _ExportFormat.formatDuration)((0, _Time.duration)(initialTime, firstPcaTime, 'HH:mm')); // 首次手推负荷时间
+
+                result.firstManualBolusTime = (0, _ExportFormat.formatString)(firstManualBolusTime); // 镇痛开始到首次手推负荷之间的时长（分钟）
+
+                result.durationOfFirstManualBolusTime = (0, _ExportFormat.formatDuration)((0, _Time.duration)(initialTime, firstManualBolusTime, 'HH:mm')); // 是否转剖宫产
+
+                result.hasCaesareanSection = (0, _ExportFormat.formatBoolean)(hasCaesareanSection); // 是否侧切
+
+                result.hasLateralEpisiotomy = (0, _ExportFormat.formatBoolean)(hasLateralEpisiotomy); // 是否器械助产
+
+                result.hasInstrumental = (0, _ExportFormat.formatBoolean)(hasInstrumental); // 是否低血压
+
+                result.hasHypotension = (0, _ExportFormat.formatBoolean)(hasHypotension); // 备注
+
                 _description && result.desc.push(_description);
-              }
+              } // 合并备注
+
 
               result.desc = result.desc.join('，');
               return header.map(function (item) {
