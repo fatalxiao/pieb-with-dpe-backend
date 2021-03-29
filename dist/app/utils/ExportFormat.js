@@ -9,8 +9,6 @@ exports.formatString = formatString;
 exports.formatDuration = formatDuration;
 exports["default"] = void 0;
 
-var _Time = require("./Time");
-
 /**
  * @file ExportFormat.js
  */
