@@ -4,6 +4,7 @@
 
 // Vendors
 import compact from 'lodash/compact';
+import isArray from 'lodash/isArray';
 
 /**
  * 左侧或右侧
@@ -243,6 +244,22 @@ export function isSacralSensoryInTime(analgesiaData, sensory, timePoint, positio
 }
 
 /**
+ * 根据 value 获取对应的阻滞平面
+ * @param sensoryBlocks
+ * @param value
+ * @returns {null|*}
+ */
+export function getThoracicSensoryBlockByValue(sensoryBlocks, value) {
+
+    if (!sensoryBlocks || !isArray(sensoryBlocks) || isNaN(value)) {
+        return null;
+    }
+
+    return sensoryBlocks.find(sensoryBlock => sensoryBlock?.type === 1 && sensoryBlock?.value === value);
+
+}
+
+/**
  * 获取最大的最高阻滞
  * @param analgesiaData
  * @param position
@@ -463,6 +480,7 @@ export default {
     isVasLessThan1,
     getTimePointOfVasLessThan1,
     isSacralSensoryInTime,
+    getThoracicSensoryBlockByValue,
     getMaxThoracicSensoryBlock,
     getMinSacralSensoryBlock,
     isUnilateralSensoryBlock,

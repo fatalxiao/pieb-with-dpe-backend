@@ -4,11 +4,13 @@
 
 // Daos
 import {getFullPatients} from '../dao/PatientDao.js';
+import {getSensoryBlocks} from '../dao/SensoryBlockDao.js';
 
 // Vendors
 import {
     Position,
-    fullFillAnalgesiaData, getVasScore, getMaxThoracicSensoryBlock, getMinSacralSensoryBlock, getMaxBromageScore
+    fullFillAnalgesiaData, getVasScore, getThoracicSensoryBlockByValue,
+    getMaxThoracicSensoryBlock, getMinSacralSensoryBlock, getMaxBromageScore
 } from '../utils/AnalgesiaCalculation.js';
 import {formatBoolean, formatNumber, formatString, formatDuration} from '../utils/ExportFormat.js';
 import {duration} from '../utils/Time.js';
@@ -16,11 +18,10 @@ import {duration} from '../utils/Time.js';
 /**
  * 获取导出的 DPE 部分的数据
  * @param data
+ * @param sensoryBlocks
  * @returns {*}
  */
-export async function getPiebOptimalIntervalDataData(data) {
-
-    data = data || await getFullPatients();
+export async function getPiebOptimalIntervalDataData(data, sensoryBlocks) {
 
     const header = [
             {name: '组别', key: 'groupName'},
@@ -155,14 +156,16 @@ export async function getPiebOptimalIntervalDataData(data) {
                 );
 
                 // 左侧最高头端阻滞平面（从1小时起）
-                result.maxThoracicSensoryBlockLeftFrom60 = formatNumber(
+                result.maxThoracicSensoryBlockLeftFrom60 = formatString(getThoracicSensoryBlockByValue(
+                    sensoryBlocks,
                     getMaxThoracicSensoryBlock(analgesiaData, Position.LEFT, 60)
-                );
+                )?.name);
 
                 // 右侧最高头端阻滞平面（从1小时起）
-                result.maxThoracicSensoryBlockRightFrom60 = formatNumber(
+                result.maxThoracicSensoryBlockRightFrom60 = formatString(getThoracicSensoryBlockByValue(
+                    sensoryBlocks,
                     getMaxThoracicSensoryBlock(analgesiaData, Position.RIGHT, 60)
-                );
+                )?.name);
 
                 // 左侧尾端最低阻滞平面
                 result.minSacralSensoryBlockLeft = formatNumber(
@@ -254,14 +257,16 @@ export async function getPiebOptimalIntervalDataData(data) {
 /**
  * 获取导出的所有数据
  * @param data
+ * @param sensoryBlocks
  * @returns {*}
  */
-export async function getExportData(data) {
+export async function getExportData(data, sensoryBlocks) {
 
     data = data || await getFullPatients();
+    sensoryBlocks = sensoryBlocks || await getSensoryBlocks();
 
     return {
-        piebOptimalIntervalData: await getPiebOptimalIntervalDataData(data)
+        piebOptimalIntervalData: await getPiebOptimalIntervalDataData(data, sensoryBlocks)
     };
 
 }
