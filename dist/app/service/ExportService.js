@@ -15,6 +15,8 @@ var _asyncToGenerator2 = _interopRequireDefault(require("@babel/runtime/helpers/
 
 var _PatientDao = require("../dao/PatientDao.js");
 
+var _SensoryBlockDao = require("../dao/SensoryBlockDao.js");
+
 var _AnalgesiaCalculation = require("../utils/AnalgesiaCalculation.js");
 
 var _ExportFormat = require("../utils/ExportFormat.js");
@@ -30,40 +32,27 @@ var _Time = require("../utils/Time.js");
 /**
  * 获取导出的 DPE 部分的数据
  * @param data
+ * @param sensoryBlocks
  * @returns {*}
  */
-function getPiebOptimalIntervalDataData(_x) {
+function getPiebOptimalIntervalDataData(_x, _x2) {
   return _getPiebOptimalIntervalDataData.apply(this, arguments);
 }
 /**
  * 获取导出的所有数据
  * @param data
+ * @param sensoryBlocks
  * @returns {*}
  */
 
 
 function _getPiebOptimalIntervalDataData() {
-  _getPiebOptimalIntervalDataData = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee(data) {
+  _getPiebOptimalIntervalDataData = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee(data, sensoryBlocks) {
     var header, excelData;
     return _regenerator["default"].wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
-            _context.t0 = data;
-
-            if (_context.t0) {
-              _context.next = 5;
-              break;
-            }
-
-            _context.next = 4;
-            return (0, _PatientDao.getFullPatients)();
-
-          case 4:
-            _context.t0 = _context.sent;
-
-          case 5:
-            data = _context.t0;
             header = [{
               name: '组别',
               key: 'groupName'
@@ -250,6 +239,8 @@ function _getPiebOptimalIntervalDataData() {
               };
 
               if (analgesia) {
+                var _getThoracicSensoryBl, _getThoracicSensoryBl2;
+
                 var analgesiaData = (0, _AnalgesiaCalculation.fullFillAnalgesiaData)(analgesia); // 20min VAS评分
 
                 result.vasIn20 = (0, _ExportFormat.formatNumber)((0, _AnalgesiaCalculation.getVasScore)(analgesiaData, 20)); // 左侧最高头端阻滞平面
@@ -258,9 +249,9 @@ function _getPiebOptimalIntervalDataData() {
 
                 result.maxThoracicSensoryBlockRight = (0, _ExportFormat.formatNumber)((0, _AnalgesiaCalculation.getMaxThoracicSensoryBlock)(analgesiaData, _AnalgesiaCalculation.Position.RIGHT)); // 左侧最高头端阻滞平面（从1小时起）
 
-                result.maxThoracicSensoryBlockLeftFrom60 = (0, _ExportFormat.formatNumber)((0, _AnalgesiaCalculation.getMaxThoracicSensoryBlock)(analgesiaData, _AnalgesiaCalculation.Position.LEFT, 60)); // 右侧最高头端阻滞平面（从1小时起）
+                result.maxThoracicSensoryBlockLeftFrom60 = (0, _ExportFormat.formatString)((_getThoracicSensoryBl = (0, _AnalgesiaCalculation.getThoracicSensoryBlockByValue)(sensoryBlocks, (0, _AnalgesiaCalculation.getMaxThoracicSensoryBlock)(analgesiaData, _AnalgesiaCalculation.Position.LEFT, 60))) === null || _getThoracicSensoryBl === void 0 ? void 0 : _getThoracicSensoryBl.name); // 右侧最高头端阻滞平面（从1小时起）
 
-                result.maxThoracicSensoryBlockRightFrom60 = (0, _ExportFormat.formatNumber)((0, _AnalgesiaCalculation.getMaxThoracicSensoryBlock)(analgesiaData, _AnalgesiaCalculation.Position.RIGHT, 60)); // 左侧尾端最低阻滞平面
+                result.maxThoracicSensoryBlockRightFrom60 = (0, _ExportFormat.formatString)((_getThoracicSensoryBl2 = (0, _AnalgesiaCalculation.getThoracicSensoryBlockByValue)(sensoryBlocks, (0, _AnalgesiaCalculation.getMaxThoracicSensoryBlock)(analgesiaData, _AnalgesiaCalculation.Position.RIGHT, 60))) === null || _getThoracicSensoryBl2 === void 0 ? void 0 : _getThoracicSensoryBl2.name); // 左侧尾端最低阻滞平面
 
                 result.minSacralSensoryBlockLeft = (0, _ExportFormat.formatNumber)((0, _AnalgesiaCalculation.getMinSacralSensoryBlock)(analgesiaData, _AnalgesiaCalculation.Position.LEFT)); // 右侧尾端最低阻滞平面
 
@@ -326,7 +317,7 @@ function _getPiebOptimalIntervalDataData() {
             }));
             return _context.abrupt("return", excelData);
 
-          case 9:
+          case 3:
           case "end":
             return _context.stop();
         }
@@ -336,12 +327,12 @@ function _getPiebOptimalIntervalDataData() {
   return _getPiebOptimalIntervalDataData.apply(this, arguments);
 }
 
-function getExportData(_x2) {
+function getExportData(_x3, _x4) {
   return _getExportData.apply(this, arguments);
 }
 
 function _getExportData() {
-  _getExportData = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee2(data) {
+  _getExportData = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee2(data, sensoryBlocks) {
     return _regenerator["default"].wrap(function _callee2$(_context2) {
       while (1) {
         switch (_context2.prev = _context2.next) {
@@ -361,16 +352,31 @@ function _getExportData() {
 
           case 5:
             data = _context2.t0;
-            _context2.next = 8;
-            return getPiebOptimalIntervalDataData(data);
+            _context2.t1 = sensoryBlocks;
 
-          case 8:
-            _context2.t1 = _context2.sent;
-            return _context2.abrupt("return", {
-              piebOptimalIntervalData: _context2.t1
-            });
+            if (_context2.t1) {
+              _context2.next = 11;
+              break;
+            }
+
+            _context2.next = 10;
+            return (0, _SensoryBlockDao.getSensoryBlocks)();
 
           case 10:
+            _context2.t1 = _context2.sent;
+
+          case 11:
+            sensoryBlocks = _context2.t1;
+            _context2.next = 14;
+            return getPiebOptimalIntervalDataData(data, sensoryBlocks);
+
+          case 14:
+            _context2.t2 = _context2.sent;
+            return _context2.abrupt("return", {
+              piebOptimalIntervalData: _context2.t2
+            });
+
+          case 16:
           case "end":
             return _context2.stop();
         }

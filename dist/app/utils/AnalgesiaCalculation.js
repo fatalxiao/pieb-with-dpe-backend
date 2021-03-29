@@ -12,6 +12,7 @@ exports.getVasScoreWithContraction = getVasScoreWithContraction;
 exports.isVasLessThan1 = isVasLessThan1;
 exports.getTimePointOfVasLessThan1 = getTimePointOfVasLessThan1;
 exports.isSacralSensoryInTime = isSacralSensoryInTime;
+exports.getThoracicSensoryBlockByValue = getThoracicSensoryBlockByValue;
 exports.getMaxThoracicSensoryBlock = getMaxThoracicSensoryBlock;
 exports.getMinSacralSensoryBlock = getMinSacralSensoryBlock;
 exports.isUnilateralSensoryBlock = isUnilateralSensoryBlock;
@@ -27,6 +28,8 @@ var _toConsumableArray2 = _interopRequireDefault(require("@babel/runtime/helpers
 var _defineProperty2 = _interopRequireDefault(require("@babel/runtime/helpers/defineProperty"));
 
 var _compact = _interopRequireDefault(require("lodash/compact"));
+
+var _isArray = _interopRequireDefault(require("lodash/isArray"));
 
 function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
 
@@ -325,6 +328,23 @@ function isSacralSensoryInTime(analgesiaData, sensory, timePoint, position) {
   }
 }
 /**
+ * 根据 value 获取对应的阻滞平面
+ * @param sensoryBlocks
+ * @param value
+ * @returns {null|*}
+ */
+
+
+function getThoracicSensoryBlockByValue(sensoryBlocks, value) {
+  if (!sensoryBlocks || !(0, _isArray["default"])(sensoryBlocks) || isNaN(value)) {
+    return null;
+  }
+
+  return sensoryBlocks.find(function (sensoryBlock) {
+    return (sensoryBlock === null || sensoryBlock === void 0 ? void 0 : sensoryBlock.type) === 1 && (sensoryBlock === null || sensoryBlock === void 0 ? void 0 : sensoryBlock.value) === value;
+  });
+}
+/**
  * 获取最大的最高阻滞
  * @param analgesiaData
  * @param position
@@ -593,6 +613,7 @@ var _default = {
   isVasLessThan1: isVasLessThan1,
   getTimePointOfVasLessThan1: getTimePointOfVasLessThan1,
   isSacralSensoryInTime: isSacralSensoryInTime,
+  getThoracicSensoryBlockByValue: getThoracicSensoryBlockByValue,
   getMaxThoracicSensoryBlock: getMaxThoracicSensoryBlock,
   getMinSacralSensoryBlock: getMinSacralSensoryBlock,
   isUnilateralSensoryBlock: isUnilateralSensoryBlock,
