@@ -10,7 +10,8 @@ import {
     Position,
     fullFillAnalgesiaData, getVasScore, getMaxThoracicSensoryBlock, getMinSacralSensoryBlock, getMaxBromageScore
 } from '../utils/AnalgesiaCalculation.js';
-import {formatBoolean, formatNumber, formatString} from '../utils/ExportFormat.js';
+import {formatBoolean, formatNumber, formatString, formatDuration} from '../utils/ExportFormat.js';
+import {duration} from '../utils/Time.js';
 
 /**
  * 获取导出的 DPE 部分的数据
@@ -52,7 +53,9 @@ export async function getPiebOptimalIntervalDataData(data) {
             {name: '镇痛后6h宫口大小', key: 'cervixDilatation'},
             {name: '是否使用PCA', key: 'hasPca'},
             {name: '首次PCA时间', key: 'firstPcaTime'},
+            {name: '镇痛开始到首次PCA之间的时长（分钟）', key: 'durationOfFirstPcaTime'},
             {name: '首次手推负荷时间', key: 'firstManualBolusTime'},
+            {name: '镇痛开始到首次手推负荷之间的时长（分钟）', key: 'durationOfFirstManualBolusTime'},
             {name: '是否转剖宫产', key: 'hasCaesareanSection'},
             {name: '是否侧切', key: 'hasLateralEpisiotomy'},
             {name: '是否器械助产', key: 'hasInstrumental'},
@@ -131,7 +134,13 @@ export async function getPiebOptimalIntervalDataData(data) {
                 result.cervixDilatation = formatString(cervixDilatation);
                 result.hasPca = formatBoolean(+pcaCount > 0);
                 result.firstPcaTime = formatString(firstPcaTime);
+                result.durationOfFirstPcaTime = formatDuration(
+                    duration(initialTime, firstPcaTime, 'HH:mm')
+                );
                 result.firstManualBolusTime = formatString(firstManualBolusTime);
+                result.durationOfFirstManualBolusTime = formatDuration(
+                    duration(initialTime, firstManualBolusTime, 'HH:mm')
+                );
                 result.hasCaesareanSection = formatBoolean(hasCaesareanSection);
                 result.hasLateralEpisiotomy = formatBoolean(hasLateralEpisiotomy);
                 result.hasInstrumental = formatBoolean(hasInstrumental);

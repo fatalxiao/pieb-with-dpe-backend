@@ -2,6 +2,8 @@
  * @file ExportFormat.js
  */
 
+import {duration} from './Time';
+
 /**
  * 格式化 boolean 类型，转换成 "1" / "0"
  * @param value
@@ -29,8 +31,21 @@ export function formatString(value) {
     return value || '';
 }
 
+/**
+ * 格式化时长，将单位从 "毫秒" 按转换为 "分钟"
+ * @param value
+ * @returns {number|string}
+ */
+export function formatDuration(value) {
+    return !isNaN(value) && value > 0 ?
+        value / 60000
+        :
+        '';
+}
+
 export default {
     formatBoolean,
     formatNumber,
-    formatString
+    formatString,
+    formatDuration
 };
