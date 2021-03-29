@@ -6,7 +6,10 @@ Object.defineProperty(exports, "__esModule", {
 exports.formatBoolean = formatBoolean;
 exports.formatNumber = formatNumber;
 exports.formatString = formatString;
+exports.formatDuration = formatDuration;
 exports["default"] = void 0;
+
+var _Time = require("./Time");
 
 /**
  * @file ExportFormat.js
@@ -40,10 +43,21 @@ function formatNumber(value) {
 function formatString(value) {
   return value || '';
 }
+/**
+ * 格式化时长，将单位从 "毫秒" 按转换为 "分钟"
+ * @param value
+ * @returns {number|string}
+ */
+
+
+function formatDuration(value) {
+  return !isNaN(value) && value > 0 ? value / 60000 : '';
+}
 
 var _default = {
   formatBoolean: formatBoolean,
   formatNumber: formatNumber,
-  formatString: formatString
+  formatString: formatString,
+  formatDuration: formatDuration
 };
 exports["default"] = _default;

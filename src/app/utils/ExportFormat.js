@@ -2,8 +2,6 @@
  * @file ExportFormat.js
  */
 
-import {duration} from './Time';
-
 /**
  * 格式化 boolean 类型，转换成 "1" / "0"
  * @param value

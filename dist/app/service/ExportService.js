@@ -19,6 +19,8 @@ var _AnalgesiaCalculation = require("../utils/AnalgesiaCalculation.js");
 
 var _ExportFormat = require("../utils/ExportFormat.js");
 
+var _Time = require("../utils/Time.js");
+
 /**
  * @file ExportService.js
  */
@@ -75,16 +77,16 @@ function _getPiebOptimalIntervalDataData() {
               name: '年龄',
               key: 'age'
             }, {
-              name: '身高',
+              name: '身高（cm）',
               key: 'height'
             }, {
-              name: '体重',
+              name: '体重（kg）',
               key: 'weight'
             }, {
               name: 'BMI',
               key: 'bmi'
             }, {
-              name: '孕周',
+              name: '孕周（天）',
               key: 'gestationalDays'
             }, {
               name: '基础收缩压',
@@ -153,8 +155,14 @@ function _getPiebOptimalIntervalDataData() {
               name: '首次PCA时间',
               key: 'firstPcaTime'
             }, {
+              name: '镇痛开始到首次PCA之间的时长（分钟）',
+              key: 'durationOfFirstPcaTime'
+            }, {
               name: '首次手推负荷时间',
               key: 'firstManualBolusTime'
+            }, {
+              name: '镇痛开始到首次手推负荷之间的时长（分钟）',
+              key: 'durationOfFirstManualBolusTime'
             }, {
               name: '是否转剖宫产',
               key: 'hasCaesareanSection'
@@ -248,7 +256,9 @@ function _getPiebOptimalIntervalDataData() {
                 result.cervixDilatation = (0, _ExportFormat.formatString)(cervixDilatation);
                 result.hasPca = (0, _ExportFormat.formatBoolean)(+pcaCount > 0);
                 result.firstPcaTime = (0, _ExportFormat.formatString)(firstPcaTime);
+                result.durationOfFirstPcaTime = (0, _ExportFormat.formatDuration)((0, _Time.duration)(initialTime, firstPcaTime, 'HH:mm'));
                 result.firstManualBolusTime = (0, _ExportFormat.formatString)(firstManualBolusTime);
+                result.durationOfFirstManualBolusTime = (0, _ExportFormat.formatDuration)((0, _Time.duration)(initialTime, firstManualBolusTime, 'HH:mm'));
                 result.hasCaesareanSection = (0, _ExportFormat.formatBoolean)(hasCaesareanSection);
                 result.hasLateralEpisiotomy = (0, _ExportFormat.formatBoolean)(hasLateralEpisiotomy);
                 result.hasInstrumental = (0, _ExportFormat.formatBoolean)(hasInstrumental);
