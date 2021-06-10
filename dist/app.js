@@ -14,12 +14,16 @@ var _config = _interopRequireDefault(require("./config.js"));
 
 var _mappingRouterToController = _interopRequireDefault(require("./app/utils/mappingRouterToController.js"));
 
+var _fancyNodeLogger = _interopRequireDefault(require("fancy-node-logger"));
+
 /**
  * @file app.js
  */
 // Koa
 // Statics
 // Vendors
+_fancyNodeLogger["default"].wait('Wait start app...');
+
 var app = new _koa["default"]();
 app.use((0, _cors["default"])()).use((0, _koaStatic["default"])('.')).use((0, _koaBodyparser["default"])()).use((0, _mappingRouterToController["default"])(__dirname)).listen(_config["default"].port, function (error) {
   if (error) {
@@ -27,5 +31,5 @@ app.use((0, _cors["default"])()).use((0, _koaStatic["default"])('.')).use((0, _k
     return;
   }
 
-  console.log("Server started and listen on port ".concat(_config["default"].port));
+  _fancyNodeLogger["default"].done("Server started and listen on port ".concat(_config["default"].port));
 });
