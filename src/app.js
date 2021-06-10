@@ -13,6 +13,9 @@ import config from './config.js';
 
 // Vendors
 import mappingRouterToController from './app/utils/mappingRouterToController.js';
+import logger from 'fancy-node-logger';
+
+logger.wait('Wait start app...');
 
 const app = new Koa();
 
@@ -27,6 +30,6 @@ app.use(cors())
            return;
        }
 
-       console.log(`Server started and listen on port ${config.port}`);
+       logger.done(`Server started and listen on port ${config.port}`);
 
    });
