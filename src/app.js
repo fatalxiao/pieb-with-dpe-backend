@@ -15,7 +15,7 @@ import config from './config.js';
 import mappingRouterToController from './app/utils/mappingRouterToController.js';
 import logger from 'fancy-node-logger';
 
-logger.wait('Wait start app...');
+logger.wait('Wait start app...\n');
 
 const app = new Koa();
 

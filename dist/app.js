@@ -22,7 +22,7 @@ var _fancyNodeLogger = _interopRequireDefault(require("fancy-node-logger"));
 // Koa
 // Statics
 // Vendors
-_fancyNodeLogger["default"].wait('Wait start app...');
+_fancyNodeLogger["default"].wait('Wait start app...\n');
 
 var app = new _koa["default"]();
 app.use((0, _cors["default"])()).use((0, _koaStatic["default"])('.')).use((0, _koaBodyparser["default"])()).use((0, _mappingRouterToController["default"])(__dirname)).listen(_config["default"].port, function (error) {
