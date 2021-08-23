@@ -111,8 +111,29 @@ function _getPiebOptimalIntervalDataData() {
               name: '镇痛开始时间',
               key: 'initialTime'
             }, {
+              name: '0min VAS评分',
+              key: 'vasIn0'
+            }, {
               name: '20min VAS评分',
               key: 'vasIn20'
+            }, {
+              name: '1h VAS评分',
+              key: 'vasIn60'
+            }, {
+              name: '2h VAS评分',
+              key: 'vasIn120'
+            }, {
+              name: '3h VAS评分',
+              key: 'vasIn180'
+            }, {
+              name: '4h VAS评分',
+              key: 'vasIn240'
+            }, {
+              name: '5h VAS评分',
+              key: 'vasIn300'
+            }, {
+              name: '6h VAS评分',
+              key: 'vasIn360'
             }, {
               name: '左侧最高头端阻滞平面',
               key: 'maxThoracicSensoryBlockLeft'
@@ -173,7 +194,8 @@ function _getPiebOptimalIntervalDataData() {
             }, {
               name: '备注',
               key: 'desc'
-            }], excelData = data.filter(function (item) {
+            }];
+            excelData = data.filter(function (item) {
               return item === null || item === void 0 ? void 0 : item.status;
             }).map(function (item) {
               if (!item) {
@@ -241,9 +263,23 @@ function _getPiebOptimalIntervalDataData() {
               if (analgesia) {
                 var _getThoracicSensoryBl, _getThoracicSensoryBl2;
 
-                var analgesiaData = (0, _AnalgesiaCalculation.fullFillAnalgesiaData)(analgesia); // 20min VAS评分
+                var analgesiaData = (0, _AnalgesiaCalculation.fullFillAnalgesiaData)(analgesia); // 0min VAS评分
 
-                result.vasIn20 = (0, _ExportFormat.formatNumber)((0, _AnalgesiaCalculation.getVasScore)(analgesiaData, 20)); // 左侧最高头端阻滞平面
+                result.vasIn0 = (0, _ExportFormat.formatNumber)((0, _AnalgesiaCalculation.getVasScore)(analgesiaData, 0)); // 20min VAS评分
+
+                result.vasIn20 = (0, _ExportFormat.formatNumber)((0, _AnalgesiaCalculation.getVasScore)(analgesiaData, 20)); // 1h VAS评分
+
+                result.vasIn60 = (0, _ExportFormat.formatNumber)((0, _AnalgesiaCalculation.getVasScore)(analgesiaData, 60)); // 2h VAS评分
+
+                result.vasIn120 = (0, _ExportFormat.formatNumber)((0, _AnalgesiaCalculation.getVasScore)(analgesiaData, 120)); // 3h VAS评分
+
+                result.vasIn180 = (0, _ExportFormat.formatNumber)((0, _AnalgesiaCalculation.getVasScore)(analgesiaData, 180)); // 4h VAS评分
+
+                result.vasIn240 = (0, _ExportFormat.formatNumber)((0, _AnalgesiaCalculation.getVasScore)(analgesiaData, 240)); // 5h VAS评分
+
+                result.vasIn300 = (0, _ExportFormat.formatNumber)((0, _AnalgesiaCalculation.getVasScore)(analgesiaData, 300)); // 6h VAS评分
+
+                result.vasIn360 = (0, _ExportFormat.formatNumber)((0, _AnalgesiaCalculation.getVasScore)(analgesiaData, 360)); // 左侧最高头端阻滞平面
 
                 result.maxThoracicSensoryBlockLeft = (0, _ExportFormat.formatNumber)((0, _AnalgesiaCalculation.getMaxThoracicSensoryBlock)(analgesiaData, _AnalgesiaCalculation.Position.LEFT)); // 右侧最高头端阻滞平面
 
@@ -317,7 +353,7 @@ function _getPiebOptimalIntervalDataData() {
             }));
             return _context.abrupt("return", excelData);
 
-          case 3:
+          case 4:
           case "end":
             return _context.stop();
         }
