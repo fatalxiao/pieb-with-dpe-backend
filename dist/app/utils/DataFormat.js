@@ -5,12 +5,12 @@ var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefau
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.formatNumberField = formatNumberField;
-exports.formatTimeField = formatTimeField;
-exports.formatDateTimeField = formatDateTimeField;
-exports.formatResTime = formatResTime;
-exports.formatResDateTime = formatResDateTime;
 exports["default"] = void 0;
+exports.formatDateTimeField = formatDateTimeField;
+exports.formatNumberField = formatNumberField;
+exports.formatResDateTime = formatResDateTime;
+exports.formatResTime = formatResTime;
+exports.formatTimeField = formatTimeField;
 
 var _moment = _interopRequireDefault(require("moment"));
 

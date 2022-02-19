@@ -5,11 +5,12 @@ var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefau
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.Mappings = void 0;
 exports.build = build;
-exports.buildSuccess = buildSuccess;
 exports.buildError = buildError;
 exports.buildParamError = buildParamError;
-exports["default"] = exports.Mappings = void 0;
+exports.buildSuccess = buildSuccess;
+exports["default"] = void 0;
 
 var _slicedToArray2 = _interopRequireDefault(require("@babel/runtime/helpers/slicedToArray"));
 

@@ -5,8 +5,8 @@ var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefau
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.generateSequelize = generateSequelize;
 exports["default"] = void 0;
+exports.generateSequelize = generateSequelize;
 
 var _sequelize = require("sequelize");
 

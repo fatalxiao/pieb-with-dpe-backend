@@ -5,8 +5,8 @@ var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefau
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.duration = duration;
 exports["default"] = void 0;
+exports.duration = duration;
 
 var _moment = _interopRequireDefault(require("moment"));
 

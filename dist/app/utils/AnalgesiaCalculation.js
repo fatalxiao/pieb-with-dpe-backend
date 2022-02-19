@@ -5,23 +5,23 @@ var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefau
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.getDefaultData = getDefaultData;
+exports["default"] = exports.Position = exports.DEFAULT_TIMEPOINTS = exports.BASE_DATA = void 0;
 exports.fullFillAnalgesiaData = fullFillAnalgesiaData;
-exports.getVasScore = getVasScore;
-exports.getVasScoreWithContraction = getVasScoreWithContraction;
-exports.isVasLessThan1 = isVasLessThan1;
-exports.getTimePointOfVasLessThan1 = getTimePointOfVasLessThan1;
-exports.isSacralSensoryInTime = isSacralSensoryInTime;
-exports.getThoracicSensoryBlockByValue = getThoracicSensoryBlockByValue;
+exports.getDefaultData = getDefaultData;
+exports.getMaxBromageScore = getMaxBromageScore;
 exports.getMaxThoracicSensoryBlock = getMaxThoracicSensoryBlock;
 exports.getMinSacralSensoryBlock = getMinSacralSensoryBlock;
-exports.isUnilateralSensoryBlock = isUnilateralSensoryBlock;
-exports.getTimePointOfThoracicSensoryBlock = getTimePointOfThoracicSensoryBlock;
+exports.getThoracicSensoryBlockByValue = getThoracicSensoryBlockByValue;
 exports.getTimePointOfSacralSensoryBlock = getTimePointOfSacralSensoryBlock;
-exports.isFetalHeartRateDecreased = isFetalHeartRateDecreased;
+exports.getTimePointOfThoracicSensoryBlock = getTimePointOfThoracicSensoryBlock;
+exports.getTimePointOfVasLessThan1 = getTimePointOfVasLessThan1;
+exports.getVasScore = getVasScore;
+exports.getVasScoreWithContraction = getVasScoreWithContraction;
 exports.isAdequatePainRelief = isAdequatePainRelief;
-exports.getMaxBromageScore = getMaxBromageScore;
-exports["default"] = exports.DEFAULT_TIMEPOINTS = exports.BASE_DATA = exports.Position = void 0;
+exports.isFetalHeartRateDecreased = isFetalHeartRateDecreased;
+exports.isSacralSensoryInTime = isSacralSensoryInTime;
+exports.isUnilateralSensoryBlock = isUnilateralSensoryBlock;
+exports.isVasLessThan1 = isVasLessThan1;
 
 var _toConsumableArray2 = _interopRequireDefault(require("@babel/runtime/helpers/toConsumableArray"));
 
@@ -37,9 +37,9 @@ function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o =
 
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
 
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { (0, _defineProperty2["default"])(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { (0, _defineProperty2["default"])(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
 
 /**
  * 左侧或右侧

@@ -5,12 +5,12 @@ var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefau
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.getObservalDataByPatientId = getObservalDataByPatientId;
-exports.isObservalDataExist = isObservalDataExist;
 exports.createObservalData = createObservalData;
-exports.updateObservalData = updateObservalData;
 exports.createOrUpdateObservalData = createOrUpdateObservalData;
 exports["default"] = void 0;
+exports.getObservalDataByPatientId = getObservalDataByPatientId;
+exports.isObservalDataExist = isObservalDataExist;
+exports.updateObservalData = updateObservalData;
 
 var _regenerator = _interopRequireDefault(require("@babel/runtime/regenerator"));
 

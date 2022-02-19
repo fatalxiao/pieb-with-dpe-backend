@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports["default"] = exports.ApiParam = exports.PathVariable = exports.DeleteMapping = exports.PutMapping = exports.PostMapping = exports.GetMapping = exports.RequestMapping = exports.Api = exports.RequestMethod = exports.REQUEST_PARAMETERS_BODY = exports.REQUEST_PARAMETERS_PARAM = exports.REQUEST_PARAMETERS_PATH = exports.REQUEST_DESCRIPTION = exports.REQUEST_SUMMARY = exports.REQUEST_ROUTE = exports.REQUEST_METHOD = exports.REQUEST_TAGS = void 0;
+exports["default"] = exports.RequestMethod = exports.RequestMapping = exports.REQUEST_TAGS = exports.REQUEST_SUMMARY = exports.REQUEST_ROUTE = exports.REQUEST_PARAMETERS_PATH = exports.REQUEST_PARAMETERS_PARAM = exports.REQUEST_PARAMETERS_BODY = exports.REQUEST_METHOD = exports.REQUEST_DESCRIPTION = exports.PutMapping = exports.PostMapping = exports.PathVariable = exports.GetMapping = exports.DeleteMapping = exports.ApiParam = exports.Api = void 0;
 
 /**
  * @file ApiDecorator.js

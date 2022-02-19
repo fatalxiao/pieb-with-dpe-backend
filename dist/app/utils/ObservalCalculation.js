@@ -3,13 +3,13 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.getDurationOfFirstPcaTime = getDurationOfFirstPcaTime;
-exports.getDurationOfFirstManualBolusTime = getDurationOfFirstManualBolusTime;
-exports.getDurationOfAnalgesia = getDurationOfAnalgesia;
+exports["default"] = void 0;
 exports.getAnestheticsConsumption = getAnestheticsConsumption;
+exports.getDurationOfAnalgesia = getDurationOfAnalgesia;
+exports.getDurationOfFirstManualBolusTime = getDurationOfFirstManualBolusTime;
+exports.getDurationOfFirstPcaTime = getDurationOfFirstPcaTime;
 exports.getRopivacaineConsumption = getRopivacaineConsumption;
 exports.getSufentanilConsumption = getSufentanilConsumption;
-exports["default"] = void 0;
 
 var _Time = require("./Time");
 

@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports["default"] = exports.database = exports.baseUrl = exports.port = void 0;
+exports.port = exports["default"] = exports.database = exports.baseUrl = void 0;
 
 /**
  * @file config.js

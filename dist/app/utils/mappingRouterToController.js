@@ -5,11 +5,11 @@ var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefau
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.mappingPaths = mappingPaths;
-exports.mappingMethod = mappingMethod;
-exports.mappingController = mappingController;
-exports.mappingRouterToController = mappingRouterToController;
 exports["default"] = void 0;
+exports.mappingController = mappingController;
+exports.mappingMethod = mappingMethod;
+exports.mappingPaths = mappingPaths;
+exports.mappingRouterToController = mappingRouterToController;
 
 var _ApiDecorator = require("./ApiDecorator");
 

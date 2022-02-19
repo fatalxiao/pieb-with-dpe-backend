@@ -3,11 +3,11 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports["default"] = void 0;
 exports.formatBoolean = formatBoolean;
+exports.formatDuration = formatDuration;
 exports.formatNumber = formatNumber;
 exports.formatString = formatString;
-exports.formatDuration = formatDuration;
-exports["default"] = void 0;
 
 /**
  * @file ExportFormat.js

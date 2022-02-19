@@ -5,15 +5,15 @@ var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefau
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.getPatients = getPatients;
+exports.createOrUpdatePatient = createOrUpdatePatient;
+exports.createPatient = createPatient;
+exports["default"] = void 0;
+exports.disablePatient = disablePatient;
+exports.enablePatient = enablePatient;
 exports.getFullPatients = getFullPatients;
 exports.getPatientById = getPatientById;
-exports.createPatient = createPatient;
+exports.getPatients = getPatients;
 exports.updatePatient = updatePatient;
-exports.createOrUpdatePatient = createOrUpdatePatient;
-exports.enablePatient = enablePatient;
-exports.disablePatient = disablePatient;
-exports["default"] = void 0;
 
 var _regenerator = _interopRequireDefault(require("@babel/runtime/regenerator"));
 

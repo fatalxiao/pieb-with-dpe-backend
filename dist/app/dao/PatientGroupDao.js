@@ -5,8 +5,8 @@ var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefau
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.getPatientGroups = getPatientGroups;
 exports["default"] = void 0;
+exports.getPatientGroups = getPatientGroups;
 
 var _regenerator = _interopRequireDefault(require("@babel/runtime/regenerator"));
 
