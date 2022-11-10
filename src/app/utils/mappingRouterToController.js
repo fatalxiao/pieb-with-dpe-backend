@@ -70,8 +70,8 @@ export function mappingPaths(controller, method, requestMethod, requestRoute) {
  */
 export function mappingMethod(controller, method) {
 
-    const requestMethod = method[REQUEST_METHOD],
-        requestRoute = method[REQUEST_ROUTE];
+    const requestMethod = method[REQUEST_METHOD];
+    const requestRoute = method[REQUEST_ROUTE];
 
     mappingPaths(controller, method, requestMethod, requestRoute);
 
