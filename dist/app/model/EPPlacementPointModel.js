@@ -13,23 +13,23 @@ var _SequelizeGenerator = _interopRequireDefault(require("../utils/SequelizeGene
 
 // Vendors
 
-var sequelizeInstance = (0, _SequelizeGenerator["default"])(),
-  EPPlacementPoint = sequelizeInstance.define('ep_placement_point', {
-    id: {
-      field: 'id',
-      type: _sequelize["default"].INTEGER,
-      allowNull: false,
-      unique: true,
-      primaryKey: true,
-      autoIncrement: true
-    },
-    name: {
-      field: 'name',
-      type: _sequelize["default"].STRING(20)
-    }
-  }, {
-    freezeTableName: true,
-    timestamps: false
-  });
+var sequelizeInstance = (0, _SequelizeGenerator["default"])();
+var EPPlacementPoint = sequelizeInstance.define('ep_placement_point', {
+  id: {
+    field: 'id',
+    type: _sequelize["default"].INTEGER,
+    allowNull: false,
+    unique: true,
+    primaryKey: true,
+    autoIncrement: true
+  },
+  name: {
+    field: 'name',
+    type: _sequelize["default"].STRING(20)
+  }
+}, {
+  freezeTableName: true,
+  timestamps: false
+});
 var _default = EPPlacementPoint;
 exports["default"] = _default;

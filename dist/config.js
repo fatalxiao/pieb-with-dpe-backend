@@ -27,12 +27,12 @@ var baseUrl = '/pieb-with-dpe';
  */
 exports.baseUrl = baseUrl;
 var database = {
-  host: 'localhost',
+  host: '127.0.0.1',
   port: 3306,
   username: 'root',
   password: '',
   database: 'pieb_with_dpe',
-  charset: 'UTF8_BIM'
+  charset: 'utf8mb4'
 };
 exports.database = database;
 var _default = {

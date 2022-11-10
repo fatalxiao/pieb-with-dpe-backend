@@ -13,23 +13,23 @@ var _SequelizeGenerator = _interopRequireDefault(require("../utils/SequelizeGene
 
 // Vendors
 
-var sequelizeInstance = (0, _SequelizeGenerator["default"])(),
-  ObservalEndPoint = sequelizeInstance.define('observal_end_point', {
-    id: {
-      field: 'id',
-      type: _sequelize["default"].INTEGER,
-      allowNull: false,
-      unique: true,
-      primaryKey: true,
-      autoIncrement: true
-    },
-    name: {
-      field: 'name',
-      type: _sequelize["default"].STRING(20)
-    }
-  }, {
-    freezeTableName: true,
-    timestamps: false
-  });
+var sequelizeInstance = (0, _SequelizeGenerator["default"])();
+var ObservalEndPoint = sequelizeInstance.define('observal_end_point', {
+  id: {
+    field: 'id',
+    type: _sequelize["default"].INTEGER,
+    allowNull: false,
+    unique: true,
+    primaryKey: true,
+    autoIncrement: true
+  },
+  name: {
+    field: 'name',
+    type: _sequelize["default"].STRING(20)
+  }
+}, {
+  freezeTableName: true,
+  timestamps: false
+});
 var _default = ObservalEndPoint;
 exports["default"] = _default;

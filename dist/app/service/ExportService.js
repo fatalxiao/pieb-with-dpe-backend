@@ -207,45 +207,45 @@ function _getPiebOptimalIntervalDataData() {
                 hasInduction = item.hasInduction,
                 description = item.description,
                 analgesia = item.analgesia,
-                observal = item.observal,
-                result = {
-                  // 组别
-                  groupName: (group === null || group === void 0 ? void 0 : group.name) || '',
-                  // 住院号
-                  id: id,
-                  // 姓名
-                  name: name,
-                  // 年龄
-                  age: (0, _ExportFormat.formatNumber)(age),
-                  // 身高（cm）
-                  height: (0, _ExportFormat.formatNumber)(height),
-                  // 体重（kg）
-                  weight: (0, _ExportFormat.formatNumber)(weight),
-                  // BMI
-                  bmi: weight && height ? (weight / Math.pow(height / 100, 2)).toFixed(2) : null,
-                  // 孕周（天）
-                  gestationalDays: (0, _ExportFormat.formatNumber)(gestationalDays),
-                  // 基础收缩压
-                  systolicBloodPressure: (0, _ExportFormat.formatNumber)(systolicBloodPressure),
-                  // 基础舒张压
-                  diastolicBloodPressure: (0, _ExportFormat.formatNumber)(diastolicBloodPressure),
-                  // 基础心率
-                  eartRate: (0, _ExportFormat.formatNumber)(heartRate),
-                  // 基础氧饱和度
-                  pulseOxygenSaturation: (0, _ExportFormat.formatNumber)(pulseOxygenSaturation),
-                  // 基础胎心率
-                  fetalHeartRate: (0, _ExportFormat.formatNumber)(fetalHeartRate),
-                  // 镇痛前宫口大小
-                  cervicalDilationAtTimeOfEA: (0, _ExportFormat.formatNumber)(cervicalDilationAtTimeOfEA),
-                  // 镇痛前VAS评分
-                  initialVasScore: (0, _ExportFormat.formatNumber)(initialVasScore * 10),
-                  // 镇痛前缩宫素使用
-                  hasOxytocinAtTimeOfEA: (0, _ExportFormat.formatBoolean)(hasOxytocinAtTimeOfEA),
-                  // 是否引产
-                  hasInduction: (0, _ExportFormat.formatBoolean)(hasInduction),
-                  // 备注
-                  desc: description ? [description] : []
-                };
+                observal = item.observal;
+              var result = {
+                // 组别
+                groupName: (group === null || group === void 0 ? void 0 : group.name) || '',
+                // 住院号
+                id: id,
+                // 姓名
+                name: name,
+                // 年龄
+                age: (0, _ExportFormat.formatNumber)(age),
+                // 身高（cm）
+                height: (0, _ExportFormat.formatNumber)(height),
+                // 体重（kg）
+                weight: (0, _ExportFormat.formatNumber)(weight),
+                // BMI
+                bmi: weight && height ? (weight / Math.pow(height / 100, 2)).toFixed(2) : null,
+                // 孕周（天）
+                gestationalDays: (0, _ExportFormat.formatNumber)(gestationalDays),
+                // 基础收缩压
+                systolicBloodPressure: (0, _ExportFormat.formatNumber)(systolicBloodPressure),
+                // 基础舒张压
+                diastolicBloodPressure: (0, _ExportFormat.formatNumber)(diastolicBloodPressure),
+                // 基础心率
+                eartRate: (0, _ExportFormat.formatNumber)(heartRate),
+                // 基础氧饱和度
+                pulseOxygenSaturation: (0, _ExportFormat.formatNumber)(pulseOxygenSaturation),
+                // 基础胎心率
+                fetalHeartRate: (0, _ExportFormat.formatNumber)(fetalHeartRate),
+                // 镇痛前宫口大小
+                cervicalDilationAtTimeOfEA: (0, _ExportFormat.formatNumber)(cervicalDilationAtTimeOfEA),
+                // 镇痛前VAS评分
+                initialVasScore: (0, _ExportFormat.formatNumber)(initialVasScore * 10),
+                // 镇痛前缩宫素使用
+                hasOxytocinAtTimeOfEA: (0, _ExportFormat.formatBoolean)(hasOxytocinAtTimeOfEA),
+                // 是否引产
+                hasInduction: (0, _ExportFormat.formatBoolean)(hasInduction),
+                // 备注
+                desc: description ? [description] : []
+              };
               if (analgesia) {
                 var _getThoracicSensoryBl, _getThoracicSensoryBl2;
                 var analgesiaData = (0, _AnalgesiaCalculation.fullFillAnalgesiaData)(analgesia);

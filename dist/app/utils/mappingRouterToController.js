@@ -84,8 +84,8 @@ function mappingPaths(controller, method, requestMethod, requestRoute) {
  * @param method
  */
 function mappingMethod(controller, method) {
-  var requestMethod = method[_ApiDecorator.REQUEST_METHOD],
-    requestRoute = method[_ApiDecorator.REQUEST_ROUTE];
+  var requestMethod = method[_ApiDecorator.REQUEST_METHOD];
+  var requestRoute = method[_ApiDecorator.REQUEST_ROUTE];
   mappingPaths(controller, method, requestMethod, requestRoute);
 
   // add mapping route
