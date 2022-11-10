@@ -1,7 +1,6 @@
 "use strict";
 
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
-
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
@@ -11,26 +10,17 @@ exports["default"] = void 0;
 exports.getObservalDataByPatientId = getObservalDataByPatientId;
 exports.isObservalDataExist = isObservalDataExist;
 exports.updateObservalData = updateObservalData;
-
 var _regenerator = _interopRequireDefault(require("@babel/runtime/regenerator"));
-
 var _defineProperty2 = _interopRequireDefault(require("@babel/runtime/helpers/defineProperty"));
-
 var _asyncToGenerator2 = _interopRequireDefault(require("@babel/runtime/helpers/asyncToGenerator"));
-
 var _sequelize = _interopRequireDefault(require("sequelize"));
-
 var _ObservalModel = _interopRequireDefault(require("../model/ObservalModel.js"));
-
 var _EPPlacementPointModel = _interopRequireDefault(require("../model/EPPlacementPointModel"));
-
 var _ObservalEndPointModel = _interopRequireDefault(require("../model/ObservalEndPointModel"));
-
 /**
  * @file ObservalDao.js
  */
 // Models
-
 /**
  * 获取某个 patient ID 的 Observal 数据
  * @param patientId
@@ -44,8 +34,6 @@ function getObservalDataByPatientId(_x) {
  * @param patientId
  * @returns {Promise<boolean>}
  */
-
-
 function _getObservalDataByPatientId() {
   _getObservalDataByPatientId = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee(patientId) {
     return _regenerator["default"].wrap(function _callee$(_context) {
@@ -67,10 +55,8 @@ function _getObservalDataByPatientId() {
                 required: false
               }]
             });
-
           case 2:
             return _context.abrupt("return", _context.sent);
-
           case 3:
           case "end":
             return _context.stop();
@@ -80,7 +66,6 @@ function _getObservalDataByPatientId() {
   }));
   return _getObservalDataByPatientId.apply(this, arguments);
 }
-
 function isObservalDataExist(_x2) {
   return _isObservalDataExist.apply(this, arguments);
 }
@@ -89,8 +74,6 @@ function isObservalDataExist(_x2) {
  * @param data
  * @returns {Promise<void>}
  */
-
-
 function _isObservalDataExist() {
   _isObservalDataExist = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee2(patientId) {
     return _regenerator["default"].wrap(function _callee2$(_context2) {
@@ -103,11 +86,9 @@ function _isObservalDataExist() {
                 patientId: (0, _defineProperty2["default"])({}, _sequelize["default"].Op.eq, patientId)
               }
             });
-
           case 2:
             _context2.t0 = _context2.sent;
             return _context2.abrupt("return", _context2.t0 > 0);
-
           case 4:
           case "end":
             return _context2.stop();
@@ -117,7 +98,6 @@ function _isObservalDataExist() {
   }));
   return _isObservalDataExist.apply(this, arguments);
 }
-
 function createObservalData(_x3) {
   return _createObservalData.apply(this, arguments);
 }
@@ -126,8 +106,6 @@ function createObservalData(_x3) {
  * @param data
  * @returns {Promise}
  */
-
-
 function _createObservalData() {
   _createObservalData = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee3(data) {
     return _regenerator["default"].wrap(function _callee3$(_context3) {
@@ -135,7 +113,6 @@ function _createObservalData() {
         switch (_context3.prev = _context3.next) {
           case 0:
             return _context3.abrupt("return", _ObservalModel["default"].create(data));
-
           case 1:
           case "end":
             return _context3.stop();
@@ -145,7 +122,6 @@ function _createObservalData() {
   }));
   return _createObservalData.apply(this, arguments);
 }
-
 function updateObservalData(_x4) {
   return _updateObservalData.apply(this, arguments);
 }
@@ -154,8 +130,6 @@ function updateObservalData(_x4) {
  * @param data
  * @returns {Promise}
  */
-
-
 function _updateObservalData() {
   _updateObservalData = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee4(data) {
     return _regenerator["default"].wrap(function _callee4$(_context4) {
@@ -168,10 +142,8 @@ function _updateObservalData() {
                 patientId: (0, _defineProperty2["default"])({}, _sequelize["default"].Op.eq, data.patientId)
               }
             });
-
           case 2:
             return _context4.abrupt("return", _context4.sent);
-
           case 3:
           case "end":
             return _context4.stop();
@@ -181,11 +153,9 @@ function _updateObservalData() {
   }));
   return _updateObservalData.apply(this, arguments);
 }
-
 function createOrUpdateObservalData(_x5) {
   return _createOrUpdateObservalData.apply(this, arguments);
 }
-
 function _createOrUpdateObservalData() {
   _createOrUpdateObservalData = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee5(data) {
     return _regenerator["default"].wrap(function _callee5$(_context5) {
@@ -194,18 +164,14 @@ function _createOrUpdateObservalData() {
           case 0:
             _context5.next = 2;
             return isObservalDataExist(data.patientId);
-
           case 2:
             if (!_context5.sent) {
               _context5.next = 6;
               break;
             }
-
             return _context5.abrupt("return", updateObservalData(data));
-
           case 6:
             return _context5.abrupt("return", createObservalData(data));
-
           case 7:
           case "end":
             return _context5.stop();
@@ -215,7 +181,6 @@ function _createOrUpdateObservalData() {
   }));
   return _createOrUpdateObservalData.apply(this, arguments);
 }
-
 var _default = {
   getObservalDataByPatientId: getObservalDataByPatientId,
   isObservalDataExist: isObservalDataExist,

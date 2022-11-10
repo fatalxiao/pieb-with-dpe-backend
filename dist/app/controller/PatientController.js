@@ -1,38 +1,23 @@
 "use strict";
 
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
-
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports["default"] = void 0;
-
 var _regenerator = _interopRequireDefault(require("@babel/runtime/regenerator"));
-
 var _asyncToGenerator2 = _interopRequireDefault(require("@babel/runtime/helpers/asyncToGenerator"));
-
 var _classCallCheck2 = _interopRequireDefault(require("@babel/runtime/helpers/classCallCheck"));
-
 var _createClass2 = _interopRequireDefault(require("@babel/runtime/helpers/createClass"));
-
 var _applyDecoratedDescriptor2 = _interopRequireDefault(require("@babel/runtime/helpers/applyDecoratedDescriptor"));
-
 var _PatientService = _interopRequireDefault(require("../service/PatientService.js"));
-
 var _ExportService = _interopRequireDefault(require("../service/ExportService.js"));
-
 var _ApiDecorator = require("../utils/ApiDecorator");
-
 var _config = require("../../config");
-
 var _nodeXlsx = _interopRequireDefault(require("node-xlsx"));
-
 var _moment = _interopRequireDefault(require("moment"));
-
 var _Response = require("../utils/Response.js");
-
 var _dec, _dec2, _dec3, _dec4, _dec5, _dec6, _dec7, _dec8, _dec9, _dec10, _class, _class2;
-
 var PatientController = (_dec = (0, _ApiDecorator.Api)({
   tags: 'Patient'
 }), _dec2 = (0, _ApiDecorator.GetMapping)({
@@ -57,7 +42,6 @@ var PatientController = (_dec = (0, _ApiDecorator.Api)({
   function PatientController() {
     (0, _classCallCheck2["default"])(this, PatientController);
   }
-
   (0, _createClass2["default"])(PatientController, null, [{
     key: "verifyCreateData",
     value:
@@ -77,12 +61,12 @@ var PatientController = (_dec = (0, _ApiDecorator.Api)({
         return (0, _Response.buildParamError)('Name is required');
       }
     }
+
     /**
      * 校验更新时的 request 数据
      * @param requestData
      * @returns {string}
      */
-
   }, {
     key: "verifyUpdateData",
     value: function verifyUpdateData(requestData) {
@@ -92,12 +76,12 @@ var PatientController = (_dec = (0, _ApiDecorator.Api)({
         return (0, _Response.buildParamError)('ID is required');
       }
     }
+
     /**
      * 获取用于列表的 Patients 数据
      * @param ctx
      * @returns {Promise<void>}
      */
-
   }, {
     key: "getPatients",
     value: function () {
@@ -108,10 +92,8 @@ var PatientController = (_dec = (0, _ApiDecorator.Api)({
               case 0:
                 _context.next = 2;
                 return _PatientService["default"].getPatients();
-
               case 2:
                 ctx.response.body = _context.sent;
-
               case 3:
               case "end":
                 return _context.stop();
@@ -119,11 +101,9 @@ var PatientController = (_dec = (0, _ApiDecorator.Api)({
           }
         }, _callee);
       }));
-
       function getPatients(_x) {
         return _getPatients.apply(this, arguments);
       }
-
       return getPatients;
     }()
     /**
@@ -131,7 +111,6 @@ var PatientController = (_dec = (0, _ApiDecorator.Api)({
      * @param ctx
      * @returns {Promise<void>}
      */
-
   }, {
     key: "getFullPatients",
     value: function () {
@@ -142,10 +121,8 @@ var PatientController = (_dec = (0, _ApiDecorator.Api)({
               case 0:
                 _context2.next = 2;
                 return _PatientService["default"].getFullPatients();
-
               case 2:
                 ctx.response.body = _context2.sent;
-
               case 3:
               case "end":
                 return _context2.stop();
@@ -153,11 +130,9 @@ var PatientController = (_dec = (0, _ApiDecorator.Api)({
           }
         }, _callee2);
       }));
-
       function getFullPatients(_x2) {
         return _getFullPatients.apply(this, arguments);
       }
-
       return getFullPatients;
     }()
     /**
@@ -165,20 +140,17 @@ var PatientController = (_dec = (0, _ApiDecorator.Api)({
      * @param ctx
      * @returns {Promise<void>}
      */
-
   }, {
     key: "exportPatients",
     value: function () {
       var _exportPatients = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee3(ctx) {
         var _yield$ExportService$, piebOptimalIntervalData;
-
         return _regenerator["default"].wrap(function _callee3$(_context3) {
           while (1) {
             switch (_context3.prev = _context3.next) {
               case 0:
                 _context3.next = 2;
                 return _ExportService["default"].getExportData();
-
               case 2:
                 _yield$ExportService$ = _context3.sent;
                 piebOptimalIntervalData = _yield$ExportService$.piebOptimalIntervalData;
@@ -189,7 +161,6 @@ var PatientController = (_dec = (0, _ApiDecorator.Api)({
                   name: 'PIEB optimal interval',
                   data: piebOptimalIntervalData
                 }]);
-
               case 8:
               case "end":
                 return _context3.stop();
@@ -197,11 +168,9 @@ var PatientController = (_dec = (0, _ApiDecorator.Api)({
           }
         }, _callee3);
       }));
-
       function exportPatients(_x3) {
         return _exportPatients.apply(this, arguments);
       }
-
       return exportPatients;
     }()
     /**
@@ -209,7 +178,6 @@ var PatientController = (_dec = (0, _ApiDecorator.Api)({
      * @param ctx
      * @returns {Promise<string>}
      */
-
   }, {
     key: "getPatientById",
     value: function () {
@@ -220,21 +188,16 @@ var PatientController = (_dec = (0, _ApiDecorator.Api)({
             switch (_context4.prev = _context4.next) {
               case 0:
                 id = ctx.params.id;
-
                 if (id) {
                   _context4.next = 3;
                   break;
                 }
-
                 return _context4.abrupt("return", ctx.response.body = (0, _Response.buildParamError)('Patient ID is required'));
-
               case 3:
                 _context4.next = 5;
                 return _PatientService["default"].getPatientById(id);
-
               case 5:
                 ctx.response.body = _context4.sent;
-
               case 6:
               case "end":
                 return _context4.stop();
@@ -242,11 +205,9 @@ var PatientController = (_dec = (0, _ApiDecorator.Api)({
           }
         }, _callee4);
       }));
-
       function getPatientById(_x4) {
         return _getPatientById.apply(this, arguments);
       }
-
       return getPatientById;
     }()
     /**
@@ -254,7 +215,6 @@ var PatientController = (_dec = (0, _ApiDecorator.Api)({
      * @param ctx
      * @returns {Promise<string>}
      */
-
   }, {
     key: "createPatient",
     value: function () {
@@ -266,21 +226,16 @@ var PatientController = (_dec = (0, _ApiDecorator.Api)({
               case 0:
                 requestData = ctx.request.body;
                 error = PatientController.verifyCreateData(requestData);
-
                 if (!error) {
                   _context5.next = 4;
                   break;
                 }
-
                 return _context5.abrupt("return", ctx.response.body = error);
-
               case 4:
                 _context5.next = 6;
                 return _PatientService["default"].createPatient(requestData);
-
               case 6:
                 ctx.response.body = _context5.sent;
-
               case 7:
               case "end":
                 return _context5.stop();
@@ -288,11 +243,9 @@ var PatientController = (_dec = (0, _ApiDecorator.Api)({
           }
         }, _callee5);
       }));
-
       function createPatient(_x5) {
         return _createPatient.apply(this, arguments);
       }
-
       return createPatient;
     }()
     /**
@@ -300,7 +253,6 @@ var PatientController = (_dec = (0, _ApiDecorator.Api)({
      * @param ctx
      * @returns {Promise<string>}
      */
-
   }, {
     key: "updatePatient",
     value: function () {
@@ -312,21 +264,16 @@ var PatientController = (_dec = (0, _ApiDecorator.Api)({
               case 0:
                 requestData = ctx.request.body;
                 error = PatientController.verifyUpdateData(requestData);
-
                 if (!error) {
                   _context6.next = 4;
                   break;
                 }
-
                 return _context6.abrupt("return", ctx.response.body = error);
-
               case 4:
                 _context6.next = 6;
                 return _PatientService["default"].updatePatient(requestData);
-
               case 6:
                 ctx.response.body = _context6.sent;
-
               case 7:
               case "end":
                 return _context6.stop();
@@ -334,11 +281,9 @@ var PatientController = (_dec = (0, _ApiDecorator.Api)({
           }
         }, _callee6);
       }));
-
       function updatePatient(_x6) {
         return _updatePatient.apply(this, arguments);
       }
-
       return updatePatient;
     }()
     /**
@@ -346,7 +291,6 @@ var PatientController = (_dec = (0, _ApiDecorator.Api)({
      * @param ctx
      * @returns {Promise<string>}
      */
-
   }, {
     key: "createOrUpdatePatient",
     value: function () {
@@ -358,21 +302,16 @@ var PatientController = (_dec = (0, _ApiDecorator.Api)({
               case 0:
                 requestData = ctx.request.body;
                 error = PatientController.verifyUpdateData(requestData);
-
                 if (!error) {
                   _context7.next = 4;
                   break;
                 }
-
                 return _context7.abrupt("return", ctx.response.body = error);
-
               case 4:
                 _context7.next = 6;
                 return _PatientService["default"].createOrUpdatePatient(requestData);
-
               case 6:
                 ctx.response.body = _context7.sent;
-
               case 7:
               case "end":
                 return _context7.stop();
@@ -380,11 +319,9 @@ var PatientController = (_dec = (0, _ApiDecorator.Api)({
           }
         }, _callee7);
       }));
-
       function createOrUpdatePatient(_x7) {
         return _createOrUpdatePatient.apply(this, arguments);
       }
-
       return createOrUpdatePatient;
     }()
     /**
@@ -392,7 +329,6 @@ var PatientController = (_dec = (0, _ApiDecorator.Api)({
      * @param ctx
      * @returns {Promise<string>}
      */
-
   }, {
     key: "enablePatient",
     value: function () {
@@ -403,21 +339,16 @@ var PatientController = (_dec = (0, _ApiDecorator.Api)({
             switch (_context8.prev = _context8.next) {
               case 0:
                 id = ctx.params.id;
-
                 if (id) {
                   _context8.next = 3;
                   break;
                 }
-
                 return _context8.abrupt("return", ctx.response.body = (0, _Response.buildParamError)('Patient ID is required'));
-
               case 3:
                 _context8.next = 5;
                 return _PatientService["default"].enablePatient(ctx.params.id);
-
               case 5:
                 ctx.response.body = _context8.sent;
-
               case 6:
               case "end":
                 return _context8.stop();
@@ -425,11 +356,9 @@ var PatientController = (_dec = (0, _ApiDecorator.Api)({
           }
         }, _callee8);
       }));
-
       function enablePatient(_x8) {
         return _enablePatient.apply(this, arguments);
       }
-
       return enablePatient;
     }()
     /**
@@ -437,7 +366,6 @@ var PatientController = (_dec = (0, _ApiDecorator.Api)({
      * @param ctx
      * @returns {Promise<string>}
      */
-
   }, {
     key: "disablePatient",
     value: function () {
@@ -448,21 +376,16 @@ var PatientController = (_dec = (0, _ApiDecorator.Api)({
             switch (_context9.prev = _context9.next) {
               case 0:
                 id = ctx.params.id;
-
                 if (id) {
                   _context9.next = 3;
                   break;
                 }
-
                 return _context9.abrupt("return", ctx.response.body = (0, _Response.buildParamError)('Patient ID is required'));
-
               case 3:
                 _context9.next = 5;
                 return _PatientService["default"].disablePatient(id);
-
               case 5:
                 ctx.response.body = _context9.sent;
-
               case 6:
               case "end":
                 return _context9.stop();
@@ -470,11 +393,9 @@ var PatientController = (_dec = (0, _ApiDecorator.Api)({
           }
         }, _callee9);
       }));
-
       function disablePatient(_x9) {
         return _disablePatient.apply(this, arguments);
       }
-
       return disablePatient;
     }()
   }]);

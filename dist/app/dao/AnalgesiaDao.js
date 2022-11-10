@@ -1,7 +1,6 @@
 "use strict";
 
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
-
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
@@ -11,24 +10,16 @@ exports["default"] = void 0;
 exports.getAnalgesiaDataByPatientId = getAnalgesiaDataByPatientId;
 exports.isAnalgesiaDataExist = isAnalgesiaDataExist;
 exports.updateAnalgesiaData = updateAnalgesiaData;
-
 var _regenerator = _interopRequireDefault(require("@babel/runtime/regenerator"));
-
 var _defineProperty2 = _interopRequireDefault(require("@babel/runtime/helpers/defineProperty"));
-
 var _asyncToGenerator2 = _interopRequireDefault(require("@babel/runtime/helpers/asyncToGenerator"));
-
 var _sequelize = _interopRequireDefault(require("sequelize"));
-
 var _AnalgesiaModel = _interopRequireDefault(require("../model/AnalgesiaModel"));
-
 var _SensoryBlockModel = _interopRequireDefault(require("../model/SensoryBlockModel"));
-
 /**
  * @file AnalgesiaDao.js
  */
 // Models
-
 /**
  * 根据 patient ID 获取 Analgesia 数据
  * @param patientId
@@ -43,8 +34,6 @@ function getAnalgesiaDataByPatientId(_x) {
  * @param timePoint
  * @returns {Promise<boolean>}
  */
-
-
 function _getAnalgesiaDataByPatientId() {
   _getAnalgesiaDataByPatientId = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee(patientId) {
     return _regenerator["default"].wrap(function _callee$(_context) {
@@ -86,10 +75,8 @@ function _getAnalgesiaDataByPatientId() {
                 required: false
               }]
             });
-
           case 2:
             return _context.abrupt("return", _context.sent);
-
           case 3:
           case "end":
             return _context.stop();
@@ -99,7 +86,6 @@ function _getAnalgesiaDataByPatientId() {
   }));
   return _getAnalgesiaDataByPatientId.apply(this, arguments);
 }
-
 function isAnalgesiaDataExist(_x2, _x3) {
   return _isAnalgesiaDataExist.apply(this, arguments);
 }
@@ -108,8 +94,6 @@ function isAnalgesiaDataExist(_x2, _x3) {
  * @param data
  * @returns {Promise<data>}
  */
-
-
 function _isAnalgesiaDataExist() {
   _isAnalgesiaDataExist = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee2(patientId, timePoint) {
     return _regenerator["default"].wrap(function _callee2$(_context2) {
@@ -123,11 +107,9 @@ function _isAnalgesiaDataExist() {
                 timePoint: (0, _defineProperty2["default"])({}, _sequelize["default"].Op.eq, timePoint)
               }
             });
-
           case 2:
             _context2.t0 = _context2.sent;
             return _context2.abrupt("return", _context2.t0 > 0);
-
           case 4:
           case "end":
             return _context2.stop();
@@ -137,7 +119,6 @@ function _isAnalgesiaDataExist() {
   }));
   return _isAnalgesiaDataExist.apply(this, arguments);
 }
-
 function createAnalgesiaData(_x4) {
   return _createAnalgesiaData.apply(this, arguments);
 }
@@ -146,8 +127,6 @@ function createAnalgesiaData(_x4) {
  * @param data
  * @returns {Promise}
  */
-
-
 function _createAnalgesiaData() {
   _createAnalgesiaData = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee3(data) {
     return _regenerator["default"].wrap(function _callee3$(_context3) {
@@ -155,7 +134,6 @@ function _createAnalgesiaData() {
         switch (_context3.prev = _context3.next) {
           case 0:
             return _context3.abrupt("return", _AnalgesiaModel["default"].create(data));
-
           case 1:
           case "end":
             return _context3.stop();
@@ -165,7 +143,6 @@ function _createAnalgesiaData() {
   }));
   return _createAnalgesiaData.apply(this, arguments);
 }
-
 function updateAnalgesiaData(_x5) {
   return _updateAnalgesiaData.apply(this, arguments);
 }
@@ -174,8 +151,6 @@ function updateAnalgesiaData(_x5) {
  * @param data
  * @returns {Promise}
  */
-
-
 function _updateAnalgesiaData() {
   _updateAnalgesiaData = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee4(data) {
     return _regenerator["default"].wrap(function _callee4$(_context4) {
@@ -189,10 +164,8 @@ function _updateAnalgesiaData() {
                 timePoint: (0, _defineProperty2["default"])({}, _sequelize["default"].Op.eq, data.timePoint)
               }
             });
-
           case 2:
             return _context4.abrupt("return", _context4.sent);
-
           case 3:
           case "end":
             return _context4.stop();
@@ -202,11 +175,9 @@ function _updateAnalgesiaData() {
   }));
   return _updateAnalgesiaData.apply(this, arguments);
 }
-
 function createOrUpdateAnalgesiaData(_x6) {
   return _createOrUpdateAnalgesiaData.apply(this, arguments);
 }
-
 function _createOrUpdateAnalgesiaData() {
   _createOrUpdateAnalgesiaData = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee5(data) {
     return _regenerator["default"].wrap(function _callee5$(_context5) {
@@ -215,18 +186,14 @@ function _createOrUpdateAnalgesiaData() {
           case 0:
             _context5.next = 2;
             return isAnalgesiaDataExist(data.patientId, data.timePoint);
-
           case 2:
             if (!_context5.sent) {
               _context5.next = 6;
               break;
             }
-
             return _context5.abrupt("return", updateAnalgesiaData(data));
-
           case 6:
             return _context5.abrupt("return", createAnalgesiaData(data));
-
           case 7:
           case "end":
             return _context5.stop();
@@ -236,7 +203,6 @@ function _createOrUpdateAnalgesiaData() {
   }));
   return _createOrUpdateAnalgesiaData.apply(this, arguments);
 }
-
 var _default = {
   getAnalgesiaDataByPatientId: getAnalgesiaDataByPatientId,
   isAnalgesiaDataExist: isAnalgesiaDataExist,

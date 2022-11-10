@@ -4,7 +4,6 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports["default"] = exports.RequestMethod = exports.RequestMapping = exports.REQUEST_TAGS = exports.REQUEST_SUMMARY = exports.REQUEST_ROUTE = exports.REQUEST_PARAMETERS_PATH = exports.REQUEST_PARAMETERS_PARAM = exports.REQUEST_PARAMETERS_BODY = exports.REQUEST_METHOD = exports.REQUEST_DESCRIPTION = exports.PutMapping = exports.PostMapping = exports.PathVariable = exports.GetMapping = exports.DeleteMapping = exports.ApiParam = exports.Api = void 0;
-
 /**
  * @file ApiDecorator.js
  */
@@ -28,11 +27,11 @@ exports.REQUEST_PARAMETERS_PATH = REQUEST_PARAMETERS_PATH;
 var REQUEST_PARAMETERS_PARAM = Symbol('REQUEST_PARAMETERS_PARAM');
 exports.REQUEST_PARAMETERS_PARAM = REQUEST_PARAMETERS_PARAM;
 var REQUEST_PARAMETERS_BODY = Symbol('REQUEST_PARAMETERS_BODY');
+
 /**
  * request 的 methods
  * @type {{DELETE: string, POST: string, GET: string, PUT: string}}
  */
-
 exports.REQUEST_PARAMETERS_BODY = REQUEST_PARAMETERS_BODY;
 var RequestMethod = {
   GET: 'get',
@@ -40,15 +39,14 @@ var RequestMethod = {
   PUT: 'put',
   DELETE: 'delete'
 };
+
 /**
  * Api 标注
  * @param tags
  * @returns {function(*): *}
  * @constructor
  */
-
 exports.RequestMethod = RequestMethod;
-
 var Api = function Api(_ref) {
   var tags = _ref.tags;
   return function (target) {
@@ -56,6 +54,7 @@ var Api = function Api(_ref) {
     return target;
   };
 };
+
 /**
  * RequestMapping 标注
  * @param method
@@ -63,29 +62,24 @@ var Api = function Api(_ref) {
  * @returns {function(*, *, *): *}
  * @constructor
  */
-
-
 exports.Api = Api;
-
 var RequestMapping = function RequestMapping(_ref2) {
   var method = _ref2.method,
-      value = _ref2.value;
+    value = _ref2.value;
   return function (target, name, descriptor) {
     descriptor.value[REQUEST_METHOD] = method;
     descriptor.value[REQUEST_ROUTE] = value;
     return descriptor;
   };
 };
+
 /**
  * GetMapping 标注
  * @param value
  * @returns {function(*, *, *): *}
  * @constructor
  */
-
-
 exports.RequestMapping = RequestMapping;
-
 var GetMapping = function GetMapping(_ref3) {
   var value = _ref3.value;
   return function (target, name, descriptor) {
@@ -94,16 +88,14 @@ var GetMapping = function GetMapping(_ref3) {
     return descriptor;
   };
 };
+
 /**
  * PostMapping 标注
  * @param value
  * @returns {function(*, *, *): *}
  * @constructor
  */
-
-
 exports.GetMapping = GetMapping;
-
 var PostMapping = function PostMapping(_ref4) {
   var value = _ref4.value;
   return function (target, name, descriptor) {
@@ -112,16 +104,14 @@ var PostMapping = function PostMapping(_ref4) {
     return descriptor;
   };
 };
+
 /**
  * PutMapping 标注
  * @param value
  * @returns {function(*, *, *): *}
  * @constructor
  */
-
-
 exports.PostMapping = PostMapping;
-
 var PutMapping = function PutMapping(_ref5) {
   var value = _ref5.value;
   return function (target, name, descriptor) {
@@ -130,16 +120,14 @@ var PutMapping = function PutMapping(_ref5) {
     return descriptor;
   };
 };
+
 /**
  * DeleteMapping 标注
  * @param value
  * @returns {function(*, *, *): *}
  * @constructor
  */
-
-
 exports.PutMapping = PutMapping;
-
 var DeleteMapping = function DeleteMapping(_ref6) {
   var value = _ref6.value;
   return function (target, name, descriptor) {
@@ -148,6 +136,7 @@ var DeleteMapping = function DeleteMapping(_ref6) {
     return descriptor;
   };
 };
+
 /**
  * PathVariable 标注
  * @param value
@@ -156,30 +145,26 @@ var DeleteMapping = function DeleteMapping(_ref6) {
  * @returns {function(*, *, *): *}
  * @constructor
  */
-
-
 exports.DeleteMapping = DeleteMapping;
-
 var PathVariable = function PathVariable(_ref7) {
   var value = _ref7.value,
-      notes = _ref7.notes,
-      required = _ref7.required;
+    notes = _ref7.notes,
+    required = _ref7.required;
   return function (target, name, descriptor) {
     var param = {
       value: value,
       notes: notes,
       required: required
     };
-
     if (REQUEST_PARAMETERS_PATH in descriptor.value) {
       descriptor.value[REQUEST_PARAMETERS_PATH].push(param);
     } else {
       descriptor.value[REQUEST_PARAMETERS_PATH] = [param];
     }
-
     return descriptor;
   };
 };
+
 /**
  * ApiParam 标注
  * @param value
@@ -189,15 +174,12 @@ var PathVariable = function PathVariable(_ref7) {
  * @returns {function(*, *, *): *}
  * @constructor
  */
-
-
 exports.PathVariable = PathVariable;
-
 var ApiParam = function ApiParam(_ref8) {
   var value = _ref8.value,
-      type = _ref8.type,
-      notes = _ref8.notes,
-      required = _ref8.required;
+    type = _ref8.type,
+    notes = _ref8.notes,
+    required = _ref8.required;
   return function (target, name, descriptor) {
     var param = {
       value: value,
@@ -205,17 +187,14 @@ var ApiParam = function ApiParam(_ref8) {
       notes: notes,
       required: required
     };
-
     if (REQUEST_PARAMETERS_PARAM in descriptor.value) {
       descriptor.value[REQUEST_PARAMETERS_PARAM].push(param);
     } else {
       descriptor.value[REQUEST_PARAMETERS_PARAM] = [param];
     }
-
     return descriptor;
   };
 };
-
 exports.ApiParam = ApiParam;
 var _default = {
   REQUEST_TAGS: REQUEST_TAGS,

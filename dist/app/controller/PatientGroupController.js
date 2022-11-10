@@ -1,30 +1,19 @@
 "use strict";
 
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
-
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports["default"] = void 0;
-
 var _regenerator = _interopRequireDefault(require("@babel/runtime/regenerator"));
-
 var _asyncToGenerator2 = _interopRequireDefault(require("@babel/runtime/helpers/asyncToGenerator"));
-
 var _classCallCheck2 = _interopRequireDefault(require("@babel/runtime/helpers/classCallCheck"));
-
 var _createClass2 = _interopRequireDefault(require("@babel/runtime/helpers/createClass"));
-
 var _applyDecoratedDescriptor2 = _interopRequireDefault(require("@babel/runtime/helpers/applyDecoratedDescriptor"));
-
 var _PatientGroupService = _interopRequireDefault(require("../service/PatientGroupService.js"));
-
 var _ApiDecorator = require("../utils/ApiDecorator.js");
-
 var _config = require("../../config");
-
 var _dec, _dec2, _class, _class2;
-
 var PatientGroupController = (_dec = (0, _ApiDecorator.Api)({
   tags: 'PatientGroup'
 }), _dec2 = (0, _ApiDecorator.GetMapping)({
@@ -33,7 +22,6 @@ var PatientGroupController = (_dec = (0, _ApiDecorator.Api)({
   function PatientGroupController() {
     (0, _classCallCheck2["default"])(this, PatientGroupController);
   }
-
   (0, _createClass2["default"])(PatientGroupController, null, [{
     key: "getPatientGroups",
     value:
@@ -50,10 +38,8 @@ var PatientGroupController = (_dec = (0, _ApiDecorator.Api)({
               case 0:
                 _context.next = 2;
                 return _PatientGroupService["default"].getPatientGroups();
-
               case 2:
                 ctx.response.body = _context.sent;
-
               case 3:
               case "end":
                 return _context.stop();
@@ -61,11 +47,9 @@ var PatientGroupController = (_dec = (0, _ApiDecorator.Api)({
           }
         }, _callee);
       }));
-
       function getPatientGroups(_x) {
         return _getPatientGroups.apply(this, arguments);
       }
-
       return getPatientGroups;
     }()
   }]);

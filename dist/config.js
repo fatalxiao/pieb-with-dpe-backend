@@ -4,7 +4,6 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.port = exports["default"] = exports.database = exports.baseUrl = void 0;
-
 /**
  * @file config.js
  */
@@ -14,18 +13,18 @@ exports.port = exports["default"] = exports.database = exports.baseUrl = void 0;
  * @type {number}
  */
 var port = 4100;
+
 /**
  * request 的 base url
  * @type {string}
  */
-
 exports.port = port;
 var baseUrl = '/pieb-with-dpe';
+
 /**
  * 数据库连接配置
  * @type {{charset: string, database: string, port: number, host: string, username: string}}
  */
-
 exports.baseUrl = baseUrl;
 var database = {
   host: 'localhost',
