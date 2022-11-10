@@ -80,70 +80,70 @@ export async function getPiebOptimalIntervalDataData(data, sensoryBlocks) {
         }
 
         const {
-                id, name, group, age, height, weight, gestationalDays, initialVasScore, cervicalDilationAtTimeOfEA,
-                systolicBloodPressure, diastolicBloodPressure, heartRate, pulseOxygenSaturation, fetalHeartRate,
-                hasOxytocinAtTimeOfEA, hasInduction, description,
-                analgesia,
-                observal
-            } = item,
+            id, name, group, age, height, weight, gestationalDays, initialVasScore, cervicalDilationAtTimeOfEA,
+            systolicBloodPressure, diastolicBloodPressure, heartRate, pulseOxygenSaturation, fetalHeartRate,
+            hasOxytocinAtTimeOfEA, hasInduction, description,
+            analgesia,
+            observal
+        } = item;
 
-            result = {
+        const result = {
 
-                // 组别
-                groupName: group?.name || '',
+            // 组别
+            groupName: group?.name || '',
 
-                // 住院号
-                id,
+            // 住院号
+            id,
 
-                // 姓名
-                name,
+            // 姓名
+            name,
 
-                // 年龄
-                age: formatNumber(age),
+            // 年龄
+            age: formatNumber(age),
 
-                // 身高（cm）
-                height: formatNumber(height),
+            // 身高（cm）
+            height: formatNumber(height),
 
-                // 体重（kg）
-                weight: formatNumber(weight),
+            // 体重（kg）
+            weight: formatNumber(weight),
 
-                // BMI
-                bmi: weight && height ? (weight / ((height / 100) ** 2)).toFixed(2) : null,
+            // BMI
+            bmi: weight && height ? (weight / ((height / 100) ** 2)).toFixed(2) : null,
 
-                // 孕周（天）
-                gestationalDays: formatNumber(gestationalDays),
+            // 孕周（天）
+            gestationalDays: formatNumber(gestationalDays),
 
-                // 基础收缩压
-                systolicBloodPressure: formatNumber(systolicBloodPressure),
+            // 基础收缩压
+            systolicBloodPressure: formatNumber(systolicBloodPressure),
 
-                // 基础舒张压
-                diastolicBloodPressure: formatNumber(diastolicBloodPressure),
+            // 基础舒张压
+            diastolicBloodPressure: formatNumber(diastolicBloodPressure),
 
-                // 基础心率
-                eartRate: formatNumber(heartRate),
+            // 基础心率
+            eartRate: formatNumber(heartRate),
 
-                // 基础氧饱和度
-                pulseOxygenSaturation: formatNumber(pulseOxygenSaturation),
+            // 基础氧饱和度
+            pulseOxygenSaturation: formatNumber(pulseOxygenSaturation),
 
-                // 基础胎心率
-                fetalHeartRate: formatNumber(fetalHeartRate),
+            // 基础胎心率
+            fetalHeartRate: formatNumber(fetalHeartRate),
 
-                // 镇痛前宫口大小
-                cervicalDilationAtTimeOfEA: formatNumber(cervicalDilationAtTimeOfEA),
+            // 镇痛前宫口大小
+            cervicalDilationAtTimeOfEA: formatNumber(cervicalDilationAtTimeOfEA),
 
-                // 镇痛前VAS评分
-                initialVasScore: formatNumber(initialVasScore * 10),
+            // 镇痛前VAS评分
+            initialVasScore: formatNumber(initialVasScore * 10),
 
-                // 镇痛前缩宫素使用
-                hasOxytocinAtTimeOfEA: formatBoolean(hasOxytocinAtTimeOfEA),
+            // 镇痛前缩宫素使用
+            hasOxytocinAtTimeOfEA: formatBoolean(hasOxytocinAtTimeOfEA),
 
-                // 是否引产
-                hasInduction: formatBoolean(hasInduction),
+            // 是否引产
+            hasInduction: formatBoolean(hasInduction),
 
-                // 备注
-                desc: description ? [description] : []
+            // 备注
+            desc: description ? [description] : []
 
-            };
+        };
 
         if (analgesia) {
 
